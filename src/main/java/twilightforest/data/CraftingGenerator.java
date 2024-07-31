@@ -1,7 +1,9 @@
 package twilightforest.data;
 
+import io.github.fabricators_of_create.porting_lib.data.ConditionalRecipe;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
@@ -139,7 +141,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.unlockedBy("has_item", has(TFItems.TORCHBERRIES.get()))
 				.save(consumer, TwilightForestMod.prefix("berry_torch"));
 
-		ConditionalRecipe.builder().addCondition(UncraftingTableCondition.INSTANCE).addRecipe(
+		ConditionalRecipe.builder().addCondition((ConditionJsonProvider) UncraftingTableCondition.INSTANCE).addRecipe(
 						ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TFBlocks.UNCRAFTING_TABLE.get())
 								.pattern("###")
 								.pattern("#X#")

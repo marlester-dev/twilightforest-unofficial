@@ -3,6 +3,8 @@ package twilightforest.client.renderer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
@@ -27,7 +29,7 @@ public class TFRenderTypes extends RenderType {
                     .setLightmapState(LIGHTMAP).setOverlayState(OVERLAY)
                     .createCompositeState(false));
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public static final class ProtectionBoxTexturingStateShard extends RenderStateShard.TexturingStateShard {
         public ProtectionBoxTexturingStateShard() {
             super("protection_offset_texturing", () -> {

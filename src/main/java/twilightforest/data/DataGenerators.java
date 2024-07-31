@@ -51,7 +51,7 @@ public class DataGenerators implements DataGeneratorEntrypoint {
 
 		generator.addProvider(CrumbleHornGenerator::new);
 		generator.addProvider(TransformationPowderGenerator::new);
-		generator.addProvider(UncraftingRecipeGenerator::new);
+//		generator.addProvider(UncraftingRecipeGenerator::new);
 		generator.addProvider(StalactiteGenerator::new);
 		// fabric: skip the metadata
 //		generator.addProvider(true, new PackMetadataGenerator(output).add(PackMetadataSection.TYPE, new PackMetadataSection(

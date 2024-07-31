@@ -4,6 +4,8 @@ import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -29,7 +31,6 @@ import java.util.Collection;
 import java.util.Comparator;
 
 public class TFCreativeTabs {
-
 	public static final LazyRegistrar<CreativeModeTab> TABS = LazyRegistrar.create(Registries.CREATIVE_MODE_TAB, TwilightForestMod.ID);
 
 	public static final RegistryObject<CreativeModeTab> BLOCKS = TABS.register("blocks", () -> FabricItemGroup.builder()

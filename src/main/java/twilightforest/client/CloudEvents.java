@@ -6,6 +6,9 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
 import net.minecraft.client.renderer.GameRenderer;
@@ -28,15 +31,8 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.tuple.Pair;
 import twilightforest.TFConfig;
-import twilightforest.TwilightForestMod;
 import twilightforest.block.CloudBlock;
 import twilightforest.client.renderer.TFWeatherRenderer;
 import twilightforest.util.Vec2i;
@@ -44,12 +40,12 @@ import twilightforest.util.Vec2i;
 import java.util.ArrayList;
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
-@Mod.EventBusSubscriber(modid = TwilightForestMod.ID, value = Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class CloudEvents {
     private static final List<PrecipitationRenderHelper> RENDER_HELPER = new ArrayList<>();
 
-    record PrecipitationRenderHelper(BlockPos cloudPos, Biome.Precipitation precipitation, float precipitationLevel, int rainOnY) {
+    record PrecipitationRenderHelper(BlockPos cloudPos, Biome.Precipitation precipitation, float precipitationLevel,
+                                     int rainOnY) {
 
     }
 
@@ -122,7 +118,8 @@ public class CloudEvents {
                         for (Vec2i vec2 : particleChecks) {
                             if (vec2.x == helper.cloudPos().getX() && vec2.z == helper.cloudPos().getZ()) {
                                 BlockPos highestRainyPos = helper.cloudPos().atY(helper.rainOnY());
-                                if (!Heightmap.Types.MOTION_BLOCKING.isOpaque().test(mc.level.getBlockState(highestRainyPos.below()))) continue;
+                                if (!Heightmap.Types.MOTION_BLOCKING.isOpaque().test(mc.level.getBlockState(highestRainyPos.below())))
+                                    continue;
 
                                 if (yetToMakeASound && particlePos != null && randomsource.nextInt(3) < mc.levelRenderer.rainSoundTime++) {
                                     mc.levelRenderer.rainSoundTime = 0;
@@ -186,7 +183,7 @@ public class CloudEvents {
             int renderDistance = Minecraft.useFancyGraphics() ? 10 : 5;
 
             int tesselatorCheck = -1;
-            float fullTick = (float)ticks + partialTick;
+            float fullTick = (float) ticks + partialTick;
             RenderSystem.setShader(GameRenderer::getParticleShader);
             BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 

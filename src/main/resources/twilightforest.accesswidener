@@ -138,3 +138,5 @@ accessible field net/minecraft/world/effect/MobEffectInstance amplifier I
 
 accessible method net/minecraft/world/level/storage/loot/LootTable shuffleAndSplitItems (Lit/unimi/dsi/fastutil/objects/ObjectArrayList;ILnet/minecraft/util/RandomSource;)V
 transitive-extendable method com/mojang/blaze3d/pipeline/MainTarget createFrameBuffer (II)V
+
+accessible field net/minecraft/client/renderer/LevelRenderer rainSoundTime I

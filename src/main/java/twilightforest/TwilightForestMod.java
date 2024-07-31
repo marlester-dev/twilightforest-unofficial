@@ -126,10 +126,9 @@ public class TwilightForestMod implements ModInitializer {
 		WoodPalettes.WOOD_PALETTES.register();
 		Enforcement.ENFORCEMENTS.register();
 		Restrictions.RESTRICTIONS.register();
-		MagicPaintingVariants.MAGIC_PAINTINGS.register(modbus);
 
 		modbus.addListener(this::sendIMCs);
-		modbus.addListener(this::init);
+		init();
 		modbus.addListener(this::registerExtraStuff);
 		modbus.addListener(this::setRegistriesForDatapack);
 		modbus.addListener(CapabilityList::registerCapabilities);

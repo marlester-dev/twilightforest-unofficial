@@ -654,10 +654,10 @@ public class Hydra extends Mob implements Enemy, EnforcedHomePoint, MultiPartEnt
 		return !source.is(TFDamageTypes.HYDRA_MORTAR) && super.isInvulnerableTo(source);
 	}
 
-	@Override
-	public boolean isMultipartEntity() {
-		return true;
-	}
+//    @Override
+//    public boolean isMultipartEntity() {
+//        return true;
+//    }
 
 	/**
 	 * We need to do this for the bounding boxes on the parts to become active
