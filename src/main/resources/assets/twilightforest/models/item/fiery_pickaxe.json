@@ -4,8 +4,12 @@
   "render_materials": {
     "layers": {
       "0": {
-        "blendMode": "twilightforest:forge_entity_unsorted_translucent",
-        "emissive": true
+        "blendMode": [
+          "twilightforest:forge_entity_unsorted_translucent"
+        ],
+        "emissive": [
+          true
+        ]
       }
     }
   },

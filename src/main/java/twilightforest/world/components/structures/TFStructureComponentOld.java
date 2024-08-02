@@ -257,8 +257,10 @@ public abstract class TFStructureComponentOld extends TFStructureComponent {
         if (sbb.isInside(pos) && world.getBlockState(pos).getBlock() != Blocks.OAK_SIGN) {
             world.setBlock(pos, Blocks.OAK_SIGN.defaultBlockState().setValue(StandingSignBlock.ROTATION, this.getOrientation().get2DDataValue() * 4), 2);
 
-            if (world.getBlockEntity(pos) instanceof SignBlockEntity sign)
+            if (world.getBlockEntity(pos) instanceof SignBlockEntity sign) {
+                sign.setLevel(world.getLevel());
                 sign.setText(sign.getFrontText().setMessage(1, Component.literal(string0)).setMessage(2, Component.literal(string1)), true);
+            }
         }
     }
 
@@ -280,7 +282,6 @@ public abstract class TFStructureComponentOld extends TFStructureComponent {
         } else if (direction == Direction.EAST) {
             return new int[]{dx - towerSize / 2, dy - 1, dz - 1};
         }
-
 
         // ugh?
         return new int[]{x, y, z};

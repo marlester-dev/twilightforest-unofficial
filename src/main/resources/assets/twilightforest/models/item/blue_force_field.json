@@ -4,12 +4,16 @@
   "render_materials": {
     "layers": {
       "0": {
-        "blendMode": "twilightforest:forge_entity_unsorted_translucent",
-        "emissive": true
+        "blendMode": [
+          "minecraft:translucent"
+        ],
+        "emissive": [
+          true
+        ]
       }
     }
   },
   "textures": {
-    "layer0": "twilightforest:item/tower_key"
+    "layer0": "twilightforest:block/forcefield_white"
   }
 }

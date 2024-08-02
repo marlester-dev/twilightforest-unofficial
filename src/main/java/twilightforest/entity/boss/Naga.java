@@ -368,7 +368,7 @@ public class Naga extends Monster implements EnforcedHomePoint, IBossLootBuffer,
         if (super.hurt(source, amount)) {
             this.ticksSinceDamaged = 0;
             if (this.isDazed()) {
-                this.damageDuringCurrentStun += amount;
+                this.damageDuringCurrentStun += (int) amount;
             }
             if (source.getEntity() instanceof ServerPlayer player && !this.hurtBy.contains(player)) {
                 this.hurtBy.add(player);

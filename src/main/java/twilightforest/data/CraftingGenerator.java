@@ -1,6 +1,5 @@
 package twilightforest.data;
 
-import io.github.fabricators_of_create.porting_lib.data.ConditionalRecipe;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
@@ -140,17 +139,13 @@ public class CraftingGenerator extends CraftingDataHelper {
 
         //.addCondition((ConditionJsonProvider) UncraftingTableCondition.INSTANCE)
         //condition is removed because fabric don't have recipe condition system.
-        ConditionalRecipe.builder().addRecipe(
-                        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TFBlocks.UNCRAFTING_TABLE.get())
-                                .pattern("###")
-                                .pattern("#X#")
-                                .pattern("###")
-                                .define('#', Blocks.CRAFTING_TABLE)
-                                .define('X', TFItems.MAZE_MAP_FOCUS.get())
-                                .unlockedBy("has_uncrafting_table", has(TFBlocks.UNCRAFTING_TABLE.get()))
-                                ::save)
-                .generateAdvancement(TwilightForestMod.prefix("recipes/decorations/uncrafting_table"))
-                .build(consumer, TwilightForestMod.prefix("uncrafting_table"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TFBlocks.UNCRAFTING_TABLE.get())
+                .pattern("###")
+                .pattern("#X#")
+                .pattern("###")
+                .define('#', Blocks.CRAFTING_TABLE)
+                .define('X', TFItems.MAZE_MAP_FOCUS.get())
+                .unlockedBy("has_uncrafting_table", has(TFBlocks.UNCRAFTING_TABLE.get()));
 
         cookingRecipes(consumer, "smelted", RecipeSerializer.SMELTING_RECIPE, 200);
         cookingRecipes(consumer, "smoked", RecipeSerializer.SMOKING_RECIPE, 100);

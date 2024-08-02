@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:raw_materials/ironwood",
+    "#forge:raw_materials/knightmetal"
+  ]
+}

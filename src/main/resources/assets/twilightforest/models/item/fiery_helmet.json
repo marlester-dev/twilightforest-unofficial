@@ -1,0 +1,19 @@
+{
+  "parent": "minecraft:item/generated",
+  "loader": "porting_lib:item_layers",
+  "render_materials": {
+    "layers": {
+      "0": {
+        "blendMode": [
+          "twilightforest:forge_entity_unsorted_translucent"
+        ],
+        "emissive": [
+          true
+        ]
+      }
+    }
+  },
+  "textures": {
+    "layer0": "twilightforest:item/fiery_helmet"
+  }
+}
