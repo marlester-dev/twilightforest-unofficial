@@ -97,19 +97,9 @@ public class TFClientEvents {
         public static void registerLoaders(Consumer<ModelResolver> out) {
             out.accept(PatchModelLoader.INSTANCE);
             out.accept(GiantBlockModelLoader.INSTANCE);
-            out.accept((ModelResolver) ForceFieldModelLoader.INSTANCE);
             out.accept(CastleDoorModelLoader.INSTANCE);
-        }
-
-        public static void modelBake(Map<ResourceLocation, BakedModel> models, ModelBakery modelBakery) {
-            // fabric: in init
-//			TFItems.addItemModelProperties();
-
-            // fabric: Handled by ItemBlockRenderTypesMixin
-//			List<Map.Entry<ResourceLocation, BakedModel>> models =  bakedModels.entrySet().stream()
-//					.filter(entry -> entry.getKey().getNamespace().equals(TwilightForestMod.ID) && entry.getKey().getPath().contains("leaves") && !entry.getKey().getPath().contains("dark")).toList();
-
-//			models.forEach(entry -> bakedModels.put(entry.getKey(), new BakedLeavesModel(entry.getValue())));
+            //FIXME: wrong type
+//            out.accept((ModelResolver) ForceFieldModelLoader.INSTANCE);
         }
 
         public static void registerModels(Consumer<ResourceLocation> out) {

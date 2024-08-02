@@ -64,7 +64,6 @@ public class UpdateTFMultipartPacket implements S2CPacket {
 
 	public static class Handler {
 
-		@SuppressWarnings("Convert2Lambda")
 		public static void onMessage(UpdateTFMultipartPacket message) {
 //			ctx.get().enqueueWork(new Runnable() {
 //				@Override
