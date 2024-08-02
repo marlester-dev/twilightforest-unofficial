@@ -11,9 +11,6 @@ import twilightforest.fabric.models.TFModelResolver;
 public class CastleDoorModelLoader implements TFModelResolver {
 	public static final CastleDoorModelLoader INSTANCE = new CastleDoorModelLoader();
 
-	public CastleDoorModelLoader() {
-	}
-
 	@Override
 	public UnbakedModel tryResolveModel(Context ctx) throws  Exception {
 		ResourceLocation id = ctx.id();

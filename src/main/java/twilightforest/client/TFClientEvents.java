@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelResolver;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
@@ -78,8 +79,9 @@ public class TFClientEvents {
         TFItems.addItemModelProperties();
         ModelLoadingPlugin.register(TFModelLoadingPlugin.INSTANCE);
         MinecraftTailCallback.EVENT.register(ModBusEvents::registerDimEffects);
-        WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register(TFClientEvents::unrenderMiniStructureHitbox);
-        WorldRenderEvents.AFTER_TRANSLUCENT.register(TFClientEvents::renderWeather);
+        //Is these unnecessary? Cannot find method
+//        WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register(TFClientEvents::unrenderMiniStructureHitbox);
+//        WorldRenderEvents.AFTER_TRANSLUCENT.register(TFClientEvents::renderWeather);
         WorldRenderEvents.LAST.register(TFClientEvents::renderWorldLast);
         RenderTickStartCallback.EVENT.register(TFClientEvents::renderTick);
         ClientTickEvents.END_CLIENT_TICK.register(TFClientEvents::clientTick);
@@ -147,7 +149,6 @@ public class TFClientEvents {
      */
     public static void renderWorldLast(WorldRenderContext context) {
         // fabric: we already render and the very end
-//		if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_PARTICLES) { // after particles says its best for special rendering effects, and thats what I consider this
         if (!TFConfig.CLIENT_CONFIG.firstPersonEffects.get()) return;
 
         Options settings = Minecraft.getInstance().options;
@@ -318,25 +319,26 @@ public class TFClientEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void onRenderBlockHighlightEvent(RenderHighlightEvent.Block event) {
-        BlockPos pos = event.getTarget().getBlockPos();
-        BlockState state = event.getCamera().getEntity().level().getBlockState(pos);
-
-        if (state.getBlock() instanceof MiniatureStructureBlock) {
-            event.setCanceled(true);
-            return;
-        }
-
-        LocalPlayer player = Minecraft.getInstance().player;
-        if (player != null && (player.getMainHandItem().getItem() instanceof GiantPickItem || (player.getMainHandItem().getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof GiantBlock))) {
-            event.setCanceled(true);
-            if (!state.isAir() && player.level().getWorldBorder().isWithinBounds(pos)) {
-                BlockPos offsetPos = new BlockPos(pos.getX() & ~0b11, pos.getY() & ~0b11, pos.getZ() & ~0b11);
-                renderGiantHitOutline(event.getPoseStack(), event.getMultiBufferSource().getBuffer(RenderType.lines()), event.getCamera().getPosition(), offsetPos);
-            }
-        }
-    }
+    //I don't know where call this event
+//    @SubscribeEvent
+//    public static void onRenderBlockHighlightEvent(RenderHighlightEvent.Block event) {
+//        BlockPos pos = event.getTarget().getBlockPos();
+//        BlockState state = event.getCamera().getEntity().level().getBlockState(pos);
+//
+//        if (state.getBlock() instanceof MiniatureStructureBlock) {
+//            event.setCanceled(true);
+//            return;
+//        }
+//
+//        LocalPlayer player = Minecraft.getInstance().player;
+//        if (player != null && (player.getMainHandItem().getItem() instanceof GiantPickItem || (player.getMainHandItem().getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof GiantBlock))) {
+//            event.setCanceled(true);
+//            if (!state.isAir() && player.level().getWorldBorder().isWithinBounds(pos)) {
+//                BlockPos offsetPos = new BlockPos(pos.getX() & ~0b11, pos.getY() & ~0b11, pos.getZ() & ~0b11);
+//                renderGiantHitOutline(event.getPoseStack(), event.getMultiBufferSource().getBuffer(RenderType.lines()), event.getCamera().getPosition(), offsetPos);
+//            }
+//        }
+//    }
 
     private static final VoxelShape GIANT_BLOCK = Shapes.box(0.0D, 0.0D, 0.0D, 4.0D, 4.0D, 4.0D);
 

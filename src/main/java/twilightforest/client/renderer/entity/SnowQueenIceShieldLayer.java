@@ -39,7 +39,7 @@ public class SnowQueenIceShieldLayer<T extends SnowQueenIceShield> extends Entit
 				var model = dispatcher.getBlockModel(blockstate);
 				for (var renderType : RenderType.chunkBufferLayers())
 					if (ItemBlockRenderTypes.getChunkRenderType(blockstate) == renderType)
-						dispatcher.getModelRenderer().tesselateBlock(world, model, blockstate, blockpos, stack, buffer.getBuffer(renderType), false, RandomSource.create(), blockstate.getSeed(entity.blockPosition()), OverlayTexture.NO_OVERLAY);
+						dispatcher.getModelRenderer().tesselateBlock(entity.level(), model, blockstate, blockpos, stack, buffer.getBuffer(renderType), false, RandomSource.create(), blockstate.getSeed(entity.blockPosition()), OverlayTexture.NO_OVERLAY);
 				stack.popPose();
 				super.render(entity, entityYaw, partialTicks, stack, buffer, light);
 			}

@@ -37,10 +37,10 @@
       "twilightforest.asm.TFASM"
     ],
     "cardinal-components-entity": [
-      "twilightforest.capabilities.CapabilityList::attachEntityCapability"
+      "twilightforest.capabilities.ModCapabilityEntry"
     ],
     "cardinal-components-world": [
-      "twilightforest.capabilities.CapabilityList::attachLevelCapability"
+      "twilightforest.capabilities.ModCapabilityEntry"
     ],
     "rei_client": [
       "twilightforest.compat.rei.TwilightForestREIClientPlugin"
@@ -56,9 +56,6 @@
     ],
     "jade": [
       "twilightforest.compat.jade.JadeCompat"
-    ],
-    "top_plugin": [
-      "twilightforest.compat.top.TopCompat"
     ]
   },
   "mixins": [

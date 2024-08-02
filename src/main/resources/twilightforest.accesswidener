@@ -140,3 +140,6 @@ accessible method net/minecraft/world/level/storage/loot/LootTable shuffleAndSpl
 transitive-extendable method com/mojang/blaze3d/pipeline/MainTarget createFrameBuffer (II)V
 
 accessible field net/minecraft/client/renderer/LevelRenderer rainSoundTime I
+accessible field net/minecraft/client/Minecraft timer Lnet/minecraft/client/Timer;
+accessible field net/minecraft/client/renderer/LevelRenderer ticks I
+accessible method net/minecraft/world/entity/Mob maybeDisableShield (Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)V

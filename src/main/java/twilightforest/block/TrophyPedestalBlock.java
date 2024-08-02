@@ -50,7 +50,7 @@ public class TrophyPedestalBlock extends Block implements SimpleWaterloggedBlock
 	private static final VoxelShape FINAL = Shapes.or(BOTTOM, MID, TOP, CORNER1, CORNER2, CORNER3, CORNER4);
 
 	public TrophyPedestalBlock(Properties properties) {
-		super(properties);
+		super(properties.pushReaction(PushReaction.BLOCK));
 		this.registerDefaultState(this.getStateDefinition().any().setValue(ACTIVE, false).setValue(WATERLOGGED, false));
 	}
 
@@ -170,8 +170,9 @@ public class TrophyPedestalBlock extends Block implements SimpleWaterloggedBlock
 		return 0;
 	}
 
-	@Override
-	public PushReaction getPistonPushReaction(BlockState state) {
-		return state.getValue(ACTIVE) ? PushReaction.NORMAL : PushReaction.BLOCK;
-	}
+	//Move to BlockStateBaseMixin
+//	@Override
+//	public PushReaction getPistonPushReaction(BlockState state) {
+//		return state.getValue(ACTIVE) ? PushReaction.NORMAL : PushReaction.BLOCK;
+//	}
 }

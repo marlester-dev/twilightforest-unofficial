@@ -56,7 +56,7 @@ public class UrGhastFireball extends LargeFireball implements ITFProjectile {
 	protected void onHitBlock(BlockHitResult result) {
 		super.onHitBlock(result);
 		//explode and leave fire when hitting a block, but dont destroy them
-		boolean flag = this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING);
+		boolean flag = this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING);
 		this.level().explode(null, this.getX(), this.getY(), this.getZ(), (float) this.power, flag, Level.ExplosionInteraction.NONE);
 		this.discard();
 	}

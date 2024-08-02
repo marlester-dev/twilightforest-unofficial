@@ -9,7 +9,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate;
+import twilightforest.TwilightForestMod;
 import twilightforest.init.TFDimensionSettings;
+import twilightforest.init.custom.BiomeLayerStack;
 import twilightforest.util.ComparableResourceKey;
 import twilightforest.world.components.chunkgenerators.warp.TerrainColumn;
 import twilightforest.world.components.layer.vanillalegacy.BiomeLayerFactory;
@@ -50,7 +52,7 @@ public class TFBiomeProvider extends BiomeSource {
 
 		//this.genBiomes = buildLayers((salt) -> new LazyAreaContext(25, salt));
 		this.genBiomeConfig = biomeLayerFactory;
-		this.genBiomes = Suppliers.memoize(() -> this.genBiomeConfig.get().build(salt -> new LazyAreaContext(25, salt)));
+		this.genBiomes = Suppliers.memoize(() -> this.genBiomeConfig.value().build(salt -> new LazyAreaContext(25, salt)));
 
 		this.baseOffset = offset;
 		this.baseFactor = factor;

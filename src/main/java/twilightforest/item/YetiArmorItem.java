@@ -102,7 +102,7 @@ public class YetiArmorItem extends ArmorItem implements CustomEnchantingBehavior
 			// FIXME PORT 1.20 caching
 			EntityModelSet models = Minecraft.getInstance().getEntityModels();
 			ModelPart root = models.bakeLayer(armorSlot == EquipmentSlot.LEGS ? TFModelLayers.YETI_ARMOR_INNER : TFModelLayers.YETI_ARMOR_OUTER);
-			armorModel = new YetiArmorModel(armorSlot, root);
+			armorModel = new YetiArmorModel(root);
 			parentModel.copyPropertiesTo(armorModel);
 			TFArmorRenderer.setPartVisibility(armorModel, armorSlot);
 			ArmorRenderer.renderPart(matrices, vertexConsumers, light, itemStack, armorModel, new ResourceLocation(getArmorTexture(itemStack, entityLiving, armorSlot, null)));

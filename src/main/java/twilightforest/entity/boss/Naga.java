@@ -38,6 +38,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -271,7 +272,8 @@ public class Naga extends Monster implements EnforcedHomePoint, IBossLootBuffer,
             this.setTarget(null);
         }
 
-        if (ForgeEventFactory.getMobGriefingEvent(this.level(), this)) {
+        //Replaced ForgeEventFactory.getMobGriefingEvent(this.level(), this)
+        if (this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
             AABB bb = this.getBoundingBox();
 
             int minx = Mth.floor(bb.minX - 0.75D);

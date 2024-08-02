@@ -1,8 +1,8 @@
 package twilightforest.client.model.block.forcefield;
 
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.BlockModelRotation;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.BlockPos;
@@ -10,16 +10,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.ChunkRenderTypeSet;
-import net.minecraftforge.client.RenderTypeGroup;
-import net.minecraftforge.client.model.IDynamicBakedModel;
-import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.client.model.data.ModelProperty;
-import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.block.ForceFieldBlock;
@@ -27,44 +19,50 @@ import twilightforest.block.ForceFieldBlock;
 import java.util.*;
 import java.util.function.Function;
 
-public class ForceFieldModel implements IDynamicBakedModel {
-    private static final ModelProperty<ForceFieldData> DATA = new ModelProperty<>();
+public class ForceFieldModel implements BakedModel {//IDynamicModel
+    //FIXME: Cannot find port hooks, so i comment them. These are not death code.
+//    private static final ModelProperty<ForceFieldData> DATA = new ModelProperty<>();
     private static final FaceBakery FACE_BAKERY = new FaceBakery();
 
     private final Map<BlockElement, ForceFieldModelLoader.Condition> parts;
     private final Function<Material, TextureAtlasSprite> spriteFunction;
-    private final IGeometryBakingContext context;
+    private final BlockModel context;
     private final TextureAtlasSprite particle;
     private final ItemOverrides overrides;
-    private final ChunkRenderTypeSet blockRenderTypes;
-    private final List<RenderType> itemRenderTypes;
-    private final List<RenderType> fabulousItemRenderTypes;
+    //FIXME: Cannot find port hooks, so i comment them. These are not death code.
+//    private final ChunkRenderTypeSet blockRenderTypes;
+//    private final List<RenderType> itemRenderTypes;
+//    private final List<RenderType> fabulousItemRenderTypes;
 
-    public ForceFieldModel(Map<BlockElement, ForceFieldModelLoader.Condition> parts, Function<Material, TextureAtlasSprite> spriteFunction, IGeometryBakingContext context, ItemOverrides overrides) {
+    public ForceFieldModel(Map<BlockElement, ForceFieldModelLoader.Condition> parts, Function<Material, TextureAtlasSprite> spriteFunction, BlockModel context, ItemOverrides overrides) {
         this.parts = parts;
         this.spriteFunction = spriteFunction;
         this.context = context;
         this.particle = spriteFunction.apply(context.getMaterial("particle"));
         this.overrides = overrides;
-        ResourceLocation renderTypeHint = context.getRenderTypeHint();
-        RenderTypeGroup group = renderTypeHint != null ? context.getRenderType(renderTypeHint) : RenderTypeGroup.EMPTY;
-        this.blockRenderTypes = !group.isEmpty() ? ChunkRenderTypeSet.of(group.block()) : null;
-        this.itemRenderTypes = !group.isEmpty() ? List.of(group.entity()) : null;
-        this.fabulousItemRenderTypes = !group.isEmpty() ? List.of(group.entityFabulous()) : null;
+        //FIXME: Cannot find port hooks, so i comment them. These are not death code.
+//        ResourceLocation renderTypeHint = context.getRenderTypeHint();
+//        RenderTypeGroup group = renderTypeHint != null ? context.getRenderType(renderTypeHint) : RenderTypeGroup.EMPTY;
+//        this.blockRenderTypes = !group.isEmpty() ? ChunkRenderTypeSet.of(group.block()) : null;
+//        this.itemRenderTypes = !group.isEmpty() ? List.of(group.entity()) : null;
+//        this.fabulousItemRenderTypes = !group.isEmpty() ? List.of(group.entityFabulous()) : null;
     }
 
     @Override
-    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction cullFace, @NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
+    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction cullFace, RandomSource random) {
         List<BakedQuad> quads = new ArrayList<>();
-        ForceFieldData data = extraData.get(DATA);
+        //FIXME: Cannot find port hooks, so i comment them. These are not death code.
+        //This is a temporary replacement of extraData.get(DATA), which extraData is a ModelData
+        Map<ExtraDirection, List<Direction>> directionListMap = new HashMap<>();
+        for (ExtraDirection direction : ExtraDirection.values())
+            directionListMap.put(direction, Arrays.stream(direction.name().split("_")).map(Direction::byName).toList());
+        ForceFieldData data = new ForceFieldData(directionListMap);
 
-        if (data != null) {
-            if (cullFace == null) {
-                for (Direction direction : Direction.values()) {
-                    quads = this.getQuads(quads, direction, data, false);
-                }
-            } else return this.getQuads(quads, cullFace, data, true);
-        }
+        if (cullFace == null) {
+            for (Direction direction : Direction.values()) {
+                quads = this.getQuads(quads, direction, data, false);
+            }
+        } else return this.getQuads(quads, cullFace, data, true);
 
         return quads;
     }
@@ -72,8 +70,9 @@ public class ForceFieldModel implements IDynamicBakedModel {
     public @NotNull List<BakedQuad> getQuads(List<BakedQuad> quads, Direction side, ForceFieldData data, boolean cull) {
         for (Map.Entry<BlockElement, ForceFieldModelLoader.Condition> entry : this.parts.entrySet()) {
             BlockElementFace blockelementface = entry.getKey().faces.get(side);
-            if (blockelementface != null && blockelementface.cullForDirection != null == cull) { // IntelliJ will try to tell you cullForDirection is never null, it's gaslighting you
-                if (ForceFieldModel.skipRender(data.directions(), entry.getValue().direction(), entry.getValue().b(), entry.getValue().parents(), side)) continue;
+            if (blockelementface != null && cull) { // IntelliJ will try to tell you cullForDirection is never null, it's gaslighting you
+                if (ForceFieldModel.skipRender(data.directions(), entry.getValue().direction(), entry.getValue().b(), entry.getValue().parents(), side))
+                    continue;
 
                 TextureAtlasSprite sprite = this.spriteFunction.apply(context.getMaterial(blockelementface.texture));
                 quads.add(FACE_BAKERY.bakeQuad(
@@ -101,28 +100,30 @@ public class ForceFieldModel implements IDynamicBakedModel {
         return false;
     }
 
-    @Override
-    public @NotNull ModelData getModelData(@NotNull BlockAndTintGetter level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ModelData modelData) {
-        if (modelData == ModelData.EMPTY) {
-            Map<ExtraDirection, List<Direction>> map = new HashMap<>();
-            for (ExtraDirection extraDirection : getExtraDirections(state, level, pos)) {
-                List<Direction> directionList = new ArrayList<>();
-                for (Direction dir : Direction.values()) {
-                    ExtraDirection mirrored = extraDirection.mirrored(dir.getAxis());
-                    if (mirrored != extraDirection) {
-                        BlockState other = level.getBlockState(pos.relative(dir));
-                        if (other.getBlock() instanceof ForceFieldBlock) {
-                            if (getExtraDirections(other, level, pos.relative(dir)).contains(mirrored)) directionList.add(dir);
-                        }
-                    }
-                }
-                map.put(extraDirection, directionList);
-            }
-
-            modelData = ModelData.builder().with(DATA, new ForceFieldData(map)).build();
-        }
-        return modelData;
-    }
+    //FIXME: Cannot find port hooks, so i comment them. These are not death code.
+//    @Override
+//    public @NotNull ModelData getModelData(@NotNull BlockAndTintGetter level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ModelData modelData) {
+//        if (modelData == ModelData.EMPTY) {
+//            Map<ExtraDirection, List<Direction>> map = new HashMap<>();
+//            for (ExtraDirection extraDirection : getExtraDirections(state, level, pos)) {
+//                List<Direction> directionList = new ArrayList<>();
+//                for (Direction dir : Direction.values()) {
+//                    ExtraDirection mirrored = extraDirection.mirrored(dir.getAxis());
+//                    if (mirrored != extraDirection) {
+//                        BlockState other = level.getBlockState(pos.relative(dir));
+//                        if (other.getBlock() instanceof ForceFieldBlock) {
+//                            if (getExtraDirections(other, level, pos.relative(dir)).contains(mirrored))
+//                                directionList.add(dir);
+//                        }
+//                    }
+//                }
+//                map.put(extraDirection, directionList);
+//            }
+//
+//            modelData = ModelData.builder().with(DATA, new ForceFieldData(map)).build();
+//        }
+//        return modelData;
+//    }
 
     public static List<ExtraDirection> getExtraDirections(BlockState state, BlockGetter level, BlockPos pos) {
         List<ExtraDirection> directions = new ArrayList<>();
@@ -136,27 +137,39 @@ public class ForceFieldModel implements IDynamicBakedModel {
 
         if (down) {
             directions.add(ExtraDirection.DOWN);
-            if (north && ForceFieldBlock.cornerConnects(level, pos, Direction.DOWN, Direction.NORTH)) directions.add(ExtraDirection.DOWN_NORTH);
-            if (south && ForceFieldBlock.cornerConnects(level, pos, Direction.DOWN, Direction.SOUTH)) directions.add(ExtraDirection.DOWN_SOUTH);
-            if (west && ForceFieldBlock.cornerConnects(level, pos, Direction.DOWN, Direction.WEST)) directions.add(ExtraDirection.DOWN_WEST);
-            if (east && ForceFieldBlock.cornerConnects(level, pos, Direction.DOWN, Direction.EAST)) directions.add(ExtraDirection.DOWN_EAST);
+            if (north && ForceFieldBlock.cornerConnects(level, pos, Direction.DOWN, Direction.NORTH))
+                directions.add(ExtraDirection.DOWN_NORTH);
+            if (south && ForceFieldBlock.cornerConnects(level, pos, Direction.DOWN, Direction.SOUTH))
+                directions.add(ExtraDirection.DOWN_SOUTH);
+            if (west && ForceFieldBlock.cornerConnects(level, pos, Direction.DOWN, Direction.WEST))
+                directions.add(ExtraDirection.DOWN_WEST);
+            if (east && ForceFieldBlock.cornerConnects(level, pos, Direction.DOWN, Direction.EAST))
+                directions.add(ExtraDirection.DOWN_EAST);
         }
         if (up) {
             directions.add(ExtraDirection.UP);
-            if (north && ForceFieldBlock.cornerConnects(level, pos, Direction.UP, Direction.NORTH)) directions.add(ExtraDirection.UP_NORTH);
-            if (south && ForceFieldBlock.cornerConnects(level, pos, Direction.UP, Direction.SOUTH)) directions.add(ExtraDirection.UP_SOUTH);
-            if (west && ForceFieldBlock.cornerConnects(level, pos, Direction.UP, Direction.WEST)) directions.add(ExtraDirection.UP_WEST);
-            if (east && ForceFieldBlock.cornerConnects(level, pos, Direction.UP, Direction.EAST)) directions.add(ExtraDirection.UP_EAST);
+            if (north && ForceFieldBlock.cornerConnects(level, pos, Direction.UP, Direction.NORTH))
+                directions.add(ExtraDirection.UP_NORTH);
+            if (south && ForceFieldBlock.cornerConnects(level, pos, Direction.UP, Direction.SOUTH))
+                directions.add(ExtraDirection.UP_SOUTH);
+            if (west && ForceFieldBlock.cornerConnects(level, pos, Direction.UP, Direction.WEST))
+                directions.add(ExtraDirection.UP_WEST);
+            if (east && ForceFieldBlock.cornerConnects(level, pos, Direction.UP, Direction.EAST))
+                directions.add(ExtraDirection.UP_EAST);
         }
         if (north) {
             directions.add(ExtraDirection.NORTH);
-            if (west && ForceFieldBlock.cornerConnects(level, pos, Direction.NORTH, Direction.WEST)) directions.add(ExtraDirection.NORTH_WEST);
-            if (east && ForceFieldBlock.cornerConnects(level, pos, Direction.NORTH, Direction.EAST)) directions.add(ExtraDirection.NORTH_EAST);
+            if (west && ForceFieldBlock.cornerConnects(level, pos, Direction.NORTH, Direction.WEST))
+                directions.add(ExtraDirection.NORTH_WEST);
+            if (east && ForceFieldBlock.cornerConnects(level, pos, Direction.NORTH, Direction.EAST))
+                directions.add(ExtraDirection.NORTH_EAST);
         }
         if (south) {
             directions.add(ExtraDirection.SOUTH);
-            if (west && ForceFieldBlock.cornerConnects(level, pos, Direction.SOUTH, Direction.WEST)) directions.add(ExtraDirection.SOUTH_WEST);
-            if (east && ForceFieldBlock.cornerConnects(level, pos, Direction.SOUTH, Direction.EAST)) directions.add(ExtraDirection.SOUTH_EAST);
+            if (west && ForceFieldBlock.cornerConnects(level, pos, Direction.SOUTH, Direction.WEST))
+                directions.add(ExtraDirection.SOUTH_WEST);
+            if (east && ForceFieldBlock.cornerConnects(level, pos, Direction.SOUTH, Direction.EAST))
+                directions.add(ExtraDirection.SOUTH_EAST);
         }
         if (west) directions.add(ExtraDirection.WEST);
         if (east) directions.add(ExtraDirection.EAST);
@@ -166,17 +179,19 @@ public class ForceFieldModel implements IDynamicBakedModel {
 
     @Override
     public boolean useAmbientOcclusion() {
-        return this.context.useAmbientOcclusion();
+        return this.context.hasAmbientOcclusion();
     }
 
     @Override
     public boolean isGui3d() {
-        return this.context.isGui3d();
+        //FIXME: Cannot find port hooks, so i comment them. These are not death code.
+//        return this.context.isGui3d();
+        return true;
     }
 
     @Override
     public boolean usesBlockLight() {
-        return this.context.useBlockLight();
+        return this.context.getGuiLight().lightLikeBlock();
     }
 
     @Override
@@ -196,30 +211,30 @@ public class ForceFieldModel implements IDynamicBakedModel {
 
     @NotNull
     @Override
-    @SuppressWarnings("deprecation")
     public ItemTransforms getTransforms() {
         return this.context.getTransforms();
     }
 
-    @NotNull
-    @Override
-    public ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData data) {
-        return this.blockRenderTypes != null ? this.blockRenderTypes : IDynamicBakedModel.super.getRenderTypes(state, rand, data);
-    }
-
-    @NotNull
-    @Override
-    public List<RenderType> getRenderTypes(@NotNull ItemStack stack, boolean fabulous) {
-        if (!fabulous) {
-            if (this.itemRenderTypes != null) {
-                return this.itemRenderTypes;
-            }
-        } else if (this.fabulousItemRenderTypes != null) {
-            return this.fabulousItemRenderTypes;
-        }
-
-        return IDynamicBakedModel.super.getRenderTypes(stack, fabulous);
-    }
+    //FIXME: Cannot find port hooks, so i comment them. These are not death code.
+//    @NotNull
+//    @Override
+//    public ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData data) {
+//        return this.blockRenderTypes != null ? this.blockRenderTypes : IDynamicBakedModel.super.getRenderTypes(state, rand, data);
+//    }
+//
+//    @NotNull
+//    @Override
+//    public List<RenderType> getRenderTypes(@NotNull ItemStack stack, boolean fabulous) {
+//        if (!fabulous) {
+//            if (this.itemRenderTypes != null) {
+//                return this.itemRenderTypes;
+//            }
+//        } else if (this.fabulousItemRenderTypes != null) {
+//            return this.fabulousItemRenderTypes;
+//        }
+//
+//        return IDynamicBakedModel.super.getRenderTypes(stack, fabulous);
+//    }
 
     public enum ExtraDirection implements StringRepresentable {
         DOWN("down", 0, 1, 0),
@@ -278,5 +293,6 @@ public class ForceFieldModel implements IDynamicBakedModel {
     }
 
     //modeldata holder
-    public record ForceFieldData(Map<ExtraDirection, List<Direction>> directions) {}
+    public record ForceFieldData(Map<ExtraDirection, List<Direction>> directions) {
+    }
 }

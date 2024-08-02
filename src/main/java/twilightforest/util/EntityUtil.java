@@ -1,24 +1,33 @@
 package twilightforest.util;
 
 import com.google.common.collect.Lists;
+import io.github.fabricators_of_create.porting_lib.attributes.PortingLibAttributes;
 import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.LivingEntityAccessor;
+import io.github.fabricators_of_create.porting_lib.tags.TagHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.PaintingVariantTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.decoration.HangingEntity;
 import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.WitherSkull;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
@@ -33,8 +42,6 @@ import net.minecraft.world.level.chunk.ProtoChunk;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-
-import io.github.fabricators_of_create.porting_lib.tags.TagHelper;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.entity.EnforcedHomePoint;
 
@@ -45,187 +52,196 @@ import java.util.function.DoubleUnaryOperator;
 
 public class EntityUtil {
 
-	public static <T extends Mob & EnforcedHomePoint> BlockPos bossChestLocation(T boss) {
-		return !boss.isRestrictionPointValid(boss.level().dimension()) ? boss.blockPosition() : boss.getRestrictionPoint().pos().below();
-	}
+    public static <T extends Mob & EnforcedHomePoint> BlockPos bossChestLocation(T boss) {
+        return !boss.isRestrictionPointValid(boss.level().dimension()) ? boss.blockPosition() : boss.getRestrictionPoint().pos().below();
+    }
 
-	public static boolean canDestroyBlock(Level world, BlockPos pos, Entity entity) {
-		return canDestroyBlock(world, pos, world.getBlockState(pos), entity);
-	}
+    public static boolean canDestroyBlock(Level world, BlockPos pos, Entity entity) {
+        return canDestroyBlock(world, pos, world.getBlockState(pos), entity);
+    }
 
-	public static boolean canDestroyBlock(Level world, BlockPos pos, BlockState state, Entity entity) {
-		float hardness = state.getDestroySpeed(world, pos);
-		/* rude type limit */
-		return hardness >= 0f && hardness < 50f && !state.isAir()
-				&& !(world.getBlockEntity(pos) instanceof Container)
-				&& state.getBlock().canEntityDestroy(state, world, pos, entity)
-				&& (/* rude type limit */!(entity instanceof LivingEntity)
-				|| ForgeEventFactory.onEntityDestroyBlock((LivingEntity) entity, pos, state));
-	}
+    public static boolean canDestroyBlock(Level world, BlockPos pos, BlockState state, Entity entity) {
+        float hardness = state.getDestroySpeed(world, pos);
+        /* rude type limit */
+        return hardness >= 0f && hardness < 50f && !state.isAir()
+                && !(world.getBlockEntity(pos) instanceof Container)
+                && canEntityDestroy(state, world, pos, entity)
+                && (/* rude type limit */!(entity instanceof LivingEntity));
+    }
 
-	/**
-	 * [VanillaCopy] Entity.pick
-	 */
-	public static BlockHitResult rayTrace(Entity entity, double range) {
-		Vec3 position = entity.getEyePosition(1.0F);
-		Vec3 look = entity.getViewVector(1.0F);
-		Vec3 dest = position.add(look.x * range, look.y * range, look.z * range);
-		return entity.level().clip(new ClipContext(position, dest, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity));
-	}
+    //Copy from net.minecraftforge.common.extensions.IForgeBlock#canEntityDestroy
+    private static boolean canEntityDestroy(BlockState state, Level level, BlockPos pos, Entity entity) {
+        if (entity instanceof EnderDragon)
+            return !state.is(BlockTags.DRAGON_IMMUNE);
+        else if (entity instanceof WitherBoss || entity instanceof WitherSkull)
+            return state.isAir() || WitherBoss.canDestroy(state);
+        return true;
+    }
 
-	public static BlockHitResult rayTrace(Player player) {
-		return rayTrace(player, null);
-	}
+    /**
+     * [VanillaCopy] Entity.pick
+     */
+    public static BlockHitResult rayTrace(Entity entity, double range) {
+        Vec3 position = entity.getEyePosition(1.0F);
+        Vec3 look = entity.getViewVector(1.0F);
+        Vec3 dest = position.add(look.x * range, look.y * range, look.z * range);
+        return entity.level().clip(new ClipContext(position, dest, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity));
+    }
 
-	public static BlockHitResult rayTrace(Player player, @Nullable DoubleUnaryOperator modifier) {
-		double range = player.getAttribute(PortingLibAttributes.BLOCK_REACH).getValue();
-		return rayTrace(player, modifier == null ? range : modifier.applyAsDouble(range));
-	}
+    public static BlockHitResult rayTrace(Player player) {
+        return rayTrace(player, null);
+    }
 
-	public static SoundEvent getDeathSound(LivingEntity living) {
-		return ((LivingEntityAccessor)living).port_lib$getDeathSound();
-	}
+    public static BlockHitResult rayTrace(Player player, @Nullable DoubleUnaryOperator modifier) {
+        double range = player.getAttribute(PortingLibAttributes.BLOCK_REACH).getValue();
+        return rayTrace(player, modifier == null ? range : modifier.applyAsDouble(range));
+    }
 
-	public static void killLavaAround(Entity entity) {
-		AABB bounds = entity.getBoundingBox().inflate(9D);
-		for (double x = bounds.minX; x < bounds.maxX; x++) {
-			for (double z = bounds.minZ; z < bounds.maxZ; z++) {
-				for (double y = bounds.minY; y < bounds.maxY; y++) {
-					BlockPos pos = BlockPos.containing(x, y, z);
-					BlockState state = entity.level().getBlockState(pos);
-					if (state.is(Blocks.LAVA)) {
-						entity.level().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-					}
-				}
-			}
-		}
-	}
+    public static SoundEvent getDeathSound(LivingEntity living) {
+        return ((LivingEntityAccessor) living).port_lib$getDeathSound();
+    }
 
-	//copy of Mob.doHurtTarget, allows for using a custom DamageSource instead of the generic Mob Attack one
-	public static boolean properlyApplyCustomDamageSource(Mob entity, Entity victim, DamageSource source) {
-		float f = (float)entity.getAttributeValue(Attributes.ATTACK_DAMAGE);
-		float f1 = (float)entity.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-		if (victim instanceof LivingEntity) {
-			f += EnchantmentHelper.getDamageBonus(entity.getMainHandItem(), ((LivingEntity)victim).getMobType());
-			f1 += (float)EnchantmentHelper.getKnockbackBonus(entity);
-		}
+    public static void killLavaAround(Entity entity) {
+        AABB bounds = entity.getBoundingBox().inflate(9D);
+        for (double x = bounds.minX; x < bounds.maxX; x++) {
+            for (double z = bounds.minZ; z < bounds.maxZ; z++) {
+                for (double y = bounds.minY; y < bounds.maxY; y++) {
+                    BlockPos pos = BlockPos.containing(x, y, z);
+                    BlockState state = entity.level().getBlockState(pos);
+                    if (state.is(Blocks.LAVA)) {
+                        entity.level().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                    }
+                }
+            }
+        }
+    }
 
-		int i = EnchantmentHelper.getFireAspect(entity);
-		if (i > 0) {
-			victim.setSecondsOnFire(i * 4);
-		}
+    //copy of Mob.doHurtTarget, allows for using a custom DamageSource instead of the generic Mob Attack one
+    public static boolean properlyApplyCustomDamageSource(Mob entity, Entity victim, DamageSource source) {
+        float f = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        float f1 = (float) entity.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+        if (victim instanceof LivingEntity) {
+            f += EnchantmentHelper.getDamageBonus(entity.getMainHandItem(), ((LivingEntity) victim).getMobType());
+            f1 += (float) EnchantmentHelper.getKnockbackBonus(entity);
+        }
 
-		boolean flag = victim.hurt(source, f);
-		if (flag) {
-			if (f1 > 0.0F && victim instanceof LivingEntity) {
-				((LivingEntity)victim).knockback(f1 * 0.5F, Mth.sin(entity.getYRot() * ((float)Math.PI / 180F)), -Mth.cos(entity.getYRot() * ((float)Math.PI / 180F)));
-				entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
-			}
+        int i = EnchantmentHelper.getFireAspect(entity);
+        if (i > 0) {
+            victim.setSecondsOnFire(i * 4);
+        }
 
-			if (victim instanceof Player player) {
-				entity.maybeDisableShield(player, entity.getMainHandItem(), player.isUsingItem() ? player.getUseItem() : ItemStack.EMPTY);
-			}
+        boolean flag = victim.hurt(source, f);
+        if (flag) {
+            if (f1 > 0.0F && victim instanceof LivingEntity) {
+                ((LivingEntity) victim).knockback(f1 * 0.5F, Mth.sin(entity.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(entity.getYRot() * ((float) Math.PI / 180F)));
+                entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
+            }
 
-			entity.doEnchantDamageEffects(entity, victim);
-			entity.setLastHurtMob(victim);
-		}
+            if (victim instanceof Player player) {
+                entity.maybeDisableShield(player, entity.getMainHandItem(), player.isUsingItem() ? player.getUseItem() : ItemStack.EMPTY);
+            }
 
-		return flag;
-	}
+            entity.doEnchantDamageEffects(entity, victim);
+            entity.setLastHurtMob(victim);
+        }
 
-	// [VanillaCopy] with modifications: StructureTemplate.createEntityIgnoreException
-	@Nullable
-	private static <T extends Entity> T createEntityIgnoreException(EntityType<T> type, ServerLevelAccessor levelAccessor) {
-		try {
-			return type.create(levelAccessor.getLevel());
-		} catch (Exception exception) {
-			return null;
-		}
-	}
+        return flag;
+    }
 
-	public static void tryHangPainting(WorldGenLevel world, BlockPos pos, Direction direction, @Nullable ResourceKey<PaintingVariant> chosenPainting) {
-		if (chosenPainting == null) return;
+    // [VanillaCopy] with modifications: StructureTemplate.createEntityIgnoreException
+    @Nullable
+    private static <T extends Entity> T createEntityIgnoreException(EntityType<T> type, ServerLevelAccessor levelAccessor) {
+        try {
+            return type.create(levelAccessor.getLevel());
+        } catch (Exception exception) {
+            return null;
+        }
+    }
 
-		Painting painting = createEntityIgnoreException(EntityType.PAINTING, world);
+    public static void tryHangPainting(WorldGenLevel world, BlockPos pos, Direction direction, @Nullable ResourceKey<PaintingVariant> chosenPainting) {
+        if (chosenPainting == null) return;
 
-		painting.setPos(pos.getX(), pos.getY(), pos.getZ());
-		painting.setDirection(direction);
-		painting.setVariant(BuiltInRegistries.PAINTING_VARIANT.getHolder(chosenPainting).get());
+        Painting painting = createEntityIgnoreException(EntityType.PAINTING, world);
 
-		if (checkValidPaintingPosition(world, painting))
-			world.addFreshEntity(painting);
-	}
-	@Nullable
-	public static ResourceKey<PaintingVariant> getPaintingOfSize(RandomSource rand, int minSize) {
-		return getPaintingOfSize(rand, minSize, minSize, false);
-	}
+        painting.setPos(pos.getX(), pos.getY(), pos.getZ());
+        painting.setDirection(direction);
+        painting.setVariant(BuiltInRegistries.PAINTING_VARIANT.getHolder(chosenPainting).get());
 
-	@Nullable
-	public static ResourceKey<PaintingVariant> getPaintingOfSize(RandomSource rand, int width, int height, boolean exactMeasurements) {
-		List<ResourceKey<PaintingVariant>> valid = new ArrayList<>();
+        if (checkValidPaintingPosition(world, painting))
+            world.addFreshEntity(painting);
+    }
 
-		for (PaintingVariant art : TagHelper.getContents(BuiltInRegistries.PAINTING_VARIANT, PaintingVariantTags.PLACEABLE)) {
-			if (exactMeasurements) {
-				if (art.getWidth() == width && art.getHeight() == height) {
-					valid.add(ResourceKey.create(Registries.PAINTING_VARIANT, Objects.requireNonNull(BuiltInRegistries.PAINTING_VARIANT.getKey(art))));
-				}
-			} else {
-				if (art.getWidth() >= width || art.getHeight() >= height) {
-					valid.add(ResourceKey.create(Registries.PAINTING_VARIANT, Objects.requireNonNull(BuiltInRegistries.PAINTING_VARIANT.getKey(art))));
-				}
-			}
-		}
+    @Nullable
+    public static ResourceKey<PaintingVariant> getPaintingOfSize(RandomSource rand, int minSize) {
+        return getPaintingOfSize(rand, minSize, minSize, false);
+    }
 
-		if (valid.size() > 0) {
-			return valid.get(rand.nextInt(valid.size()));
-		} else {
-			return null;
-		}
-	}
+    @Nullable
+    public static ResourceKey<PaintingVariant> getPaintingOfSize(RandomSource rand, int width, int height, boolean exactMeasurements) {
+        List<ResourceKey<PaintingVariant>> valid = new ArrayList<>();
 
-	public static boolean checkValidPaintingPosition(WorldGenLevel world, @Nullable Painting painting) {
-		if (painting == null) {
-			return false;
-		}
+        for (PaintingVariant art : TagHelper.getContents(BuiltInRegistries.PAINTING_VARIANT, PaintingVariantTags.PLACEABLE)) {
+            if (exactMeasurements) {
+                if (art.getWidth() == width && art.getHeight() == height) {
+                    valid.add(ResourceKey.create(Registries.PAINTING_VARIANT, Objects.requireNonNull(BuiltInRegistries.PAINTING_VARIANT.getKey(art))));
+                }
+            } else {
+                if (art.getWidth() >= width || art.getHeight() >= height) {
+                    valid.add(ResourceKey.create(Registries.PAINTING_VARIANT, Objects.requireNonNull(BuiltInRegistries.PAINTING_VARIANT.getKey(art))));
+                }
+            }
+        }
 
-		final AABB largerBox = painting.getBoundingBox();
+        if (valid.size() > 0) {
+            return valid.get(rand.nextInt(valid.size()));
+        } else {
+            return null;
+        }
+    }
 
-		if (!world.noCollision(painting, largerBox)) {
-			return false;
-		} else {
-			List<Entity> collidingEntities = getEntitiesInAABB(world, largerBox);
+    public static boolean checkValidPaintingPosition(WorldGenLevel world, @Nullable Painting painting) {
+        if (painting == null) {
+            return false;
+        }
 
-			for (Entity entityOnList : collidingEntities) {
-				if (entityOnList instanceof HangingEntity) {
-					return false;
-				}
-			}
+        final AABB largerBox = painting.getBoundingBox();
 
-			return true;
-		}
-	}
+        if (!world.noCollision(painting, largerBox)) {
+            return false;
+        } else {
+            List<Entity> collidingEntities = getEntitiesInAABB(world, largerBox);
 
-	public static List<Entity> getEntitiesInAABB(WorldGenLevel world, AABB boundingBox) {
-		List<Entity> list = Lists.newArrayList();
-		int i = Mth.floor((boundingBox.minX - 2) / 16.0D);
-		int j = Mth.floor((boundingBox.maxX + 2) / 16.0D);
-		int k = Mth.floor((boundingBox.minZ - 2) / 16.0D);
-		int l = Mth.floor((boundingBox.maxZ + 2) / 16.0D);
+            for (Entity entityOnList : collidingEntities) {
+                if (entityOnList instanceof HangingEntity) {
+                    return false;
+                }
+            }
 
-		for (int i1 = i; i1 <= j; ++i1) {
-			for (int j1 = k; j1 <= l; ++j1) {
-				ChunkAccess chunk = world.getChunk(i1, j1, ChunkStatus.STRUCTURE_STARTS);
-				if (chunk instanceof ProtoChunk proto) {
-					proto.getEntities().forEach(nbt -> {
-						Entity entity = EntityType.loadEntityRecursive(nbt, world.getLevel(), e -> e);
-						if (entity != null && boundingBox.intersects(entity.getBoundingBox())) {
-							list.add(entity);
-						}
-					});
-				}
-			}
-		}
+            return true;
+        }
+    }
 
-		return list;
-	}
+    public static List<Entity> getEntitiesInAABB(WorldGenLevel world, AABB boundingBox) {
+        List<Entity> list = Lists.newArrayList();
+        int i = Mth.floor((boundingBox.minX - 2) / 16.0D);
+        int j = Mth.floor((boundingBox.maxX + 2) / 16.0D);
+        int k = Mth.floor((boundingBox.minZ - 2) / 16.0D);
+        int l = Mth.floor((boundingBox.maxZ + 2) / 16.0D);
+
+        for (int i1 = i; i1 <= j; ++i1) {
+            for (int j1 = k; j1 <= l; ++j1) {
+                ChunkAccess chunk = world.getChunk(i1, j1, ChunkStatus.STRUCTURE_STARTS);
+                if (chunk instanceof ProtoChunk proto) {
+                    proto.getEntities().forEach(nbt -> {
+                        Entity entity = EntityType.loadEntityRecursive(nbt, world.getLevel(), e -> e);
+                        if (entity != null && boundingBox.intersects(entity.getBoundingBox())) {
+                            list.add(entity);
+                        }
+                    });
+                }
+            }
+        }
+
+        return list;
+    }
 }

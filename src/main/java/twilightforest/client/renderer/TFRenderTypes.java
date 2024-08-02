@@ -8,8 +8,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Matrix4f;
 import twilightforest.TwilightForestMod;
 
@@ -33,7 +31,7 @@ public class TFRenderTypes extends RenderType {
     public static final class ProtectionBoxTexturingStateShard extends RenderStateShard.TexturingStateShard {
         public ProtectionBoxTexturingStateShard() {
             super("protection_offset_texturing", () -> {
-                float tick = (float) (Minecraft.getInstance().cameraEntity != null ? Minecraft.getInstance().cameraEntity.tickCount : 0) + Minecraft.getInstance().getPartialTick();
+                float tick = (float) (Minecraft.getInstance().cameraEntity != null ? Minecraft.getInstance().cameraEntity.tickCount : 0) + Minecraft.getInstance().timer.partialTick;
                 RenderSystem.setTextureMatrix((new Matrix4f()).translation((-tick * 0.06F) % 1.0F, (-tick * 0.035F) % 1.0F, 0.0F).scale(0.5F));
             }, RenderSystem::resetTextureMatrix);
         }

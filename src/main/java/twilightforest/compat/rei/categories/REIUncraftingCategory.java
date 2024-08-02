@@ -16,7 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
-import twilightforest.TFConfig;
 import twilightforest.TwilightForestMod;
 import twilightforest.compat.rei.TwilightForestREIServerPlugin;
 import twilightforest.compat.rei.displays.REIUncraftingDisplay;
@@ -73,11 +72,11 @@ public class REIUncraftingCategory implements DisplayCategory<REIUncraftingDispl
         bounds.translate(5, 5);
         widgets.add(Widgets.createTexturedWidget(TwilightForestMod.getGuiTexture("uncrafting_jei.png"), bounds));
         List<Ingredient> outputs = new ArrayList<>(display.getRecipe().getIngredients()); //Collect each ingredient
-        for (int i = 0; i < outputs.size(); i++) {
-            outputs.set(i, Ingredient.of(Arrays.stream(outputs.get(i).getItems())
+        outputs.replaceAll(ingredient -> {
+            return Ingredient.of(Arrays.stream(ingredient.getItems())
                     .filter(o -> !(o.is(ItemTagGenerator.BANNED_UNCRAFTING_INGREDIENTS)))
-                    .filter(o -> !(o.getItem().hasCraftingRemainingItem()))));//Remove any banned items
-        }
+                    .filter(o -> !(o.getItem().hasCraftingRemainingItem())));//Remove any banned items
+        });
 
         CraftingRecipe recipe = display.getRecipe();
 
@@ -96,19 +95,19 @@ public class REIUncraftingCategory implements DisplayCategory<REIUncraftingDispl
         int costVal = calculateUncraftingCost(recipe, outputs);
 
         if (costVal > 0) {
-            widgets.add(Widgets.createDrawableWidget((helper, matrices, mouseX, mouseY, delta) -> {
+            widgets.add(Widgets.createDrawableWidget((graphics, mouseX, mouseY, delta) -> {
                 Minecraft client = Minecraft.getInstance();
 
                 int color;
                 var cost = "" + costVal;
 
+                assert client.player != null;
                 if (client.player.experienceLevel < costVal && !client.player.getAbilities().instabuild) {
                     color = 0xA00000;
                 } else {
                     color = 0x80FF20;
                 }
-
-                client.font.drawShadow(matrices, cost, bounds.getX() + 44 - client.font.width(cost), bounds.getY() + 22, color);
+                graphics.drawString(client.font, cost, bounds.getX() + 44 - client.font.width(cost), bounds.getY() + 22, color);
             }));
         }
 
@@ -119,7 +118,7 @@ public class REIUncraftingCategory implements DisplayCategory<REIUncraftingDispl
     private static int calculateUncraftingCost(CraftingRecipe recipe, List<Ingredient> outputs) {
         // we don't want to display anything if there is anything in the assembly grid
 
-        int customCost = recipe instanceof UncraftingRecipe uncraftingRecipe ? uncraftingRecipe.getCost() : -1;
+        int customCost = recipe instanceof UncraftingRecipe uncraftingRecipe ? uncraftingRecipe.cost() : -1;
 
         List<ItemStack> ouputStacks = outputs.stream().map(ingredient -> {
             ItemStack[] stacks = ingredient.getItems();

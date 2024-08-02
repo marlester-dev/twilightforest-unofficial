@@ -316,18 +316,19 @@ public class TFASM implements Runnable {
                         lastInstruction = node;
 
                 }
-                instructions.insert(
-                        lastInstruction,
-                        ASM.listOf(
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "renderMutiparts",
-                                        "(Ljava/lang/Iterable;)Ljava/lang/Iterable;",
-                                        false
-                                )
-                        )
-                );
+                //FIXME: java.lang.NoSuchMethodError: 'java.lang.Iterable twilightforest.ASMHooks.renderMutiparts(java.lang.Iterable)'
+//                instructions.insert(
+//                        lastInstruction,
+//                        ASM.listOf(
+//                                new MethodInsnNode(
+//                                        Opcodes.INVOKESTATIC,
+//                                        "twilightforest/ASMHooks",
+//                                        "renderMutiparts",
+//                                        "(Ljava/lang/Iterable;)Ljava/lang/Iterable;",
+//                                        false
+//                                )
+//                        )
+//                );
             });
         });
     }

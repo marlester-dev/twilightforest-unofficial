@@ -5,6 +5,7 @@ import io.github.fabricators_of_create.porting_lib.models.builders.ItemLayerMode
 import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
 import io.github.fabricators_of_create.porting_lib.models.generators.item.ItemModelBuilder;
 import io.github.fabricators_of_create.porting_lib.models.generators.item.ItemModelProvider;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -810,10 +811,11 @@ public class ItemModelGenerator extends ItemModelProvider {
 	}
 
 	private void toGiantModel(Block b, ResourceLocation model, ResourceLocation top, ItemModelBuilder base, ItemModelBuilder gui) {
-		String name = ForgeRegistries.BLOCKS.getKey(b).getPath();
-		withExistingParent(name, model).customLoader(SeparateTransformsModelBuilder::begin)
-				.base(withExistingParent(name + "_base", base.getLocation()).texture("all", model).texture("top", top))
-				.perspective(ItemDisplayContext.GUI, withExistingParent(name + "_gui", gui.getLocation()).texture("all", model).texture("top", top)).end();
+		String name = BuiltInRegistries.BLOCK.getKey(b).getPath();
+		//FIXME
+//		withExistingParent(name, model).customLoader(SeparateTransformsModelBuilder::begin)
+//				.base(withExistingParent(name + "_base", base.getLocation()).texture("all", model).texture("top", top))
+//				.perspective(ItemDisplayContext.GUI, withExistingParent(name + "_gui", gui.getLocation()).texture("all", model).texture("top", top)).end();
 	}
 
 	private void toGiantItemModel(RegistryObject<Item> item, ResourceLocation parent, ItemModelBuilder base, int x, int y) {
@@ -821,10 +823,10 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 		ItemModelBuilder gui = getBuilder(name + "_gui").texture("all", parent)
 				.element().from(0,0,0).to(16, 16, 0).face(Direction.SOUTH).texture("#all").uvs(x, y, x + 8, y + 8).tintindex(0).end().end();
-
-		withExistingParent(name, parent).customLoader(SeparateTransformsModelBuilder::begin)
-				.base(withExistingParent(name + "_base", base.getLocation()).texture("layer0", parent))
-				.perspective(ItemDisplayContext.GUI, gui.texture("all", parent)).end();
+		//FIXME
+//		withExistingParent(name, parent).customLoader(SeparateTransformsModelBuilder::begin)
+//				.base(withExistingParent(name + "_base", base.getLocation()).texture("layer0", parent))
+//				.perspective(ItemDisplayContext.GUI, gui.texture("all", parent)).end();
 	}
 
 	@Override

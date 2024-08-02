@@ -37,10 +37,8 @@ public class GiantPickUsedCondition implements LootItemCondition {
     @Override
     public boolean test(LootContext context) {
         if (context.getParamOrNull(this.entityTarget.getParam()) instanceof Player player) {
-            GiantPickMineCapability capability = player.getCapability(CapabilityList.GIANT_PICK_MINE).resolve().orElse(null);
-            if (capability != null) {
-                return player.level().getGameTime() == capability.getMining() && capability.canMakeGiantBlock();
-            }
+            GiantPickMineCapability capability = CapabilityList.GIANT_PICK_MINE.get(player);
+            return player.level().getGameTime() == capability.getMining() && capability.canMakeGiantBlock();
         }
         return false;
     }

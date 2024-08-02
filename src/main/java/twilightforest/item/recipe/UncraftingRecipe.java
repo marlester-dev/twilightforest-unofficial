@@ -15,17 +15,15 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
-
-import org.jetbrains.annotations.Nullable;
 import twilightforest.init.TFRecipes;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
-public record UncraftingRecipe(ResourceLocation recipeID, int cost, int width, int height, Ingredient input, int count, NonNullList<Ingredient> resultItems) implements CraftingRecipe, IShapedRecipe<CraftingContainer> {
+public record UncraftingRecipe(ResourceLocation recipeID, int cost, int width, int height, Ingredient input, int count,
+                               NonNullList<Ingredient> resultItems) implements CraftingRecipe{
 
     @Override //This method is never used, but it has to be implemented
     public boolean matches(CraftingContainer container, Level level) {
@@ -200,7 +198,6 @@ public record UncraftingRecipe(ResourceLocation recipeID, int cost, int width, i
             else return results;
         }
 
-        @Nullable
         @Override
         public UncraftingRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer) {
             int cost = buffer.readVarInt();
@@ -209,7 +206,7 @@ public record UncraftingRecipe(ResourceLocation recipeID, int cost, int width, i
             Ingredient result = Ingredient.fromNetwork(buffer);
             int count = buffer.readVarInt();
             NonNullList<Ingredient> ingredients = NonNullList.withSize(width * height, Ingredient.EMPTY);
-			ingredients.replaceAll(ignored -> Ingredient.fromNetwork(buffer));
+            ingredients.replaceAll(ignored -> Ingredient.fromNetwork(buffer));
             return new UncraftingRecipe(id, cost, width, height, result, count, ingredients);
         }
 

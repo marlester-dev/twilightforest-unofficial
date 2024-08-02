@@ -41,6 +41,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 public class OreMagnetItem extends Item implements CustomEnchantingBehaviorItem {
 
@@ -258,7 +259,7 @@ public class OreMagnetItem extends Item implements CustomEnchantingBehaviorItem 
 		TwilightForestMod.LOGGER.info("GENERATING ORE TO BLOCK MAPPING");
 
 		//collect all tags
-		for (TagKey<Block> tag : Objects.requireNonNull(BuiltInRegistries.BLOCK.getTagNames().filter(location -> location.location().getNamespace().equals("c")).collect(Collectors.toList()))) {
+		for (TagKey<Block> tag : Objects.requireNonNull(BuiltInRegistries.BLOCK.getTagNames().filter(location -> location.location().getNamespace().equals("c")).toList())) {
 			//check if the tag is a valid ore tag
 			if (tag.location().getPath().contains("ores_in_ground/")) {
 				//grab the part after the slash for use later

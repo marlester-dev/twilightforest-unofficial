@@ -8,6 +8,8 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
@@ -49,11 +51,13 @@ public class CloudEvents {
 
     }
 
-    @SubscribeEvent
-    public static void clientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) return;
-        Minecraft mc = Minecraft.getInstance();
+    public static void register() {
+        ClientTickEvents.END_CLIENT_TICK.register(CloudEvents::clientTick);
+        //Is this the correct event to bind?
+        WorldRenderEvents.AFTER_SETUP.register(CloudEvents::renderCloudBlockPrecipitation);
+    }
 
+    public static void clientTick(Minecraft mc) {
         if (!mc.isPaused()) {
             if (mc.level != null && TFConfig.getClientCloudBlockPrecipitationDistance() > 0) { // Semi vanilla copy of the weather tick, but made to work with cloud blocks instead
                 Vec3 vec3 = mc.gameRenderer.getMainCamera().getPosition();
@@ -101,7 +105,7 @@ public class CloudEvents {
                     }
                 }
 
-                RandomSource randomsource = RandomSource.create((long) mc.levelRenderer.getTicks() * 312987231L);
+                RandomSource randomsource = RandomSource.create((long) mc.levelRenderer.ticks * 312987231L);
                 BlockPos particlePos = null;
                 int particleCount = 100 / (mc.options.particles().get() == ParticleStatus.DECREASED ? 2 : 1);
 
@@ -154,17 +158,16 @@ public class CloudEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void renderCloudBlockPrecipitation(RenderLevelStageEvent event) {
-        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_WEATHER && TFConfig.getClientCloudBlockPrecipitationDistance() > 0 && !RENDER_HELPER.isEmpty()) {
+    public static void renderCloudBlockPrecipitation(WorldRenderContext context) {
+        if (TFConfig.getClientCloudBlockPrecipitationDistance() > 0 && !RENDER_HELPER.isEmpty()) {
             Minecraft minecraft = Minecraft.getInstance();
             if (minecraft.level == null) return;
-            float partialTick = minecraft.getPartialTick();
+            float partialTick = context.tickDelta();
             LightTexture lightTexture = minecraft.gameRenderer.lightTexture();
-            int ticks = minecraft.levelRenderer.getTicks();
+            int ticks = minecraft.levelRenderer.ticks;
             lightTexture.turnOnLightLayer();
 
-            Vec3 vec3 = event.getCamera().getPosition();
+            Vec3 vec3 = context.camera().getPosition();
             double camX = vec3.x();
             double camY = vec3.y();
             double camZ = vec3.z();

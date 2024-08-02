@@ -1,7 +1,6 @@
 package twilightforest.events;
 
-import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingEntityDamageEvents;
-import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingEntityDamageEvents.HurtEvent;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingDamageEvent;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -43,121 +42,116 @@ import java.util.Optional;
  */
 public class ProgressionEvents {
 
-	public static void init() {
-		LivingEntityDamageEvents.HURT.register(ProgressionEvents::livingAttack);
-		UseBlockCallback.EVENT.register(ProgressionEvents::onPlayerRightClick);
-		PlayerBlockBreakEvents.BEFORE.register(ProgressionEvents::breakBlock);
-		ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register(ProgressionEvents::playerPortals);
-	}
+    public static void init() {
+        LivingDamageEvent.DAMAGE.register(ProgressionEvents::livingAttack);
+        UseBlockCallback.EVENT.register(ProgressionEvents::onPlayerRightClick);
+        PlayerBlockBreakEvents.BEFORE.register(ProgressionEvents::breakBlock);
+        ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register(ProgressionEvents::playerPortals);
+    }
 
-	/**
-	 * Check if the player is trying to break a block in a structure that's considered unbreakable for progression reasons
-	 */
-	public static boolean breakBlock(Level level, Player player, BlockPos pos, BlockState state, /* Nullable */ BlockEntity blockEntity) {
-		if (level.isClientSide()) return true;
+    /**
+     * Check if the player is trying to break a block in a structure that's considered unbreakable for progression reasons
+     */
+    public static boolean breakBlock(Level level, Player player, BlockPos pos, BlockState state, /* Nullable */ BlockEntity blockEntity) {
+        if (level.isClientSide()) return true;
+        return !isBlockProtectedFromBreaking(level, pos) || !isAreaProtected(level, player, pos);
+    }
 
-		if (isBlockProtectedFromBreaking(level, pos) && isAreaProtected(level, player, pos)) {
-			return false;
+    /**
+     * Stop the player from interacting with blocks that could produce treasure or open doors in a protected area
+     */
+    public static InteractionResult onPlayerRightClick(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
+        if (!level.isClientSide() && isBlockProtectedFromInteraction(level, hitResult.getBlockPos()) && isAreaProtected(level, player, hitResult.getBlockPos())) {
+            return InteractionResult.FAIL;
+        }
+        return InteractionResult.PASS;
+    }
 
-		}
-		return true;
-	}
+    private static boolean isBlockProtectedFromInteraction(Level level, BlockPos pos) {
+        return level.getBlockState(pos).is(BlockTagGenerator.STRUCTURE_BANNED_INTERACTIONS);
+    }
 
-	/**
-	 * Stop the player from interacting with blocks that could produce treasure or open doors in a protected area
-	 */
-	public static InteractionResult onPlayerRightClick(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
-		if (!level.isClientSide() && isBlockProtectedFromInteraction(level, hitResult.getBlockPos()) && isAreaProtected(level, player, hitResult.getBlockPos())) {
-			return InteractionResult.FAIL;
-		}
-		return InteractionResult.PASS;
-	}
+    private static boolean isBlockProtectedFromBreaking(Level level, BlockPos pos) {
+        return !level.getBlockState(pos).is(BlockTagGenerator.PROGRESSION_ALLOW_BREAKING);
+    }
 
-	private static boolean isBlockProtectedFromInteraction(Level level, BlockPos pos) {
-		return level.getBlockState(pos).is(BlockTagGenerator.STRUCTURE_BANNED_INTERACTIONS);
-	}
+    /**
+     * Return if the area at the coordinates is considered protected for that player.
+     * Currently, if we return true, we also send the area protection packet here.
+     */
+    private static boolean isAreaProtected(Level level, Player player, BlockPos pos) {
 
-	private static boolean isBlockProtectedFromBreaking(Level level, BlockPos pos) {
-		return !level.getBlockState(pos).is(BlockTagGenerator.PROGRESSION_ALLOW_BREAKING);
-	}
+        if (player.getAbilities().instabuild || player.isSpectator() ||
+                !LandmarkUtil.isProgressionEnforced(level) || (player instanceof ServerPlayer && player.getClass() != ServerPlayer.class)) {
+            return false;
+        }
 
-	/**
-	 * Return if the area at the coordinates is considered protected for that player.
-	 * Currently, if we return true, we also send the area protection packet here.
-	 */
-	private static boolean isAreaProtected(Level level, Player player, BlockPos pos) {
+        ChunkGeneratorTwilight chunkGenerator = WorldUtil.getChunkGenerator(level);
 
-		if (player.getAbilities().instabuild || player.isSpectator() ||
-				!LandmarkUtil.isProgressionEnforced(level) || (player instanceof ServerPlayer && player.getClass() != ServerPlayer.class)) {
-			return false;
-		}
+        if (chunkGenerator != null) {
+            Optional<StructureStart> struct = LandmarkUtil.locateNearestLandmarkStart(level, SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ()));
+            if (struct.isPresent()) {
+                StructureStart structureStart = struct.get();
+                if (structureStart.getBoundingBox().isInside(pos) && structureStart.getStructure() instanceof ProgressionStructure structureHints) {
+                    if (!structureHints.doesPlayerHaveRequiredAdvancements(player)/* && chunkGenerator.isBlockProtected(pos)*/) {
+                        // what feature is nearby?  is it one the player has not unlocked?
+                        TFLandmark nearbyFeature = LegacyLandmarkPlacements.pickLandmarkAtBlock(pos.getX(), pos.getZ(), (ServerLevel) level);
 
-		ChunkGeneratorTwilight chunkGenerator = WorldUtil.getChunkGenerator(level);
+                        // TODO: This is terrible but *works* for now.. proper solution is to figure out why the stronghold bounding box is going so high
+                        if (nearbyFeature == TFLandmark.KNIGHT_STRONGHOLD && pos.getY() >= TFGenerationSettings.SEALEVEL)
+                            return false;
 
-		if (chunkGenerator != null) {
-			Optional<StructureStart> struct = LandmarkUtil.locateNearestLandmarkStart(level, SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ()));
-			if (struct.isPresent()) {
-				StructureStart structureStart = struct.get();
-				if (structureStart.getBoundingBox().isInside(pos) && structureStart.getStructure() instanceof ProgressionStructure structureHints) {
-					if (!structureHints.doesPlayerHaveRequiredAdvancements(player)/* && chunkGenerator.isBlockProtected(pos)*/) {
-						// what feature is nearby?  is it one the player has not unlocked?
-						TFLandmark nearbyFeature = LegacyLandmarkPlacements.pickLandmarkAtBlock(pos.getX(), pos.getZ(), (ServerLevel) level);
+                        // send protection packet
+                        List<BoundingBox> boxes = new ArrayList<>();
+                        structureStart.getPieces().forEach(piece -> {
+                            if (piece.getBoundingBox().isInside(pos))
+                                boxes.add(piece.getBoundingBox());
+                        });
 
-						// TODO: This is terrible but *works* for now.. proper solution is to figure out why the stronghold bounding box is going so high
-						if (nearbyFeature == TFLandmark.KNIGHT_STRONGHOLD && pos.getY() >= TFGenerationSettings.SEALEVEL)
-							return false;
+                        sendAreaProtectionPacket(level, pos, boxes);
 
-						// send protection packet
-						List<BoundingBox> boxes = new ArrayList<>();
-						structureStart.getPieces().forEach(piece -> {
-							if (piece.getBoundingBox().isInside(pos))
-								boxes.add(piece.getBoundingBox());
-						});
+                        // send a hint monster?
+                        structureHints.trySpawnHintMonster(level, player, pos);
 
-						sendAreaProtectionPacket(level, pos, boxes);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
-						// send a hint monster?
-						structureHints.trySpawnHintMonster(level, player, pos);
+    private static void sendAreaProtectionPacket(Level level, BlockPos pos, List<BoundingBox> sbb) {
+        TFPacketHandler.CHANNEL.sendToClientsAround(new AreaProtectionPacket(sbb, pos), (ServerLevel) level, pos, 64);
+    }
 
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
+    public static void livingAttack(LivingDamageEvent event) {
+        LivingEntity living = event.getEntity();
+        DamageSource source = event.getSource();
 
-	private static void sendAreaProtectionPacket(Level level, BlockPos pos, List<BoundingBox> sbb) {
-		TFPacketHandler.CHANNEL.sendToClientsAround(new AreaProtectionPacket(sbb, pos), (ServerLevel) level, pos, 64);
-	}
+        // cancel attacks in protected areas
+        if (!living.level().isClientSide() && living instanceof Enemy && source.getEntity() instanceof Player && !(living instanceof Kobold)
+                && isAreaProtected(living.level(), (Player) source.getEntity(), new BlockPos(living.blockPosition()))) {
 
-	public static void livingAttack(HurtEvent event) {
-		LivingEntity living = event.damaged;
-		DamageSource source = event.damageSource;
+            event.setCanceled(true);
+        }
+    }
 
-		// cancel attacks in protected areas
-		if (!living.level().isClientSide() && living instanceof Enemy && source.getEntity() instanceof Player && !(living instanceof Kobold)
-				&& isAreaProtected(living.level(), (Player) source.getEntity(), new BlockPos(living.blockPosition()))) {
+    public static void playerPortals(ServerPlayer player, ServerLevel origin, ServerLevel destination) {
+        if (!player.level().isClientSide()) {
+            if (TFGenerationSettings.usesTwilightChunkGenerator((ServerLevel) player.level())) {
+                sendEnforcedProgressionStatus(player, LandmarkUtil.isProgressionEnforced(player.level()));
+            }
+        }
+    }
 
-			event.cancel();
-		}
-	}
+    public static void playerLogsIn(ServerPlayer player) {
+        if (!player.level().isClientSide()) {
+            sendEnforcedProgressionStatus(player, LandmarkUtil.isProgressionEnforced(player.level()));
+        }
+    }
 
-	public static void playerPortals(ServerPlayer player, ServerLevel origin, ServerLevel destination) {
-		if (!player.level().isClientSide()) {
-			if (TFGenerationSettings.usesTwilightChunkGenerator((ServerLevel) player.level())) {
-				sendEnforcedProgressionStatus(player, LandmarkUtil.isProgressionEnforced(player.level()));
-			}
-		}
-	}
-
-	public static void playerLogsIn(ServerPlayer player) {
-		if (!player.level().isClientSide()) {
-			sendEnforcedProgressionStatus(player, LandmarkUtil.isProgressionEnforced(player.level()));
-		}
-	}
-
-	private static void sendEnforcedProgressionStatus(ServerPlayer player, boolean isEnforced) {
-		TFPacketHandler.CHANNEL.sendToClient(new EnforceProgressionStatusPacket(isEnforced), player);
-	}
+    private static void sendEnforcedProgressionStatus(ServerPlayer player, boolean isEnforced) {
+        TFPacketHandler.CHANNEL.sendToClient(new EnforceProgressionStatusPacket(isEnforced), player);
+    }
 }

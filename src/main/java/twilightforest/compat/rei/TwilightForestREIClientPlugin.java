@@ -3,7 +3,7 @@ package twilightforest.compat.rei;
 import com.mojang.logging.LogUtils;
 import dev.architectury.event.CompoundEventResult;
 import me.shedaniel.math.Rectangle;
-import me.shedaniel.rei.api.client.entry.renderer.AbstractEntryRenderer;
+import me.shedaniel.rei.api.client.entry.renderer.EntryRenderer;
 import me.shedaniel.rei.api.client.entry.renderer.EntryRendererRegistry;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -74,10 +74,10 @@ public class TwilightForestREIClientPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(CraftingRecipe.class, RecipeType.CRAFTING, recipe -> {
             TFConfig.Common.UncraftingStuff nestedConfig = TFConfig.COMMON_CONFIG.UNCRAFTING_STUFFS;
 
-            if(recipe.getResultItem(registryAccess).isEmpty() ||
+            if (recipe.getResultItem(registryAccess).isEmpty() ||
                     recipe.getResultItem(registryAccess).is(ItemTagGenerator.BANNED_UNCRAFTABLES) ||
                     nestedConfig.disableUncraftingRecipes.get().contains(recipe.getId().toString()) ||
-                    nestedConfig.flipUncraftingModIdList.get() != nestedConfig.blacklistedUncraftingModIds.get().contains(recipe.getId().getNamespace())){
+                    nestedConfig.flipUncraftingModIdList.get() != nestedConfig.blacklistedUncraftingModIds.get().contains(recipe.getId().getNamespace())) {
                 return null;
             }
 
@@ -94,14 +94,14 @@ public class TwilightForestREIClientPlugin implements REIClientPlugin {
         registry.registerClickArea(screen -> new Rectangle(115, 33, 27, 20), UncraftingScreen.class, BuiltinPlugin.CRAFTING);
     }
 
-    public Map<EntryStack<Entity>, AbstractEntryRenderer<Entity>> RENDER_CACHE = new WeakHashMap<>();
+    public Map<EntryStack<Entity>, EntryRenderer<Entity>> RENDER_CACHE = new WeakHashMap<>();
 
     @Override
     public void registerEntryRenderers(EntryRendererRegistry registry) {
         RENDER_CACHE.clear();
 
         registry.register(EntityEntryDefinition.ENTITY_TYPE, (entry, last) -> {
-            if(entry.getValue() instanceof ItemEntity itemEntity) {
+            if (entry.getValue() instanceof ItemEntity itemEntity) {
                 return RENDER_CACHE.computeIfAbsent(entry, entityEntryStack -> {
                     return new EntityEntryDefinition.ItemEntityRender();
                 });
@@ -132,7 +132,7 @@ public class TwilightForestREIClientPlugin implements REIClientPlugin {
                 }
 
                 stream = Optional.of(List.of(EntryStack.of(ENTITY_DEFINITION, entity)).stream());
-            } catch (Exception e){
+            } catch (Exception e) {
                 stream = Optional.empty();
                 LOGGER.error("[TwilightForestREIPlugin]: It seems that there was an attempted to create a Entity for a Itemstack but a Error occurred");
             }
@@ -141,7 +141,8 @@ public class TwilightForestREIClientPlugin implements REIClientPlugin {
         });
 
         registry.registerBridge(EntityEntryDefinition.ENTITY_TYPE, VanillaEntryTypes.ITEM, object -> {
-            Optional<Stream<EntryStack<ItemStack>>> stream = Optional.empty();;
+            Optional<Stream<EntryStack<ItemStack>>> stream = Optional.empty();
+            ;
 
             Entity entity = object.getValue();
 
@@ -152,10 +153,10 @@ public class TwilightForestREIClientPlugin implements REIClientPlugin {
             } else {
                 Item spawnEggItem = SpawnEggItem.byId(entity.getType());
 
-                if(spawnEggItem != null) stack = spawnEggItem.getDefaultInstance();
+                if (spawnEggItem != null) stack = spawnEggItem.getDefaultInstance();
             }
 
-            if(stack != null) {
+            if (stack != null) {
                 stream = Optional.of(List.of(EntryStacks.of(stack)).stream());
             }
 
@@ -163,11 +164,11 @@ public class TwilightForestREIClientPlugin implements REIClientPlugin {
         });
     }
 
-    public static ItemEntity createItemEntity(Item item){
+    public static ItemEntity createItemEntity(Item item) {
         return createItemEntity(item.getDefaultInstance());
     }
 
-    public static ItemEntity createItemEntity(ItemStack stack){
+    public static ItemEntity createItemEntity(ItemStack stack) {
         ItemEntity itemEntity = EntityType.ITEM.create(Minecraft.getInstance().level);
 
         itemEntity.setItem(stack);

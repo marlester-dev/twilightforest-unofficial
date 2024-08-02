@@ -2,6 +2,8 @@ package twilightforest.events;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
+import net.fabricmc.fabric.api.entity.FakePlayer;
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.loader.api.FabricLoader;
@@ -18,6 +20,7 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -42,7 +45,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class CharmEvents {
-
 	public static final String CHARM_INV_TAG = "TFCharmInventory";
 	//stores if the casket was planned to break on respawn
 	private static boolean casketExpiration = false;
@@ -53,14 +55,15 @@ public class CharmEvents {
 		ServerPlayerEvents.AFTER_RESPAWN.register(CharmEvents::onPlayerRespawn);
 		// have our death event run late only apply if nothing else prevents death first
 		ResourceLocation late = TwilightForestMod.prefix("late");
-		ServerPlayerEvents.ALLOW_DEATH.addPhaseOrdering(Event.DEFAULT_PHASE, late);
-		ServerPlayerEvents.ALLOW_DEATH.register(late, CharmEvents::applyDeathItems);
+		ServerLivingEntityEvents.ALLOW_DEATH.addPhaseOrdering(Event.DEFAULT_PHASE, late);
+		ServerLivingEntityEvents.ALLOW_DEATH.register(late, CharmEvents::applyDeathItems);
 	}
 
 	// For when the player dies
-	public static boolean applyDeathItems(ServerPlayer player, DamageSource damageSource, float damageAmount) {
+	public static boolean applyDeathItems(LivingEntity entity, DamageSource damageSource, float damageAmount) {
+		if(!(entity instanceof Player player)) return true;
 		//ensure our player is real and in survival before attempting anything
-		if (player.level().isClientSide() || (player.getClass() != ServerPlayer.class) || player.isFake() ||
+		if (player.level().isClientSide() || (player.getClass() != ServerPlayer.class) || player instanceof FakePlayer ||
 				player.isCreative() || player.isSpectator()) return true;
 
 		if (charmOfLife(player)) {
@@ -302,10 +305,9 @@ public class CharmEvents {
 	}
 
 	public static CompoundTag getPlayerData(Player player) {
-		if (!player.getExtraCustomData().contains("PlayerPersisted")) {
-			player.getExtraCustomData().put("PlayerPersisted", new CompoundTag());
-		}
-		return player.getExtraCustomData().getCompound("PlayerPersisted");
+		if (!player.getCustomData().contains("PlayerPersisted"))
+			player.getCustomData().put("PlayerPersisted", new CompoundTag());
+		return player.getCustomData().getCompound("PlayerPersisted");
 	}
 
 	//transfers a list of items to another

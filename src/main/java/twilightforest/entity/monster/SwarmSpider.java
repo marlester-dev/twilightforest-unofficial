@@ -188,7 +188,7 @@ public class SwarmSpider extends Spider {
 			SkeletonDruid druid = TFEntities.SKELETON_DRUID.get().create(this.level());
 			druid.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
 			druid.setBaby(true);
-			PortingHooks.onFinalizeSpawn(druid, accessor, difficulty, MobSpawnType.JOCKEY, null, null);
+			druid.finalizeSpawn(accessor, difficulty, MobSpawnType.JOCKEY, null, null);
 
 			if (this.hasPassenger(e -> true)) {
 				this.ejectPassengers();

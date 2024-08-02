@@ -23,7 +23,6 @@ public class ParticlePacket implements S2CPacket {
 	public ParticlePacket() {
 	}
 
-	@SuppressWarnings("deprecation")
 	public ParticlePacket(FriendlyByteBuf buf) {
 		int size = buf.readInt();
 		for (int i = 0; i < size; i++) {
@@ -38,7 +37,6 @@ public class ParticlePacket implements S2CPacket {
 		return particleType.getDeserializer().fromNetwork(particleType, buf);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
     public void encode(FriendlyByteBuf buf) {
         buf.writeInt(this.queuedParticles.size());

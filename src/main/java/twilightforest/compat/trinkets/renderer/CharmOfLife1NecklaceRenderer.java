@@ -21,7 +21,7 @@ public abstract class CharmOfLife1NecklaceRenderer  {
 
 	public static void render(ItemStack item, SlotReference slotContext, EntityModel<? extends LivingEntity> contextModel, PoseStack stack, MultiBufferSource buffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (model == null)
-			model = new CharmOfLife1NecklaceModel(Minecraft.getInstance().getEntityModels().bakeLayer(TFModelLayers.CHARM_OF_LIFE_1));
+			model = new CharmOfLife1NecklaceModel(Minecraft.getInstance().getEntityModels().bakeLayer(TFModelLayers.CHARM_OF_LIFE));
 		model.setupAnim(slotContext.inventory().getComponent().getEntity(), limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 		model.prepareMobModel(slotContext.inventory().getComponent().getEntity(), limbSwing, limbSwingAmount, partialTicks);
 		TrinketRenderer.followBodyRotations(slotContext.inventory().getComponent().getEntity(), model);

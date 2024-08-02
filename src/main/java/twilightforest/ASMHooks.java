@@ -1,6 +1,7 @@
 package twilightforest;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import io.github.fabricators_of_create.porting_lib.attributes.PortingLibAttributes;
 import io.github.fabricators_of_create.porting_lib.entity.MultiPartEntity;
 import io.github.fabricators_of_create.porting_lib.entity.PartEntity;
 import net.fabricmc.api.EnvType;
@@ -249,12 +250,12 @@ public class ASMHooks {
         ItemStack heldStack = player.getItemInHand(hand);
         if (ToolEvents.hasGiantItemInOneHand(player) && !(heldStack.getItem() instanceof GiantItem) && hand == InteractionHand.OFF_HAND) {
             UUID uuidForOppositeHand = GiantItem.GIANT_REACH_MODIFIER;
-            AttributeInstance reachDistance = player.getAttribute(ForgeMod.BLOCK_REACH.get());
+            AttributeInstance reachDistance = player.getAttribute(PortingLibAttributes.BLOCK_REACH);
             if (reachDistance != null) {
                 AttributeModifier giantModifier = reachDistance.getModifier(uuidForOppositeHand);
                 if (giantModifier != null) {
                     reachDistance.removeModifier(giantModifier);
-                    double reach = player.getAttributeValue(ForgeMod.BLOCK_REACH.get());
+                    double reach = player.getAttributeValue(PortingLibAttributes.BLOCK_REACH);
                     double trueReach = reach == 0 ? 0 : reach + (player.isCreative() ? 0.5 : 0); // Copied from IForgePlayer#getReachDistance().
                     BlockHitResult result = getPlayerPOVHitResultForReach(level, player, trueReach, fluidMode);
                     reachDistance.addTransientModifier(giantModifier);

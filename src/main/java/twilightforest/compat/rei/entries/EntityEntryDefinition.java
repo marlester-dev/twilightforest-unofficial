@@ -11,7 +11,6 @@ import io.github.fabricators_of_create.porting_lib.entity.MultiPartEntity;
 import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ReferenceSet;
 import me.shedaniel.math.Rectangle;
-import me.shedaniel.rei.api.client.entry.renderer.AbstractEntryRenderer;
 import me.shedaniel.rei.api.client.entry.renderer.EntryRenderer;
 import me.shedaniel.rei.api.client.gui.widgets.Tooltip;
 import me.shedaniel.rei.api.client.gui.widgets.TooltipContext;
@@ -24,13 +23,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -220,12 +218,12 @@ public class EntityEntryDefinition implements EntryDefinition<Entity>, EntrySeri
     }
 
     @Environment(EnvType.CLIENT)
-    public class EntityEntryRenderer extends AbstractEntryRenderer<Entity> {
+    public class EntityEntryRenderer implements EntryRenderer<Entity> {
 
         public int size = 32;
 
         @Override
-        public void render(EntryStack<Entity> entry, PoseStack matrices, Rectangle bounds, int mouseX, int mouseY, float delta) {
+        public void render(EntryStack<Entity> entry, GuiGraphics graphics, Rectangle bounds, int mouseX, int mouseY, float delta) {
             Entity entity = entry.getValue();
 
             if (!entry.isEmpty()) {
@@ -236,13 +234,13 @@ public class EntityEntryDefinition implements EntryDefinition<Entity>, EntrySeri
                     scale = (int) (20 / Math.max(height, width));
                 }
 
-                matrices.pushPose();
-                matrices.translate(bounds.getX(), bounds.getY(), entry.getZ());
+                graphics.pose().pushPose();
+                graphics.pose().translate(bounds.getX(), bounds.getY(), entry.getValue().getZ());
 
                 // catch exceptions drawing the entity to be safe, any caught exceptions blacklist the entity
                 PoseStack modelView = RenderSystem.getModelViewStack();
                 modelView.pushPose();
-                modelView.mulPoseMatrix(matrices.last().pose());
+                modelView.mulPoseMatrix(graphics.pose().last().pose());
 
                 try {
                     this.renderTheEntity(this.size / 2, this.size - 2, scale, (LivingEntity) entity);
@@ -255,7 +253,7 @@ public class EntityEntryDefinition implements EntryDefinition<Entity>, EntrySeri
                 modelView.popPose();
                 RenderSystem.applyModelViewMatrix();
 
-                matrices.popPose();
+                graphics.pose().popPose();
             }
         }
 
@@ -339,7 +337,7 @@ public class EntityEntryDefinition implements EntryDefinition<Entity>, EntrySeri
     }
 
     @Environment(EnvType.CLIENT)
-    public static class ItemEntityRender extends AbstractEntryRenderer<Entity> {
+    public static class ItemEntityRender implements EntryRenderer<Entity> {
         private final float bobOffs;
 
         public ItemEntityRender() {
@@ -347,22 +345,22 @@ public class EntityEntryDefinition implements EntryDefinition<Entity>, EntrySeri
         }
 
         @Override
-        public void render(EntryStack<Entity> entry, PoseStack matrices, Rectangle bounds, int mouseX, int mouseY, float delta) {
+        public void render(EntryStack<Entity> entry, GuiGraphics graphics, Rectangle bounds, int mouseX, int mouseY, float delta) {
             //setupGL(entry, renderer);
             ItemStack item = ((ItemEntity) entry.getValue()).getItem();
 
             if (!entry.isEmpty()) {
                 Level level = Minecraft.getInstance().level;
 
-                matrices.pushPose();
+                graphics.pose().pushPose();
 
-                matrices.translate(bounds.x, bounds.y, 0);
+                graphics.pose().translate(bounds.x, bounds.y, 0);
 
-                if (item != null && level != null) {
+                if (level != null) {
                     PoseStack modelView = RenderSystem.getModelViewStack();
 
                     modelView.pushPose();
-                    modelView.mulPoseMatrix(matrices.last().pose());
+                    modelView.mulPoseMatrix(graphics.pose().last().pose());
 
                     try {
                         this.renderItemEntity(((ItemEntity) entry.getValue()), item, level, delta);
@@ -374,7 +372,7 @@ public class EntityEntryDefinition implements EntryDefinition<Entity>, EntrySeri
                     RenderSystem.applyModelViewMatrix();
                 }
 
-                matrices.popPose();
+                graphics.pose().popPose();
             }
         }
 
@@ -432,7 +430,7 @@ public class EntityEntryDefinition implements EntryDefinition<Entity>, EntrySeri
         public void render(ItemEntity entity, float partialTicks, PoseStack stack, MultiBufferSource buffer, int light) {
             stack.pushPose();
             ItemStack itemstack = entity.getItem();
-            BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(itemstack, entity.getLevel(), null, entity.getId());
+            BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(itemstack, entity.level(), null, entity.getId());
             float f1 = Mth.sin((Objects.requireNonNull(Minecraft.getInstance().level).getGameTime() + partialTicks) / 10.0F + this.bobOffs) * 0.1F + 0.1F;
             float f2 = bakedmodel.getTransforms().getTransform(ItemDisplayContext.GROUND).scale.y();
             stack.translate(0.0D, f1 + 0.25F * f2, 0.0D);

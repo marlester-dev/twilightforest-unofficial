@@ -599,12 +599,8 @@ public class TFBlocks {
 
     public static <T extends Block> RegistryObject<T> registerBEWLR(String name, Supplier<Block> block) {
         RegistryObject<? extends Block> ret = BLOCKS.register(name, block);
-        TFItems.ITEMS.register(name, () -> new BlockItem(ret.get(), new Item.Properties()) {
-            @Override
-            public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-                consumer.accept(ISTER.CLIENT_ITEM_EXTENSION);
-            }
-        });
+        TFItems.ITEMS.register(name, () -> new BlockItem(ret.get(), new Item.Properties()));
+        ISTER.ISTER_ITEMS.add(ret.get());
         return (RegistryObject<T>) ret;
     }
 
