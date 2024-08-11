@@ -15,7 +15,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 public class TrophyItem extends StandingAndWallBlockItem implements Equipable {
-
 	public TrophyItem(Block floorBlock, Block wallBlock, FabricItemSettings properties) {
 		super(floorBlock, wallBlock, properties, Direction.DOWN);
 		CuriosCharmItem.setupTrinket(this);

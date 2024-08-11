@@ -147,7 +147,7 @@ public class TwilightForestMod implements ModInitializer {
         CharmEvents.init();
         ToolEvents.init();
 
-        PlayerBlockBreakEvents.BEFORE.register(GiantToolGroupingModifier::breakBlock);
+        PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> world != null && GiantToolGroupingModifier.breakBlock(world, player, pos, state, blockEntity));
         ModConfigEvents.reloading(ID).register(TFConfig::onConfigReload);
 
         RegistryEvents.NEW_DATAPACK_REGISTRY.register(TwilightForestMod::registerDatapackRegistry);

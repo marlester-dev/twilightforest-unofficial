@@ -21,6 +21,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -50,7 +51,9 @@ import twilightforest.client.renderer.tileentity.SkullCandleTileEntityRenderer;
 import twilightforest.client.renderer.tileentity.TrophyTileEntityRenderer;
 import twilightforest.enums.BossVariant;
 import twilightforest.init.TFBlocks;
+import twilightforest.item.GiantItem;
 import twilightforest.item.KnightmetalShieldItem;
+import twilightforest.item.WearableItem;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -94,7 +97,7 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
         Item item = stack.getItem();
         if (item instanceof BlockItem blockItem) {
             Block block = blockItem.getBlock();
-            if (block instanceof AbstractTrophyBlock trophyBlock&&this.trophies!=null) {
+            if (block instanceof AbstractTrophyBlock trophyBlock && this.trophies != null) {
                 BossVariant variant = trophyBlock.getVariant();
                 GenericTrophyModel trophy = this.trophies.get(variant);
 
@@ -161,23 +164,45 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
                             AbstractSkullCandleBlock.candleColorToCandle(AbstractSkullCandleBlock.CandleColors.colorFromInt(tag.getInt("CandleColor")))
                                     .defaultBlockState().setValue(CandleBlock.CANDLES, tag.getInt("CandleAmount")), ms, buffers, light, overlay);
                 }
-            } else {
-                if (block instanceof EntityBlock be) {
-                    BlockEntity blockEntity = be.newBlockEntity(BlockPos.ZERO, block.defaultBlockState());
-                    if (blockEntity != null) {
-                        Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(blockEntity).render(null, 0, ms, buffers, light, overlay);
-                    }
+            } else if (block instanceof EntityBlock be) {
+                BlockEntity blockEntity = be.newBlockEntity(BlockPos.ZERO, block.defaultBlockState());
+                if (blockEntity != null) {
+                    ms.pushPose();
+                    ms.mulPose(Axis.YP.rotationDegrees(180));
+                    if (block.asItem() instanceof WearableItem)
+                        ms.translate(-2, 0, 0);
+                    else
+                        ms.translate(-1, 0, 0);
+                    Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(blockEntity).render(blockEntity, 0, ms, buffers, light, overlay);
+                    ms.popPose();
                 }
             }
-        } else if (item instanceof KnightmetalShieldItem) {
-            ms.pushPose();
-            ms.scale(1.0F, -1.0F, -1.0F);
-            Material material = new Material(Sheets.SHIELD_SHEET, new ResourceLocation(TwilightForestMod.ID, "model/knightmetal_shield"));
-            if (this.shield != null) {
-                VertexConsumer vertexconsumer = material.sprite().wrap(ItemRenderer.getFoilBufferDirect(buffers, this.shield.renderType(material.atlasLocation()), true, stack.hasFoil()));
-                this.shield.renderToBuffer(ms, vertexconsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        } else {
+            if (item instanceof KnightmetalShieldItem) {
+                ms.pushPose();
+                ms.scale(1.0F, -1.0F, -1.0F);
+                Material material = new Material(Sheets.SHIELD_SHEET, new ResourceLocation(TwilightForestMod.ID, "model/knightmetal_shield"));
+                if (this.shield != null) {
+                    VertexConsumer vertexconsumer = material.sprite().wrap(ItemRenderer.getFoilBufferDirect(buffers, this.shield.renderType(material.atlasLocation()), true, stack.hasFoil()));
+                    this.shield.renderToBuffer(ms, vertexconsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+                }
+                ms.popPose();
+            } else if (item instanceof GiantItem) {
+                ms.pushPose();
+                BakedModel modelBack = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(item);
+
+//                Lighting.setupForFlatItems();
+                MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
+//                Lighting.setupForFlatItems();
+                ms.scale(4, 4, 4);
+                modelBack.getTransforms().getTransform(camera).apply(false, ms); // applyTransform
+                Minecraft.getInstance().getItemRenderer().render(TrophyTileEntityRenderer.stack, ItemDisplayContext.GUI, false, ms, bufferSource, 15728880, OverlayTexture.NO_OVERLAY, modelBack);
+//                bufferSource.endBatch();
+//                Lighting.setupFor3DItems();
+
+
+                ms.popPose();
             }
-            ms.popPose();
         }
     }
 

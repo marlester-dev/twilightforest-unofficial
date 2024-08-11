@@ -15,7 +15,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.SilverfishModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.Sheets;
@@ -72,6 +71,8 @@ public class TFClientSetup implements ClientModInitializer {
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register(TFClientSetup::attachRenderLayers);
         BuiltinItemRendererRegistry.INSTANCE.register(TFItems.KNIGHTMETAL_SHIELD.get(), ISTER.INSTANCE.get());
         TFBlocks.ISTER_ITEMS.forEach(x -> BuiltinItemRendererRegistry.INSTANCE.register(x, ISTER.INSTANCE.get()));
+        TFItems.ISTER_ITEMS.forEach(x -> BuiltinItemRendererRegistry.INSTANCE.register(x.get(), ISTER.INSTANCE.get()));
+
         addJappaPackListener();
 
         CloudEvents.register();
@@ -118,9 +119,8 @@ public class TFClientSetup implements ClientModInitializer {
         registerWoodType(TFWoodTypes.MINING_WOOD_TYPE);
         registerWoodType(TFWoodTypes.SORTING_WOOD_TYPE);
 
-        if (FabricLoader.getInstance().isModLoaded("trinkets")) {
+        if (FabricLoader.getInstance().isModLoaded("trinkets"))
             ClientLifecycleEvents.CLIENT_STARTED.register(client -> TrinketsCompat.registerCurioRenderers());
-        }
     }
 
     public static void addJappaPackListener() {
@@ -238,7 +238,7 @@ public class TFClientSetup implements ClientModInitializer {
         }
     }
 
-    private static <T extends LivingEntity, M extends EntityModel<T>> void attachRenderLayers(EntityType<? extends LivingEntity> entityType, LivingEntityRenderer<?, ?> renderer, RegistrationHelper registrationHelper, EntityRendererProvider.Context context) {
+    private static void attachRenderLayers(EntityType<? extends LivingEntity> entityType, LivingEntityRenderer<?, ?> renderer, RegistrationHelper registrationHelper, EntityRendererProvider.Context context) {
         registrationHelper.register(new ShieldLayer<>(renderer));
         registrationHelper.register(new IceLayer<>(renderer));
     }

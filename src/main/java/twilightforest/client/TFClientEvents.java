@@ -3,6 +3,8 @@ package twilightforest.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import io.github.fabricators_of_create.porting_lib.event.client.*;
+import io.github.fabricators_of_create.porting_lib.models.geometry.IGeometryLoader;
+import io.github.fabricators_of_create.porting_lib.models.geometry.RegisterGeometryLoadersCallback;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -19,14 +21,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -39,18 +37,18 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.WrittenBookItem;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import twilightforest.TFConfig;
 import twilightforest.TwilightForestMod;
-import twilightforest.block.GiantBlock;
-import twilightforest.block.MiniatureStructureBlock;
 import twilightforest.block.entity.GrowingBeanstalkBlockEntity;
 import twilightforest.client.model.block.doors.CastleDoorModelLoader;
 import twilightforest.client.model.block.forcefield.ForceFieldModelLoader;
@@ -77,6 +75,7 @@ public class TFClientEvents {
 
     public static void init() {
         TFItems.addItemModelProperties();
+//        RegisterGeometryLoadersCallback.EVENT.register(TFClientEvents::registerModelLoader);
         ModelLoadingPlugin.register(TFModelLoadingPlugin.INSTANCE);
         MinecraftTailCallback.EVENT.register(ModBusEvents::registerDimEffects);
         //Is these unnecessary? Cannot find method
@@ -90,16 +89,17 @@ public class TFClientEvents {
         LivingEntityRenderEvents.PRE.register(TFClientEvents::unrenderHeadWithTrophies);
         ItemTooltipCallback.EVENT.register(TFClientEvents::translateBookAuthor);
         CameraSetupCallback.EVENT.register(TFClientEvents::camera);
-
     }
+
+//    public static void registerModelLoader(Map<ResourceLocation, IGeometryLoader<?>> loaders) {
+//        loaders.put(ForceFieldModelLoader.ID, ForceFieldModelLoader.INSTANCE);
+//    }
 
     public static class ModBusEvents {
         public static void registerLoaders(Consumer<ModelResolver> out) {
             out.accept(PatchModelLoader.INSTANCE);
             out.accept(GiantBlockModelLoader.INSTANCE);
             out.accept(CastleDoorModelLoader.INSTANCE);
-            //FIXME: wrong type
-//            out.accept((ModelResolver) ForceFieldModelLoader.INSTANCE);
         }
 
         public static void registerModels(Consumer<ResourceLocation> out) {
@@ -299,10 +299,9 @@ public class TFClientEvents {
         if (stack.getItem() instanceof WrittenBookItem && stack.hasTag()) {
             CompoundTag tag = stack.getOrCreateTag();
             if (tag.contains(TwilightForestMod.ID + ":book")) {
-                List<Component> components = lines;
-                for (Component component : components) {
+                for (Component component : lines) {
                     if (component.toString().contains("book.byAuthor")) {
-                        components.set(components.indexOf(component), (Component.translatable("book.byAuthor", Component.translatable(TwilightForestMod.ID + ".book.author"))).withStyle(component.getStyle()));
+                        lines.set(lines.indexOf(component), (Component.translatable("book.byAuthor", Component.translatable(TwilightForestMod.ID + ".book.author"))).withStyle(component.getStyle()));
                     }
                 }
             }

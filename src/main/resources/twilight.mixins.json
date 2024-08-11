@@ -6,6 +6,7 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "twilightforest.mixin.TFMixinPlugin",
   "client": [
+    "ItemRendererMixin",
     "client.GuiMixin",
     "client.ItemBlockRenderTypesMixin",
     "client.LevelRendererAccessor",

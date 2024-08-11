@@ -9,7 +9,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.function.Function;
 
-public record UnbakedPatchModel(Material material, boolean shaggify) implements UnbakedModel {
+public record UnbakedPatchModel(Material material,
+                                boolean shaggify) implements UnbakedModel {
     public UnbakedPatchModel(ResourceLocation texture, boolean shaggify) {
         this(new Material(InventoryMenu.BLOCK_ATLAS, texture), shaggify);
     }
@@ -25,5 +26,6 @@ public record UnbakedPatchModel(Material material, boolean shaggify) implements 
     }
 
     @Override
-    public void resolveParents(Function<ResourceLocation, UnbakedModel> models) {}
+    public void resolveParents(Function<ResourceLocation, UnbakedModel> models) {
+    }
 }

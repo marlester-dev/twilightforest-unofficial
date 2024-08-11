@@ -1,7 +1,6 @@
 package twilightforest.client.model.block.giantblock;
 
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Iterators;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
