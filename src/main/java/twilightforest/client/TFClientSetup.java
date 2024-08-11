@@ -71,7 +71,7 @@ public class TFClientSetup implements ClientModInitializer {
         registerEntityRenderers();
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register(TFClientSetup::attachRenderLayers);
         BuiltinItemRendererRegistry.INSTANCE.register(TFItems.KNIGHTMETAL_SHIELD.get(), ISTER.INSTANCE.get());
-        ISTER.ISTER_ITEMS.forEach(x -> BuiltinItemRendererRegistry.INSTANCE.register(x, ISTER.INSTANCE.get()));
+        TFBlocks.ISTER_ITEMS.forEach(x -> BuiltinItemRendererRegistry.INSTANCE.register(x, ISTER.INSTANCE.get()));
         addJappaPackListener();
 
         CloudEvents.register();

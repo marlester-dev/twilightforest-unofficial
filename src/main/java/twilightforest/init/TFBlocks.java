@@ -8,6 +8,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -16,7 +17,6 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import twilightforest.TwilightForestMod;
 import twilightforest.block.*;
-import twilightforest.client.ISTER;
 import twilightforest.enums.BlockLoggingEnum;
 import twilightforest.enums.BossVariant;
 import twilightforest.enums.FireJetVariant;
@@ -26,13 +26,15 @@ import twilightforest.util.TFWoodTypes;
 import twilightforest.world.components.feature.trees.growers.*;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"WeakerAccess", "unused", "deprecation"})
 @Nonnull
 public class TFBlocks {
+    public static final List<ItemLike> ISTER_ITEMS = new ArrayList<>();
     public static final LazyRegistrar<Block> BLOCKS = LazyRegistrar.create(Registries.BLOCK, TwilightForestMod.ID);
-
     public static final RegistryObject<TFPortalBlock> TWILIGHT_PORTAL = BLOCKS.register("twilight_portal", () -> new TFPortalBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel((state) -> 11).noCollission().noOcclusion().noLootTable()));
 
     //misc.
@@ -600,7 +602,7 @@ public class TFBlocks {
     public static <T extends Block> RegistryObject<T> registerBEWLR(String name, Supplier<Block> block) {
         RegistryObject<? extends Block> ret = BLOCKS.register(name, block);
         TFItems.ITEMS.register(name, () -> new BlockItem(ret.get(), new Item.Properties()));
-        ISTER.ISTER_ITEMS.add(ret.get());
+        ISTER_ITEMS.add(ret.get());
         return (RegistryObject<T>) ret;
     }
 

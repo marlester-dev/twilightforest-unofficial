@@ -30,7 +30,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
@@ -53,9 +52,7 @@ import twilightforest.enums.BossVariant;
 import twilightforest.init.TFBlocks;
 import twilightforest.item.KnightmetalShieldItem;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -64,7 +61,6 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
     public static final ResourceLocation ID = TwilightForestMod.prefix("ister");
 
     public static final Supplier<ISTER> INSTANCE = Suppliers.memoize(ISTER::new);
-    public static final List<ItemLike> ISTER_ITEMS = new ArrayList<>();
     private final KeepsakeCasketBlockEntity casket = new KeepsakeCasketBlockEntity(BlockPos.ZERO, TFBlocks.KEEPSAKE_CASKET.get().defaultBlockState());
     private final Map<Block, TwilightChestEntity> chestEntities = Util.make(new HashMap<>(), map -> {
         makeInstance(map, TFBlocks.TWILIGHT_OAK_CHEST);

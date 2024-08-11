@@ -29,7 +29,6 @@ import twilightforest.network.TFPacketHandler;
 public class TrinketsCompat {
     public static void init() {
         TrinketDropCallback.EVENT.register(TrinketsCompat::keepCurios);
-        TrinketsCompat.registerCurioRenderers();
     }
 
     public static void setupCuriosCapability(Item item) {
