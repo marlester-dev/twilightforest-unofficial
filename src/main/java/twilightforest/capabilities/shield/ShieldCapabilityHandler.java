@@ -13,7 +13,7 @@ import twilightforest.init.TFStats;
 public class ShieldCapabilityHandler implements IShieldCapability {
 	private int temporaryShields;
 	private int permanentShields;
-	private LivingEntity host;
+	private final LivingEntity host;
 	private int timer;
 	private int breakTimer;
 

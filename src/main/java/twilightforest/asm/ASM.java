@@ -99,9 +99,8 @@ public class ASM {
     public static MethodInsnNode findFirstMethodCallAfter(MethodNode method, MethodType type, String owner, String name, String descriptor, int startIndex) {
         for (int i = Math.max(0, startIndex); i < method.instructions.size(); i++) {
             AbstractInsnNode node = method.instructions.get(i);
-            if (node instanceof MethodInsnNode &&
+            if (node instanceof MethodInsnNode methodInsnNode &&
                     node.getOpcode() == type.toOpcode()) {
-                MethodInsnNode methodInsnNode = (MethodInsnNode) node;
                 if (methodInsnNode.owner.equals(owner) &&
                         methodInsnNode.name.equals(name) &&
                         methodInsnNode.desc.equals(descriptor)) {
@@ -127,9 +126,8 @@ public class ASM {
     public static MethodInsnNode findFirstMethodCallBefore(MethodNode method, MethodType type, String owner, String name, String descriptor, int startIndex) {
         for (int i = Math.min(method.instructions.size() - 1, startIndex); i >= 0; i--) {
             AbstractInsnNode node = method.instructions.get(i);
-            if (node instanceof MethodInsnNode &&
+            if (node instanceof MethodInsnNode methodInsnNode &&
                     node.getOpcode() == type.toOpcode()) {
-                MethodInsnNode methodInsnNode = (MethodInsnNode) node;
                 if (methodInsnNode.owner.equals(owner) &&
                         methodInsnNode.name.equals(name) &&
                         methodInsnNode.desc.equals(descriptor)) {
@@ -188,7 +186,7 @@ public class ASM {
 
     /**
      * Rewrites accesses to a specific field in the given class to a method-call.
-     *
+     * <p>
      * The field specified by fieldName must be private and non-static.
      * The method-call the field-access is redirected to does not take any parameters and returns an object of the
      * same type as the field.

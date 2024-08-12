@@ -77,7 +77,7 @@ public class IceCrystalModel extends HierarchicalModel<IceCrystal> {
 			this.spikes[i].yRot = (entity.tickCount + partialTicks) / 5.0F;
 			this.spikes[i].zRot = Mth.cos((entity.tickCount + partialTicks) / 5.0F) / 4.0F;
 
-			this.spikes[i].xRot += i * (Math.PI / 8F);
+			this.spikes[i].xRot += (float) (i * (Math.PI / 8F));
 
 			if (i % 4 == 0) {
 				this.spikes[i].yRot += 1;

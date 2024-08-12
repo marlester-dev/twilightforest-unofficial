@@ -13,7 +13,7 @@ public class UncraftingContainer implements Container {
 	public int numberOfInputItems;
 	public int uncraftingCost;
 	public int recraftingCost;
-	public UncraftingMenu menu;
+	public final UncraftingMenu menu;
 
 	public UncraftingContainer(UncraftingMenu menu) {
 		this.menu = menu;

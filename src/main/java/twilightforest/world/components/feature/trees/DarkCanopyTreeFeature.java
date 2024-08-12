@@ -112,9 +112,7 @@ public class DarkCanopyTreeFeature extends Feature<TreeConfiguration> {
 		if (flag && (!set1.isEmpty() || !set2.isEmpty())) {
 			if (!treeconfiguration.decorators.isEmpty()) {
 				TreeDecorator.Context treedecorator$context = new TreeDecorator.Context(reader, biconsumer3, rand, set1, set2, set);
-				treeconfiguration.decorators.forEach((p_225282_) -> {
-					p_225282_.place(treedecorator$context);
-				});
+				treeconfiguration.decorators.forEach((p_225282_) -> p_225282_.place(treedecorator$context));
 			}
 
 			return BoundingBox.encapsulatingPositions(Iterables.concat(set1, set2, set3)).map((p_160521_) -> {
@@ -144,9 +142,7 @@ public class DarkCanopyTreeFeature extends Feature<TreeConfiguration> {
 					return false;
 				} else {
 					List<FoliagePlacer.FoliageAttachment> list = config.trunkPlacer.placeTrunk(level, consumer1, random, k1, blockpos, config);
-					list.forEach((attachment) -> {
-						config.foliagePlacer.createFoliage(level, foliageSetter, random, config, k1, attachment, j, l);
-					});
+					list.forEach((attachment) -> config.foliagePlacer.createFoliage(level, foliageSetter, random, config, k1, attachment, j, l));
 					return true;
 				}
 			} else {
@@ -213,7 +209,7 @@ public class DarkCanopyTreeFeature extends Feature<TreeConfiguration> {
 					BlockState blockstate = p_67203_.getBlockState(blockpos$mutableblockpos);
 					if (blockstate.hasProperty(BlockStateProperties.DISTANCE)) {
 						list.get(0).add(blockpos$mutableblockpos.immutable());
-						setBlockKnownShape(p_67203_, blockpos$mutableblockpos, blockstate.setValue(BlockStateProperties.DISTANCE, Integer.valueOf(1)));
+						setBlockKnownShape(p_67203_, blockpos$mutableblockpos, blockstate.setValue(BlockStateProperties.DISTANCE, 1));
 						if (p_67204_.isInside(blockpos$mutableblockpos)) {
 							discretevoxelshape.fill(blockpos$mutableblockpos.getX() - p_67204_.minX(), blockpos$mutableblockpos.getY() - p_67204_.minY(), blockpos$mutableblockpos.getZ() - p_67204_.minZ());
 						}
@@ -238,7 +234,7 @@ public class DarkCanopyTreeFeature extends Feature<TreeConfiguration> {
 						if (blockstate1.hasProperty(BlockStateProperties.DISTANCE)) {
 							int k = blockstate1.getValue(BlockStateProperties.DISTANCE);
 							if (k > l + 1) {
-								BlockState blockstate2 = blockstate1.setValue(BlockStateProperties.DISTANCE, Integer.valueOf(l + 1));
+								BlockState blockstate2 = blockstate1.setValue(BlockStateProperties.DISTANCE, l + 1);
 								setBlockKnownShape(p_67203_, blockpos$mutableblockpos, blockstate2);
 								if (p_67204_.isInside(blockpos$mutableblockpos)) {
 									discretevoxelshape.fill(blockpos$mutableblockpos.getX() - p_67204_.minX(), blockpos$mutableblockpos.getY() - p_67204_.minY(), blockpos$mutableblockpos.getZ() - p_67204_.minZ());

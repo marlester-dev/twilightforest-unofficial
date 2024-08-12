@@ -64,9 +64,7 @@ public class SnowTreeFeature extends Feature<TreeConfiguration> {
                     return false;
                 } else {
                     List<FoliagePlacer.FoliageAttachment> list = config.trunkPlacer.placeTrunk(level, consumer1, random, k1, blockpos, config);
-                    list.forEach((p_225279_) -> {
-                        config.foliagePlacer.createFoliage(level, setter, random, config, k1, p_225279_, j, l);
-                    });
+                    list.forEach((p_225279_) -> config.foliagePlacer.createFoliage(level, setter, random, config, k1, p_225279_, j, l));
                     return true;
                 }
             } else {
@@ -135,9 +133,7 @@ public class SnowTreeFeature extends Feature<TreeConfiguration> {
         if (flag && (!set1.isEmpty() || !set2.isEmpty())) {
             if (!treeconfiguration.decorators.isEmpty()) {
                 TreeDecorator.Context treedecorator$context = new TreeDecorator.Context(worldgenlevel, biconsumer3, randomsource, set1, set2, set);
-                treeconfiguration.decorators.forEach((p_225282_) -> {
-                    p_225282_.place(treedecorator$context);
-                });
+                treeconfiguration.decorators.forEach((p_225282_) -> p_225282_.place(treedecorator$context));
             }
 
             return BoundingBox.encapsulatingPositions(Iterables.concat(set, set1, set2, set3)).map((p_225270_) -> {

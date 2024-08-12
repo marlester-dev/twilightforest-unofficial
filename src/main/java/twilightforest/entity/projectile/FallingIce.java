@@ -118,8 +118,7 @@ public class FallingIce extends Entity {
 			if (!this.level().isClientSide()) {
 				BlockPos blockpos = this.blockPosition();
 				boolean flag = this.blockState.getBlock() instanceof ConcretePowderBlock;
-				boolean flag1 = flag;// && this.blockState.canBeHydrated(this.level(), blockpos, this.level().getFluidState(blockpos), blockpos);
-				double d0 = this.getDeltaMovement().lengthSqr();
+                double d0 = this.getDeltaMovement().lengthSqr();
 //				if (flag && d0 > 1.0D) { TODO: there is no use for this since fabric doesn't have this method
 //					BlockHitResult blockhitresult = this.level().clip(new ClipContext(new Vec3(this.xo, this.yo, this.zo), this.position(), ClipContext.Block.COLLIDER, ClipContext.Fluid.SOURCE_ONLY, this));
 //					if (blockhitresult.getType() != HitResult.Type.MISS && this.blockState.canBeHydrated(this.level(), blockpos, this.level().getFluidState(blockhitresult.getBlockPos()), blockhitresult.getBlockPos())) {
@@ -128,7 +127,7 @@ public class FallingIce extends Entity {
 //					}
 //				}
 
-				if (!this.onGround() && !flag1) {
+				if (!this.onGround() && !flag) {
 					if (!this.level().isClientSide() && (this.time > 100 && (blockpos.getY() <= this.level().getMinBuildHeight() || blockpos.getY() > this.level().getMaxBuildHeight()) || this.time > 1000)) {
 						this.discard();
 					}
@@ -137,7 +136,7 @@ public class FallingIce extends Entity {
 					this.setDeltaMovement(this.getDeltaMovement().multiply(0.7D, -0.5D, 0.7D));
 					if (!blockstate.is(Blocks.MOVING_PISTON)) {
 						boolean flag2 = blockstate.canBeReplaced(new DirectionalPlaceContext(this.level(), blockpos, Direction.DOWN, ItemStack.EMPTY, Direction.UP));
-						boolean flag3 = FallingBlock.isFree(this.level().getBlockState(blockpos.below())) && (!flag || !flag1);
+						boolean flag3 = FallingBlock.isFree(this.level().getBlockState(blockpos.below())) && (!flag || !flag);
 						boolean flag4 = this.blockState.canSurvive(this.level(), blockpos) && !flag3;
 						if (flag2 && flag4) {
 							if (this.blockState.hasProperty(BlockStateProperties.WATERLOGGED) && this.level().getFluidState(blockpos).getType() == Fluids.WATER) {

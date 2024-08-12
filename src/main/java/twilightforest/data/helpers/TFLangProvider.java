@@ -1,5 +1,7 @@
 package twilightforest.data.helpers;
 
+import io.github.fabricators_of_create.porting_lib.data.LanguageProvider;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
@@ -8,9 +10,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.structure.Structure;
-
-import io.github.fabricators_of_create.porting_lib.data.LanguageProvider;
-import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import org.apache.commons.lang3.text.WordUtils;
 import twilightforest.TwilightForestMod;
 

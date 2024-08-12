@@ -53,12 +53,10 @@ public class HostileMountEvents {
     }
 
     public static boolean preventMountDismount(Entity mounted, Entity mounting) {
-        if (!mounted.level().isClientSide() &&
-                mounted.isAlive() &&
-                mounting instanceof Player player && player.isAlive() &&
-                isRidingUnfriendly(player) && !allowDismount && !player.getAbilities().invulnerable)
-            return false;
-        return true;
+        return mounted.level().isClientSide() ||
+                !mounted.isAlive() ||
+                !(mounting instanceof Player player) || !player.isAlive() ||
+                !isRidingUnfriendly(player) || allowDismount || player.getAbilities().invulnerable;
     }
 
     public static void livingUpdate(LivingEntityEvents.LivingTickEvent event) {

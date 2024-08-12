@@ -1,7 +1,7 @@
 package twilightforest.item;
 
-import net.minecraft.core.Direction;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.core.Direction;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;

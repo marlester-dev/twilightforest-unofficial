@@ -140,7 +140,7 @@ public class NewUpperGoblinKnightModel extends HumanoidModel<UpperGoblinKnight> 
 
         this.rightArm.xRot = this.rightArm.xRot * 0.5F - ((float) Math.PI / 10F);
 
-        this.rightArm.xRot -= (Math.PI * 0.66);
+        this.rightArm.xRot -= (float) (Math.PI * 0.66);
 
         // during swing move arm forward
         if (entity.heavySpearTimer > 0) {

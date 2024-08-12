@@ -44,9 +44,7 @@ public class TwilightChestRenderer<T extends TwilightChestEntity> extends ChestR
 
         if (b == null) return null;
 
-        Material material = b.get(chestType);
-
-        return material;
+        return b.get(chestType);
     }
 
     private static EnumMap<ChestType, Material> chestMaterial(String type) {

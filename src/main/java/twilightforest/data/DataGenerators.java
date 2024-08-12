@@ -49,13 +49,7 @@ public class DataGenerators implements DataGeneratorEntrypoint {
 
         generator.addProvider(CrumbleHornGenerator::new);
         generator.addProvider(TransformationPowderGenerator::new);
-//		generator.addProvider(UncraftingRecipeGenerator::new);
         generator.addProvider(StalactiteGenerator::new);
-        // fabric: skip the metadata
-//		generator.addProvider(true, new PackMetadataGenerator(output).add(PackMetadataSection.TYPE, new PackMetadataSection(
-//				Component.literal("Resources for Twilight Forest"),
-//				DetectedVersion.BUILT_IN.getPackVersion(PackType.CLIENT_RESOURCES),
-//				Arrays.stream(PackType.values()).collect(Collectors.toMap(Function.identity(), DetectedVersion.BUILT_IN::getPackVersion)))));
     }
 
     private record ProviderProvider(Pack pack, ExistingFileHelper helper) {

@@ -24,7 +24,7 @@ public class NewUrGhastModel extends TFGhastModel<UrGhast> {
         ModelPart body = root.getChild("body");
 
         for (int i = 0; i < this.tentacles.length; i++) {
-            this.tentacles[i][0] = body.getChild("tentacle_" + i + "");
+            this.tentacles[i][0] = body.getChild("tentacle_" + i);
             this.tentacles[i][1] = this.tentacles[i][0].getChild("tentacle_" + i + "_extension");
             this.tentacles[i][2] = this.tentacles[i][1].getChild("tentacle_" + i + "_tip");
         }
@@ -58,7 +58,7 @@ public class NewUrGhastModel extends TFGhastModel<UrGhast> {
                     case 7 -> PartPose.offsetAndRotation(7.5F, 3.5F, -1F, 0F, 0F, -Mth.PI / 4.0F);
                     case 8 -> PartPose.offsetAndRotation(7.5F, -1.5F, 3.5F, 0F, 0F, -Mth.PI / 3.0F);
                     default -> {
-                        TwilightForestMod.LOGGER.warn("Out of bounds with Ur-Ghast limb creation: Iteration " + iteration);
+                        TwilightForestMod.LOGGER.warn("Out of bounds with Ur-Ghast limb creation: Iteration {}", iteration);
                         yield PartPose.ZERO;
                     }
                 });

@@ -656,11 +656,6 @@ public class Naga extends Monster implements EnforcedHomePoint, IBossLootBuffer,
         return !TFConfig.COMMON_CONFIG.bossDropChests.get();
     }
 
-//    @Override
-//    public boolean isMultipartEntity() {
-//        return true;
-//    }
-
     @Override
     public void recreateFromPacket(ClientboundAddEntityPacket packet) {
         super.recreateFromPacket(packet);

@@ -64,9 +64,9 @@ public class TowerWingComponent extends TFStructureComponentOld {
 	protected int height;
 	protected Class<? extends TowerRoofComponent> roofType;
 
-	protected ArrayList<BlockPos> openings = new ArrayList<BlockPos>();
+	protected final ArrayList<BlockPos> openings = new ArrayList<>();
 	protected int highestOpening;
-	protected boolean[] openingTowards = new boolean[]{false, false, true, false};
+	protected final boolean[] openingTowards = new boolean[]{false, false, true, false};
 
 	protected TowerWingComponent(StructurePieceType type, int i, int x, int y, int z) {
 		super(type, i, x, y, z);
@@ -1108,7 +1108,7 @@ public class TowerWingComponent extends TFStructureComponentOld {
 	 */
 	protected void decorateHangingChains(WorldGenLevel world, RandomSource rand, int decoTop, BoundingBox sbb) {
 		// a list of existing chains
-		ArrayList<BlockPos> chainList = new ArrayList<BlockPos>();
+		ArrayList<BlockPos> chainList = new ArrayList<>();
 		// try size + 2 times to find a chain that does not collide
 		for (int i = 0; i < size + 2; i++) {
 			int filled = size < 15 ? 2 : 4;

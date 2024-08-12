@@ -3,13 +3,12 @@ package twilightforest.init.custom;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceKey;
-
-import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import twilightforest.TwilightForestMod;
 import twilightforest.init.TFBiomes;
 import twilightforest.world.components.layer.*;

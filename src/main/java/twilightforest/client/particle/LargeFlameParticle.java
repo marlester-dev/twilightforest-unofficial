@@ -16,7 +16,7 @@ public class LargeFlameParticle extends TextureSheetParticle {
 		this.xd = this.xd * 0.01D + vx;
 		this.yd = this.yd * 0.01D + vy;
 		this.zd = this.zd * 0.01D + vz;
-		this.quadSize *= 5.0D;
+		this.quadSize *= 5.0F;
 		this.flameScale = this.quadSize;
 		this.rCol = this.gCol = this.bCol = 1.0F;
 		this.lifetime = (int) (8.0D / (Math.random() * 0.8D + 0.2D)) + 4;

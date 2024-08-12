@@ -25,10 +25,9 @@ public class TFItemStackUtils {
 		TwilightForestMod.LOGGER.warn("consumeInventoryItem accessed! Forge requires the player to be alive before we can access this cap. This cap is most likely being accessed for an Afterdeath Charm!");
 
 		PlayerInventoryStorage inv = PlayerInventoryStorage.of(living);
-		int innerCount = count;
-		boolean consumedSome = false;
+        boolean consumedSome = false;
 
-		for (int i = 0; i < inv.getSlots().size() && innerCount > 0; i++) {
+		for (int i = 0; i < inv.getSlots().size() && count > 0; i++) {
 			ItemStack stack = new ItemStack(inv.getSlot(i).getResource().getItem(), (int) inv.getSlot(i).getAmount());
 			if (matcher.test(stack)) {
 //				ItemStack consumed = inv.extract(i, innerCount, false); TODO: PORT

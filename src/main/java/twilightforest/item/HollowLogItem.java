@@ -1,19 +1,17 @@
 package twilightforest.item;
 
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import org.jetbrains.annotations.Nullable;
 import twilightforest.block.HollowLogClimbable;
 import twilightforest.block.HollowLogHorizontal;
 import twilightforest.block.HollowLogVertical;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 
 public class HollowLogItem extends BlockItem {

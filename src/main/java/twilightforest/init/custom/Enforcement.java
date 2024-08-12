@@ -1,7 +1,7 @@
 package twilightforest.init.custom;
 
-import java.util.function.Supplier;
-
+import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -9,9 +9,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
-
-import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
-import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import org.apache.logging.log4j.util.TriConsumer;
 import twilightforest.TwilightForestMod;
 import twilightforest.init.TFDamageTypes;
@@ -19,6 +16,8 @@ import twilightforest.init.TFMobEffects;
 import twilightforest.init.TFSounds;
 import twilightforest.util.Restriction;
 import twilightforest.world.components.structures.util.StructureHints;
+
+import java.util.function.Supplier;
 
 public record Enforcement(TriConsumer<Player, ServerLevel, Restriction> consumer) {
     public static final ResourceKey<Registry<Enforcement>> ENFORCEMENT_KEY = ResourceKey.createRegistryKey(TwilightForestMod.prefix("enforcement"));

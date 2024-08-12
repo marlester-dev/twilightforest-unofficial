@@ -45,7 +45,7 @@ public class HydraHeadContainer {
 
 	private static final State NEXT_AUTOMATIC = null;
 
-	enum State {
+	public enum State {
 		IDLE(10),
 
 		BITE_BEGINNING(40),
@@ -983,7 +983,7 @@ public class HydraHeadContainer {
 	 * Add to our damage taken counter
 	 */
 	public void addDamage(float damageAmount) {
-		this.damageTaken += damageAmount;
+		this.damageTaken += (int) damageAmount;
 	}
 
 	/**

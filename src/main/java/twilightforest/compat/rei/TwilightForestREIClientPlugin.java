@@ -94,7 +94,7 @@ public class TwilightForestREIClientPlugin implements REIClientPlugin {
         registry.registerClickArea(screen -> new Rectangle(115, 33, 27, 20), UncraftingScreen.class, BuiltinPlugin.CRAFTING);
     }
 
-    public Map<EntryStack<Entity>, EntryRenderer<Entity>> RENDER_CACHE = new WeakHashMap<>();
+    public final Map<EntryStack<Entity>, EntryRenderer<Entity>> RENDER_CACHE = new WeakHashMap<>();
 
     @Override
     public void registerEntryRenderers(EntryRendererRegistry registry) {
@@ -102,9 +102,7 @@ public class TwilightForestREIClientPlugin implements REIClientPlugin {
 
         registry.register(EntityEntryDefinition.ENTITY_TYPE, (entry, last) -> {
             if (entry.getValue() instanceof ItemEntity itemEntity) {
-                return RENDER_CACHE.computeIfAbsent(entry, entityEntryStack -> {
-                    return new EntityEntryDefinition.ItemEntityRender();
-                });
+                return RENDER_CACHE.computeIfAbsent(entry, entityEntryStack -> new EntityEntryDefinition.ItemEntityRender());
             }
 
             return last;
@@ -131,7 +129,7 @@ public class TwilightForestREIClientPlugin implements REIClientPlugin {
                     entity = createItemEntity(stack);
                 }
 
-                stream = Optional.of(List.of(EntryStack.of(ENTITY_DEFINITION, entity)).stream());
+                stream = Optional.of(Stream.of(EntryStack.of(ENTITY_DEFINITION, entity)));
             } catch (Exception e) {
                 stream = Optional.empty();
                 LOGGER.error("[TwilightForestREIPlugin]: It seems that there was an attempted to create a Entity for a Itemstack but a Error occurred");
@@ -142,7 +140,6 @@ public class TwilightForestREIClientPlugin implements REIClientPlugin {
 
         registry.registerBridge(EntityEntryDefinition.ENTITY_TYPE, VanillaEntryTypes.ITEM, object -> {
             Optional<Stream<EntryStack<ItemStack>>> stream = Optional.empty();
-            ;
 
             Entity entity = object.getValue();
 
@@ -157,7 +154,7 @@ public class TwilightForestREIClientPlugin implements REIClientPlugin {
             }
 
             if (stack != null) {
-                stream = Optional.of(List.of(EntryStacks.of(stack)).stream());
+                stream = Optional.of(Stream.of(EntryStacks.of(stack)));
             }
 
             return stream.map(CompoundEventResult::interruptTrue).orElseGet(CompoundEventResult::pass);

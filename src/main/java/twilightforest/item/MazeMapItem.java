@@ -5,6 +5,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Multisets;
 import io.github.fabricators_of_create.porting_lib.item.CustomMapItem;
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceKey;
@@ -21,8 +22,6 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
-
-import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.TFMazeMapData;
 import twilightforest.init.TFItems;

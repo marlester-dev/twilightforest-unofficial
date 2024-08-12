@@ -222,7 +222,7 @@ public class NagaMovementPattern extends Goal {
 		float rangle = (float) (Math.atan2(vecz, vecx));
 
 		// add a little, so he circles (clockwise)
-		rangle += clockwise ? rotation : -rotation;
+		rangle += (float) (clockwise ? rotation : -rotation);
 
 		// figure out where we're headed from the target angle
 		double dx = Mth.cos(rangle) * radius;

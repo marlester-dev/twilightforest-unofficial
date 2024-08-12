@@ -89,7 +89,7 @@ public class EMIEntityWidget extends Widget {
                     RenderSystem.enableDepthTest();
                 }
             } catch (Exception e) {
-                TwilightForestMod.LOGGER.error("Error drawing entity " + BuiltInRegistries.ENTITY_TYPE.getKey(type), e);
+                TwilightForestMod.LOGGER.error("Error drawing entity {}", BuiltInRegistries.ENTITY_TYPE.getKey(type), e);
                 this.invalid = true;
             }
         } else {

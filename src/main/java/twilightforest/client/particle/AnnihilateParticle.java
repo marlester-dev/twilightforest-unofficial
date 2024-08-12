@@ -51,7 +51,7 @@ public class AnnihilateParticle extends TextureSheetParticle {
 			this.zd *= 0.7D;
 		}
 
-		this.quadSize *= 0.97D;
+		this.quadSize *= 0.97F;
 
 		if (this.quadSize < 0.04F) {
 			this.remove();

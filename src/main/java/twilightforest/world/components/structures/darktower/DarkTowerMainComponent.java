@@ -158,7 +158,7 @@ public class DarkTowerMainComponent extends DarkTowerWingComponent {
 		// flag certain towers for keys
 		if (!this.placedKeys && this.getGenDepth() < 2) {
 			// count how many size 9 towers we have hanging off us
-			ArrayList<DarkTowerWingComponent> possibleKeyTowers = new ArrayList<DarkTowerWingComponent>();
+			ArrayList<DarkTowerWingComponent> possibleKeyTowers = new ArrayList<>();
 
 			if (list instanceof StructurePiecesBuilder start) {
 				for (StructurePiece piece : start.pieces) {
@@ -169,7 +169,7 @@ public class DarkTowerMainComponent extends DarkTowerWingComponent {
 			}
 
 			for (int i = 0; i < 4; i++) {
-				if (possibleKeyTowers.size() < 1) {
+				if (possibleKeyTowers.isEmpty()) {
 					TwilightForestMod.LOGGER.warn("Dark forest tower could not find four small towers to place keys in.");
 					break;
 				}

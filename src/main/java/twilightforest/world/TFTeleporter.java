@@ -216,11 +216,6 @@ public class TFTeleporter implements ITeleporter {
                         }
                     }
                 }
-
-                // mark unwatched chunks for unload
-                //						if (!this.world.getPlayerChunkMap().contains(chunkPos.x, chunkPos.z)) {
-                //							this.world.getChunkProvider().queueUnload(chunk);
-                //						}
             }
         }
         return result;

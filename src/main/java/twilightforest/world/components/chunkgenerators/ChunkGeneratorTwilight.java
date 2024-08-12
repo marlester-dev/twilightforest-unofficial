@@ -485,7 +485,7 @@ public class ChunkGeneratorTwilight extends ChunkGeneratorWrapper {
 				// we're still in ground
 				if (currentTerrain != Blocks.STONE) {
 					// we found the lowest chunk of earth
-					mazeHeight += ((y - mazeHeight) * squishFactor);
+					mazeHeight += (int) ((y - mazeHeight) * squishFactor);
 					break;
 				}
 			}
@@ -694,8 +694,8 @@ public class ChunkGeneratorTwilight extends ChunkGeneratorWrapper {
 			for (int y = primer.getMinBuildHeight(); y <= primer.getMaxBuildHeight(); y++) {
 				if (!this.defaultBlock.equals(primer.getBlockState(movingPos.setY(y)))) {
 					// we found the lowest chunk of earth
-					topHeight += (y - topHeight) * squishFactor;
-					hollowFloor += (y - hollowFloor) * squishFactor;
+					topHeight += (int) ((y - topHeight) * squishFactor);
+					hollowFloor += (int) ((y - hollowFloor) * squishFactor);
 					break;
 				}
 			}
@@ -884,12 +884,11 @@ public class ChunkGeneratorTwilight extends ChunkGeneratorWrapper {
 		if (!LegacyLandmarkPlacements.chunkHasLandmarkCenter(chunkX, chunkZ)) return false;
 
 		var biomeKey = biome.unwrapKey();
-		if (biomeKey.isEmpty()) return false;
+        return biomeKey.filter(biomeResourceKey -> this.biomeLandmarkOverrides.containsKey(biomeResourceKey)
+                ? this.biomeGuaranteedLandmark(biomeResourceKey, landmark)
+                : landmark == LegacyLandmarkPlacements.pickVarietyLandmark(chunkX, chunkZ, seed)).isPresent();
 
-		return this.biomeLandmarkOverrides.containsKey(biomeKey.get())
-				? this.biomeGuaranteedLandmark(biomeKey.get(), landmark)
-				: landmark == LegacyLandmarkPlacements.pickVarietyLandmark(chunkX, chunkZ, seed);
-	}
+    }
 
 	public boolean biomeGuaranteedLandmark(ResourceKey<Biome> biome, TFLandmark landmark) {
 		if (!this.biomeLandmarkOverrides.containsKey(biome)) return false;

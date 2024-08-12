@@ -187,21 +187,6 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
                     this.shield.renderToBuffer(ms, vertexconsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
                 }
                 ms.popPose();
-            } else if (item instanceof GiantItem) {
-                ms.pushPose();
-                BakedModel modelBack = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(item);
-
-//                Lighting.setupForFlatItems();
-                MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-//                Lighting.setupForFlatItems();
-                ms.scale(4, 4, 4);
-                modelBack.getTransforms().getTransform(camera).apply(false, ms); // applyTransform
-                Minecraft.getInstance().getItemRenderer().render(TrophyTileEntityRenderer.stack, ItemDisplayContext.GUI, false, ms, bufferSource, 15728880, OverlayTexture.NO_OVERLAY, modelBack);
-//                bufferSource.endBatch();
-//                Lighting.setupFor3DItems();
-
-
-                ms.popPose();
             }
         }
     }

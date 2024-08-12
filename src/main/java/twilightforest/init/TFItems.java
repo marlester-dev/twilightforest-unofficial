@@ -296,11 +296,8 @@ public class TFItems {
                 return world == null ? 0.0F : (float) (world.dimensionType().natural() ? Mth.frac(world.getMoonPhase() / 8.0f) : this.wobble(world, Math.random()));
             }
 
-            @Environment(EnvType.CLIENT)
             double rotation;
-            @Environment(EnvType.CLIENT)
             double rota;
-            @Environment(EnvType.CLIENT)
             long lastUpdateTick;
 
             @Environment(EnvType.CLIENT)

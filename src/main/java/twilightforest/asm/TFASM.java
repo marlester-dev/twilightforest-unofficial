@@ -46,33 +46,31 @@ public class TFASM implements Runnable {
         String levelReaderClass = mapC("class_4538").replace('.', '/');
         String blockPosClass = mapC("class_2338").replace('.', '/');
                                         // MushroomBlock
-        ClassTinkerers.addTransformation(mapC("class_2420"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if (!methodNode.name.equals(mapM("class_4970.method_9558(Lnet/minecraft/class_2680;Lnet/minecraft/class_4538;Lnet/minecraft/class_2338;)Z"))) // BlockBehaviour#canSurvive
-                    return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                instructions.insert(
-                        ASM.findFirstMethodCall(
-                                methodNode,
-                                ASM.MethodType.INTERFACE,
-                                levelReaderClass,
-                                mapM("class_1920.method_22335(Lnet/minecraft/class_2338;I)I"), // getRawBrightness
-                                "(L" + blockPosClass + ";I)I"
-                        ),
-                        ASM.listOf(
-                                new VarInsnNode(Opcodes.ALOAD, 2),
-                                new VarInsnNode(Opcodes.ALOAD, 3),
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "shroom",
-                                        "(IL" + levelReaderClass + ";L" + blockPosClass + ";)I",
-                                        false
-                                )
-                        )
-                );
-            });
-        });
+        ClassTinkerers.addTransformation(mapC("class_2420"), classNode -> classNode.methods.forEach(methodNode -> {
+            if (!methodNode.name.equals(mapM("class_4970.method_9558(Lnet/minecraft/class_2680;Lnet/minecraft/class_4538;Lnet/minecraft/class_2338;)Z"))) // BlockBehaviour#canSurvive
+                return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            instructions.insert(
+                    ASM.findFirstMethodCall(
+                            methodNode,
+                            ASM.MethodType.INTERFACE,
+                            levelReaderClass,
+                            mapM("class_1920.method_22335(Lnet/minecraft/class_2338;I)I"), // getRawBrightness
+                            "(L" + blockPosClass + ";I)I"
+                    ),
+                    ASM.listOf(
+                            new VarInsnNode(Opcodes.ALOAD, 2),
+                            new VarInsnNode(Opcodes.ALOAD, 3),
+                            new MethodInsnNode(
+                                    Opcodes.INVOKESTATIC,
+                                    "twilightforest/ASMHooks",
+                                    "shroom",
+                                    "(IL" + levelReaderClass + ";L" + blockPosClass + ";)I",
+                                    false
+                            )
+                    )
+            );
+        }));
     }
 
     private static void reach() {
@@ -81,28 +79,26 @@ public class TFASM implements Runnable {
         String playerClass = mapC("class_1657").replace('.', '/');
         String fluidClipContext = mapC("class_3959$class_242").replace('.', '/');
 
-        ClassTinkerers.addTransformation(mapC("class_1792"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if (!methodNode.name.equals(mapM("class_1792.method_7872(Lnet/minecraft/class_1937;Lnet/minecraft/class_1657;Lnet/minecraft/class_3959$class_242;)Lnet/minecraft/class_3965;")))
-                    return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                instructions.insertBefore(
-                        ASM.findFirstInstruction(methodNode, Opcodes.ARETURN),
-                        ASM.listOf(
-                                new VarInsnNode(Opcodes.ALOAD, 0),
-                                new VarInsnNode(Opcodes.ALOAD, 1),
-                                new VarInsnNode(Opcodes.ALOAD, 2),
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "reach",
-                                        "(L" + blockHitResultClass + ";L" + levelClass + ";L" + playerClass + ";L" + fluidClipContext + ";)L" + blockHitResultClass + ";",
-                                        false
-                                )
-                        )
-                );
-            });
-        });
+        ClassTinkerers.addTransformation(mapC("class_1792"), classNode -> classNode.methods.forEach(methodNode -> {
+            if (!methodNode.name.equals(mapM("class_1792.method_7872(Lnet/minecraft/class_1937;Lnet/minecraft/class_1657;Lnet/minecraft/class_3959$class_242;)Lnet/minecraft/class_3965;")))
+                return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            instructions.insertBefore(
+                    ASM.findFirstInstruction(methodNode, Opcodes.ARETURN),
+                    ASM.listOf(
+                            new VarInsnNode(Opcodes.ALOAD, 0),
+                            new VarInsnNode(Opcodes.ALOAD, 1),
+                            new VarInsnNode(Opcodes.ALOAD, 2),
+                            new MethodInsnNode(
+                                    Opcodes.INVOKESTATIC,
+                                    "twilightforest/ASMHooks",
+                                    "reach",
+                                    "(L" + blockHitResultClass + ";L" + levelClass + ";L" + playerClass + ";L" + fluidClipContext + ";)L" + blockHitResultClass + ";",
+                                    false
+                            )
+                    )
+            );
+        }));
     }
 
     private static void conquered() {
@@ -114,33 +110,31 @@ public class TFASM implements Runnable {
         String compoundTagClass = mapC("class_2487").replace('.', '/');
         String loadStaticStartMethod = mapM("class_3449.method_41621(Lnet/minecraft/class_6625;Lnet/minecraft/class_2487;J)Lnet/minecraft/class_3449;");
 
-        ClassTinkerers.addTransformation(mapC("class_3449"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if (!methodNode.name.equals(loadStaticStartMethod))
-                    return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                instructions.insert(
-                        ASM.findFirstMethodCall(
-                                methodNode,
-                                ASM.MethodType.SPECIAL,
-                                structureStartClass,
-                                "<init>",
-                                "(L" + structureClass + ";L" + chunkPosClass + ";IL" + piecesContainerClass + ";)V"
-                        ),
-                        ASM.listOf(
-                                new VarInsnNode(Opcodes.ALOAD, 10),
-                                new VarInsnNode(Opcodes.ALOAD, 1),
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "conquered",
-                                        "(L" + structureStartClass + ";L" + piecesContainerClass + ";L" + compoundTagClass + ";)L" + structureStartClass +";",
-                                        false
-                                )
-                        )
-                );
-            });
-        });
+        ClassTinkerers.addTransformation(mapC("class_3449"), classNode -> classNode.methods.forEach(methodNode -> {
+            if (!methodNode.name.equals(loadStaticStartMethod))
+                return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            instructions.insert(
+                    ASM.findFirstMethodCall(
+                            methodNode,
+                            ASM.MethodType.SPECIAL,
+                            structureStartClass,
+                            "<init>",
+                            "(L" + structureClass + ";L" + chunkPosClass + ";IL" + piecesContainerClass + ";)V"
+                    ),
+                    ASM.listOf(
+                            new VarInsnNode(Opcodes.ALOAD, 10),
+                            new VarInsnNode(Opcodes.ALOAD, 1),
+                            new MethodInsnNode(
+                                    Opcodes.INVOKESTATIC,
+                                    "twilightforest/ASMHooks",
+                                    "conquered",
+                                    "(L" + structureStartClass + ";L" + piecesContainerClass + ";L" + compoundTagClass + ";)L" + structureStartClass +";",
+                                    false
+                            )
+                    )
+            );
+        }));
     }
 
     private static void foliage() {
@@ -149,27 +143,25 @@ public class TFASM implements Runnable {
                                             // BiomeColors.FOLIAGE_COLOR_RESOLVER lambda
         String foliageColorResolverLambda = mapM("class_1163.method_23791(Lnet/minecraft/class_1959;DD)I");
                                          // BiomeColors
-        ClassTinkerers.addTransformation(mapC("class_1163"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if(!methodNode.name.equals(foliageColorResolverLambda)) return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                instructions.insertBefore(
-                        ASM.findFirstInstruction(methodNode, Opcodes.IRETURN),
-                        ASM.listOf(
-                                new VarInsnNode(Opcodes.ALOAD, 0),
-                                new VarInsnNode(Opcodes.DLOAD, 1),
-                                new VarInsnNode(Opcodes.DLOAD, 3),
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "foliage",
-                                        "(IL" + biomeClass + ";DD)I",
-                                        false
-                                )
-                        )
-                );
-            });
-        });
+        ClassTinkerers.addTransformation(mapC("class_1163"), classNode -> classNode.methods.forEach(methodNode -> {
+            if(!methodNode.name.equals(foliageColorResolverLambda)) return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            instructions.insertBefore(
+                    ASM.findFirstInstruction(methodNode, Opcodes.IRETURN),
+                    ASM.listOf(
+                            new VarInsnNode(Opcodes.ALOAD, 0),
+                            new VarInsnNode(Opcodes.DLOAD, 1),
+                            new VarInsnNode(Opcodes.DLOAD, 3),
+                            new MethodInsnNode(
+                                    Opcodes.INVOKESTATIC,
+                                    "twilightforest/ASMHooks",
+                                    "foliage",
+                                    "(IL" + biomeClass + ";DD)I",
+                                    false
+                            )
+                    )
+            );
+        }));
     }
 
     private static void music() {
@@ -205,118 +197,111 @@ public class TFASM implements Runnable {
                                      // ServerEntity.sendDirtyEntityData
         String sendDirtyEntityData = mapM("class_3231.method_14306()V");
                                          // ServerEntity
-        ClassTinkerers.addTransformation(mapC("class_3231"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if (!methodNode.name.equals(sendDirtyEntityData))
-                    return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                instructions.insert(
-                        ASM.findFirstInstruction(methodNode, Opcodes.GETFIELD),
-                        ASM.listOf(
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "updateMultiparts",
-                                        "(L" + entityClass + ";)L" + entityClass +";",
-                                        false
-                                )
-                        )
-                );
-            });
-        });
+        ClassTinkerers.addTransformation(mapC("class_3231"), classNode -> classNode.methods.forEach(methodNode -> {
+            if (!methodNode.name.equals(sendDirtyEntityData))
+                return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            instructions.insert(
+                    ASM.findFirstInstruction(methodNode, Opcodes.GETFIELD),
+                    ASM.listOf(
+                            new MethodInsnNode(
+                                    Opcodes.INVOKESTATIC,
+                                    "twilightforest/ASMHooks",
+                                    "updateMultiparts",
+                                    "(L" + entityClass + ";)L" + entityClass +";",
+                                    false
+                            )
+                    )
+            );
+        }));
                                          // ResourceManagerReloadListener.onResourceManagerReload
         String onResourceManagerReload = mapM("class_4013.method_14491(Lnet/minecraft/class_3300;)V");
                               // EntityRenderDispatcher.Context
         String contextClass = mapC("class_5617$class_5618").replace('.', '/');
                                          // EntityRenderDispatcher
-        ClassTinkerers.addTransformation(mapC("class_898"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if (!methodNode.name.equals(onResourceManagerReload))
-                    return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                instructions.insert(
-                        ASM.findFirstInstruction(methodNode, Opcodes.INVOKESPECIAL),
-                        ASM.listOf(
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "bakeMultipartRenders",
-                                        "(L" + contextClass + ";)L" + contextClass + ";",
-                                        false
-                                )
-                        )
-                );
-            });
-        });
+        ClassTinkerers.addTransformation(mapC("class_898"), classNode -> classNode.methods.forEach(methodNode -> {
+            if (!methodNode.name.equals(onResourceManagerReload))
+                return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            instructions.insert(
+                    ASM.findFirstInstruction(methodNode, Opcodes.INVOKESPECIAL),
+                    ASM.listOf(
+                            new MethodInsnNode(
+                                    Opcodes.INVOKESTATIC,
+                                    "twilightforest/ASMHooks",
+                                    "bakeMultipartRenders",
+                                    "(L" + contextClass + ";)L" + contextClass + ";",
+                                    false
+                            )
+                    )
+            );
+        }));
 
                                  // EntityRenderDispatcher.getRenderer
         String getRendererName = mapM("class_898.method_3953(Lnet/minecraft/class_1297;)Lnet/minecraft/class_897;");
                                      // EntityRenderer
         String entityRendererClass = mapC("class_897").replace('.', '/');
                                          // EntityRenderDispatcher
-        ClassTinkerers.addTransformation(mapC("class_898"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if (!methodNode.name.equals(getRendererName))
-                    return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                AbstractInsnNode lastInstruction = null;
-                for (var index = instructions.size() - 1; index > 0; index--) {
-                    var /*org.objectweb.asm.tree.AbstractInsnNode*/ node = instructions.get(index);
-                    if (lastInstruction == null &&
+        ClassTinkerers.addTransformation(mapC("class_898"), classNode -> classNode.methods.forEach(methodNode -> {
+            if (!methodNode.name.equals(getRendererName))
+                return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            AbstractInsnNode lastInstruction = null;
+            for (var index = instructions.size() - 1; index > 0; index--) {
+                var /*org.objectweb.asm.tree.AbstractInsnNode*/ node = instructions.get(index);
+                if (lastInstruction == null &&
 
-                            node instanceof InsnNode &&
+                        node instanceof InsnNode &&
 
-                            node.getOpcode() == Opcodes.ARETURN
+                        node.getOpcode() == Opcodes.ARETURN
 
+                )
+                    lastInstruction = node;
+
+            }
+            instructions.insertBefore(
+                    lastInstruction,
+                    ASM.listOf(
+                            new VarInsnNode(Opcodes.ALOAD, 1),
+                            new MethodInsnNode(
+                                    Opcodes.INVOKESTATIC,
+                                    "twilightforest/ASMHooks",
+                                    "getMultipartRenderer",
+                                    "(L" + entityRendererClass + ";L" + entityClass + ";)L" + entityRendererClass + ";",
+                                    false
+                            )
                     )
-                        lastInstruction = node;
-
-                }
-                instructions.insertBefore(
-                        lastInstruction,
-                        ASM.listOf(
-                                new VarInsnNode(Opcodes.ALOAD, 1),
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "getMultipartRenderer",
-                                        "(L" + entityRendererClass + ";L" + entityClass + ";)L" + entityRendererClass + ";",
-                                        false
-                                )
-                        )
-                );
-            });
-        });
+            );
+        }));
                              // LevelRenderer.renderLevel
         String renderLevel = mapM("class_761.method_22710(Lnet/minecraft/class_4587;FJZLnet/minecraft/class_4184;Lnet/minecraft/class_757;Lnet/minecraft/class_765;Lorg/joml/Matrix4f;)V");
                                       // entitiesForRendering
         String entitiesForRendering = mapM("class_638.method_18112()Ljava/lang/Iterable;");
                                          // LevelRenderer
-        ClassTinkerers.addTransformation(mapC("class_761"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if (!methodNode.name.equals(renderLevel))
-                    return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                AbstractInsnNode lastInstruction = null;
-                for (var index = instructions.size() - 1; index > 0; index--) {
-                    AbstractInsnNode node = instructions.get(index);
-                    if (lastInstruction == null &&
+        ClassTinkerers.addTransformation(mapC("class_761"), classNode -> classNode.methods.forEach(methodNode -> {
+            if (!methodNode.name.equals(renderLevel))
+                return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            AbstractInsnNode lastInstruction = null;
+            for (var index = instructions.size() - 1; index > 0; index--) {
+                AbstractInsnNode node = instructions.get(index);
+                if (lastInstruction == null &&
 
-                            node instanceof MethodInsnNode methodInsnNode &&
+                        node instanceof MethodInsnNode methodInsnNode &&
 
-                            node.getOpcode() == Opcodes.INVOKEVIRTUAL &&
-                                                         // ClientLevel
-                            equate(methodInsnNode.owner, mapC("class_638").replace('.', '/')) &&
+                        node.getOpcode() == Opcodes.INVOKEVIRTUAL &&
+                                                     // ClientLevel
+                        equate(methodInsnNode.owner, mapC("class_638").replace('.', '/')) &&
 
-                            equate(methodInsnNode.name, entitiesForRendering) &&
+                        equate(methodInsnNode.name, entitiesForRendering) &&
 
-                            equate(methodInsnNode.desc, "()Ljava/lang/Iterable;")
+                        equate(methodInsnNode.desc, "()Ljava/lang/Iterable;")
 
-                    )
-                        lastInstruction = node;
+                )
+                    lastInstruction = node;
 
-                }
-                //FIXME: java.lang.NoSuchMethodError: 'java.lang.Iterable twilightforest.ASMHooks.renderMutiparts(java.lang.Iterable)'
+            }
+            //FIXME: java.lang.NoSuchMethodError: 'java.lang.Iterable twilightforest.ASMHooks.renderMutiparts(java.lang.Iterable)'
 //                instructions.insert(
 //                        lastInstruction,
 //                        ASM.listOf(
@@ -329,8 +314,7 @@ public class TFASM implements Runnable {
 //                                )
 //                        )
 //                );
-            });
-        });
+        }));
     }
 
     private static void maprendercontext() {
@@ -343,73 +327,69 @@ public class TFASM implements Runnable {
                            // Items.FILLED_MAP
         String filledMap = mapF("class_1802.field_8204:Lnet/minecraft/class_1792;");
                                          // ItemInHandRenderer
-        ClassTinkerers.addTransformation(mapC("class_759"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if (!methodNode.name.equals(renderArmWithItem))
-                    return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                var i = -1;
-                for (var index = instructions.size() - 1; index > 0; index--) {
-                    var /*org.objectweb.asm.tree.FieldInsnNode*/ node = instructions.get(index);
-                    if (i == -1 &&
+        ClassTinkerers.addTransformation(mapC("class_759"), classNode -> classNode.methods.forEach(methodNode -> {
+            if (!methodNode.name.equals(renderArmWithItem))
+                return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            var i = -1;
+            for (var index = instructions.size() - 1; index > 0; index--) {
+                var /*org.objectweb.asm.tree.FieldInsnNode*/ node = instructions.get(index);
+                if (i == -1 &&
 
-                            node instanceof FieldInsnNode fieldInsnNode &&
+                        node instanceof FieldInsnNode fieldInsnNode &&
 
-                            node.getOpcode() == Opcodes.GETSTATIC &&
-                                                        // Items
-                            equate(fieldInsnNode.owner, mapC("class_1802").replace('.', '/')) &&
+                        node.getOpcode() == Opcodes.GETSTATIC &&
+                                                    // Items
+                        equate(fieldInsnNode.owner, mapC("class_1802").replace('.', '/')) &&
 
-                            equate(fieldInsnNode.name, filledMap)
+                        equate(fieldInsnNode.name, filledMap)
 
+                )
+                    i = index + 1;
+
+            }
+
+            if (i == -1) {
+                // Must be optifine... Optifine checks for instanceof MapItem, so this patch won't be needed anyway.
+                return;
+            }
+
+            instructions.insert(
+                    instructions.get(i),
+                    ASM.listOf(
+                            new VarInsnNode(Opcodes.ALOAD, 6),
+                            new MethodInsnNode(
+                                    Opcodes.INVOKESTATIC,
+                                    "twilightforest/ASMHooks",
+                                    "shouldMapRender",
+                                    "(ZL" + itemStackClass + ";)Z",
+                                    false
+                            )
                     )
-                        i = index + 1;
-
-                }
-
-                if (i == -1) {
-                    // Must be optifine... Optifine checks for instanceof MapItem, so this patch won't be needed anyway.
-                    return;
-                }
-
-                instructions.insert(
-                        instructions.get(i),
-                        ASM.listOf(
-                                new VarInsnNode(Opcodes.ALOAD, 6),
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "shouldMapRender",
-                                        "(ZL" + itemStackClass + ";)Z",
-                                        false
-                                )
-                        )
-                );
-            });
-        });
+            );
+        }));
 
                                 // ItemFrame.getFramedMapId
         String getFramedMapId = mapM("class_1533.method_43272()Ljava/util/OptionalInt;");
                                          // ItemFrame
-        ClassTinkerers.addTransformation(mapC("class_1533"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if (!methodNode.name.equals(getFramedMapId))
-                    return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                instructions.insertBefore(
-                        ASM.findFirstInstruction(methodNode, Opcodes.IFEQ),
-                        ASM.listOf(
-                                new VarInsnNode(Opcodes.ALOAD, 1),
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "shouldMapRender",
-                                        "(ZL" + itemStackClass + ";)Z",
-                                        false
-                                )
-                        )
-                );
-            });
-        });
+        ClassTinkerers.addTransformation(mapC("class_1533"), classNode -> classNode.methods.forEach(methodNode -> {
+            if (!methodNode.name.equals(getFramedMapId))
+                return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            instructions.insertBefore(
+                    ASM.findFirstInstruction(methodNode, Opcodes.IFEQ),
+                    ASM.listOf(
+                            new VarInsnNode(Opcodes.ALOAD, 1),
+                            new MethodInsnNode(
+                                    Opcodes.INVOKESTATIC,
+                                    "twilightforest/ASMHooks",
+                                    "shouldMapRender",
+                                    "(ZL" + itemStackClass + ";)Z",
+                                    false
+                            )
+                    )
+            );
+        }));
 
                                  // ClientLevel
         String clientLevelName = mapC("class_638").replace('.', '/');
@@ -426,83 +406,79 @@ public class TFASM implements Runnable {
                        // ItemInHandRenderer.level
         String level = mapF("class_310.field_1687:Lnet/minecraft/class_638;");
                                          // ItemInHandRenderer
-        ClassTinkerers.addTransformation(mapC("class_759"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if (!methodNode.name.equals(renderMap))
-                    return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                AbstractInsnNode insn = null;
-                for (var index = 0; index < instructions.size() - 1; index++) {
-                    var /*org.objectweb.asm.tree.VarInsnNode*/ node = instructions.get(index);
-                    if (insn == null &&
+        ClassTinkerers.addTransformation(mapC("class_759"), classNode -> classNode.methods.forEach(methodNode -> {
+            if (!methodNode.name.equals(renderMap))
+                return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            AbstractInsnNode insn = null;
+            for (var index = 0; index < instructions.size() - 1; index++) {
+                var /*org.objectweb.asm.tree.VarInsnNode*/ node = instructions.get(index);
+                if (insn == null &&
 
-                            node instanceof VarInsnNode varInsnNode &&
+                        node instanceof VarInsnNode varInsnNode &&
 
-                            node.getOpcode() == Opcodes.ASTORE &&
+                        node.getOpcode() == Opcodes.ASTORE &&
 
-                            varInsnNode.var == 6
+                        varInsnNode.var == 6
 
+                )
+                    insn = node;
+
+            }
+            instructions.insertBefore(
+                    insn,
+                    ASM.listOf(
+                            new VarInsnNode(Opcodes.ALOAD, 4),
+                            new VarInsnNode(Opcodes.ALOAD, 0),
+                            new FieldInsnNode(Opcodes.GETFIELD, itemInHandRendererClass, minecraft, "L" + minecraftClass +";"),
+                            new FieldInsnNode(Opcodes.GETFIELD, minecraftClass, level, "L" + clientLevelName + ";"),
+                            new MethodInsnNode(
+                                    Opcodes.INVOKESTATIC,
+                                    "twilightforest/ASMHooks",
+                                    "renderMapData",
+                                    "(L" + mapSaveDataClass + ";L" + itemStackClass + ";L" + levelClass + ";)L" + mapSaveDataClass + ";",
+                                    false
+                            )
                     )
-                        insn = node;
-
-                }
-                instructions.insertBefore(
-                        insn,
-                        ASM.listOf(
-                                new VarInsnNode(Opcodes.ALOAD, 4),
-                                new VarInsnNode(Opcodes.ALOAD, 0),
-                                new FieldInsnNode(Opcodes.GETFIELD, itemInHandRendererClass, minecraft, "L" + minecraftClass +";"),
-                                new FieldInsnNode(Opcodes.GETFIELD, minecraftClass, level, "L" + clientLevelName + ";"),
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "renderMapData",
-                                        "(L" + mapSaveDataClass + ";L" + itemStackClass + ";L" + levelClass + ";)L" + mapSaveDataClass + ";",
-                                        false
-                                )
-                        )
-                );
-            });
-        });
+            );
+        }));
                                  // Block.appendHoverText
         String appendHoverText = mapM("class_2248.method_9568(Lnet/minecraft/class_1799;Lnet/minecraft/class_1922;Ljava/util/List;Lnet/minecraft/class_1836;)V");
                                          // MapItem
-        ClassTinkerers.addTransformation(mapC("class_1806"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if (!methodNode.name.equals(appendHoverText))
-                    return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                AbstractInsnNode insn = null;
-                for (var index = 0; index < instructions.size() - 1; index++) {
-                    var /*org.objectweb.asm.tree.VarInsnNode*/ node = instructions.get(index);
-                    if (insn == null &&
+        ClassTinkerers.addTransformation(mapC("class_1806"), classNode -> classNode.methods.forEach(methodNode -> {
+            if (!methodNode.name.equals(appendHoverText))
+                return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            AbstractInsnNode insn = null;
+            for (var index = 0; index < instructions.size() - 1; index++) {
+                var /*org.objectweb.asm.tree.VarInsnNode*/ node = instructions.get(index);
+                if (insn == null &&
 
-                            node instanceof VarInsnNode varInsnNode &&
+                        node instanceof VarInsnNode varInsnNode &&
 
-                            node.getOpcode() == Opcodes.ASTORE &&
+                        node.getOpcode() == Opcodes.ASTORE &&
 
-                            varInsnNode.var == 6
+                        varInsnNode.var == 6
 
+                )
+                    insn = node;
+
+            }
+            instructions.insertBefore(
+                    insn,
+                    ASM.listOf(
+                            new VarInsnNode(Opcodes.ALOAD, 1),
+                            new VarInsnNode(Opcodes.ALOAD, 2),
+                            new MethodInsnNode(
+                                    Opcodes.INVOKESTATIC,
+                                    "twilightforest/ASMHooks",
+                                    "renderMapData",
+                                    "(L" + mapSaveDataClass +";L" + itemStackClass + ";L" + levelClass + ";)L" + mapSaveDataClass + ";",
+                                    false
+                            )
                     )
-                        insn = node;
-
-                }
-                instructions.insertBefore(
-                        insn,
-                        ASM.listOf(
-                                new VarInsnNode(Opcodes.ALOAD, 1),
-                                new VarInsnNode(Opcodes.ALOAD, 2),
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "renderMapData",
-                                        "(L" + mapSaveDataClass +";L" + itemStackClass + ";L" + levelClass + ";)L" + mapSaveDataClass + ";",
-                                        false
-                                )
-                        )
-                );
-            });
-        });
+            );
+        }));
     }
 
     private static void mount() {
@@ -525,94 +501,90 @@ public class TFASM implements Runnable {
             String isPassenger = mapM("class_1297.method_5765()Z");
 
                                              // LocalPlayer
-            ClassTinkerers.addTransformation(mapC("class_746"), classNode -> {
-                classNode.methods.forEach(methodNode -> {
-                    if (!methodNode.name.equals(rideTick))
-                        return;
-                    var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                    instructions.insert(
-                            ASM.findFirstInstruction(methodNode, Opcodes.INVOKESPECIAL),
-                            ASM.listOf(
-                                    new VarInsnNode(Opcodes.ALOAD, 0),
-                                    new FieldInsnNode(
-                                            Opcodes.GETFIELD,
-                                            localPlayerClass,
-                                            input,
-                                            "L" + inputClass + ";"
-                                    ),
-                                    new VarInsnNode(Opcodes.ALOAD, 0),
-                                    new FieldInsnNode(
-                                            Opcodes.GETFIELD,
-                                            localPlayerClass,
-                                            input,
-                                            "L" + inputClass + ";"
-                                    ),
-                                    new FieldInsnNode(
-                                            Opcodes.GETFIELD,
-                                            inputClass,
-                                            shiftKeyDown,
-                                            "Z"
-                                    ),
-                                    new VarInsnNode(Opcodes.ALOAD, 0),
-                                    new MethodInsnNode(
-                                            Opcodes.INVOKEVIRTUAL,
-                                            // Player
-                                            mapC("class_1657").replace('.', '/'),
-                                            wantsToStopRiding,
-                                            "()Z",
-                                            false
-                                    ),
-                                    new VarInsnNode(Opcodes.ALOAD, 0),
-                                    new MethodInsnNode(
-                                            Opcodes.INVOKEVIRTUAL,
-                                            entityClass,
-                                            isPassenger,
-                                            "()Z",
-                                            false
-                                    ),
-                                    new MethodInsnNode(
-                                            Opcodes.INVOKESTATIC,
-                                            "twilightforest/ASMHooks",
-                                            "mountFix",
-                                            "(ZZZ)Z",
-                                            false
-                                    ),
-                                    new FieldInsnNode(
-                                            Opcodes.PUTFIELD,
-                                            inputClass,
-                                            shiftKeyDown,
-                                            "Z"
-                                    )
-                            )
-                    );
-                });
-            });
+            ClassTinkerers.addTransformation(mapC("class_746"), classNode -> classNode.methods.forEach(methodNode -> {
+                if (!methodNode.name.equals(rideTick))
+                    return;
+                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+                instructions.insert(
+                        ASM.findFirstInstruction(methodNode, Opcodes.INVOKESPECIAL),
+                        ASM.listOf(
+                                new VarInsnNode(Opcodes.ALOAD, 0),
+                                new FieldInsnNode(
+                                        Opcodes.GETFIELD,
+                                        localPlayerClass,
+                                        input,
+                                        "L" + inputClass + ";"
+                                ),
+                                new VarInsnNode(Opcodes.ALOAD, 0),
+                                new FieldInsnNode(
+                                        Opcodes.GETFIELD,
+                                        localPlayerClass,
+                                        input,
+                                        "L" + inputClass + ";"
+                                ),
+                                new FieldInsnNode(
+                                        Opcodes.GETFIELD,
+                                        inputClass,
+                                        shiftKeyDown,
+                                        "Z"
+                                ),
+                                new VarInsnNode(Opcodes.ALOAD, 0),
+                                new MethodInsnNode(
+                                        Opcodes.INVOKEVIRTUAL,
+                                        // Player
+                                        mapC("class_1657").replace('.', '/'),
+                                        wantsToStopRiding,
+                                        "()Z",
+                                        false
+                                ),
+                                new VarInsnNode(Opcodes.ALOAD, 0),
+                                new MethodInsnNode(
+                                        Opcodes.INVOKEVIRTUAL,
+                                        entityClass,
+                                        isPassenger,
+                                        "()Z",
+                                        false
+                                ),
+                                new MethodInsnNode(
+                                        Opcodes.INVOKESTATIC,
+                                        "twilightforest/ASMHooks",
+                                        "mountFix",
+                                        "(ZZZ)Z",
+                                        false
+                                ),
+                                new FieldInsnNode(
+                                        Opcodes.PUTFIELD,
+                                        inputClass,
+                                        shiftKeyDown,
+                                        "Z"
+                                )
+                        )
+                );
+            }));
         }
     }
 
     private static void seed() {
                                          // WorldOptions
-        ClassTinkerers.addTransformation(mapC("class_5285"), classNode -> {
-            classNode.methods.forEach(methodNode -> {
-                if ((!methodNode.name.equals("<init>")))
-                    return;
-                if (!methodNode.desc.contains("Optional")) // instead of checking the whole desc we just see if it contains a Optional :troll:
-                    return;
-                var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
-                instructions.insertBefore(
-                        ASM.findFirstInstruction(methodNode, Opcodes.PUTFIELD),
-                        ASM.listOf(
-                                new MethodInsnNode(
-                                        Opcodes.INVOKESTATIC,
-                                        "twilightforest/ASMHooks",
-                                        "seed",
-                                        "(J)J",
-                                        false
-                                )
-                        )
-                );
-            });
-        });
+        ClassTinkerers.addTransformation(mapC("class_5285"), classNode -> classNode.methods.forEach(methodNode -> {
+            if ((!methodNode.name.equals("<init>")))
+                return;
+            if (!methodNode.desc.contains("Optional")) // instead of checking the whole desc we just see if it contains a Optional :troll:
+                return;
+            var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+            instructions.insertBefore(
+                    ASM.findFirstInstruction(methodNode, Opcodes.PUTFIELD),
+                    ASM.listOf(
+                            new MethodInsnNode(
+                                    Opcodes.INVOKESTATIC,
+                                    "twilightforest/ASMHooks",
+                                    "seed",
+                                    "(J)J",
+                                    false
+                            )
+                    )
+            );
+        }));
     }
 
     public static boolean equate(Object a, Object b) {

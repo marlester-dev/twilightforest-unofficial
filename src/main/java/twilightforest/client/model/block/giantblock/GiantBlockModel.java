@@ -44,9 +44,7 @@ public class GiantBlockModel implements BakedModel, FabricBakedModel {
 	@Override
 	public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<RandomSource> randomSupplier, RenderContext context) {
 		QuadEmitter emitter = context.getEmitter();
-		context.pushTransform(quad -> {
-			return !Iterables.contains(GiantBlock.getVolume(pos), pos.offset(quad.cullFace().getNormal()));
-		});
+		context.pushTransform(quad -> !Iterables.contains(GiantBlock.getVolume(pos), pos.offset(quad.cullFace().getNormal())));
 		for (Direction side : Direction.values()) {
 			Vec2i coords = this.calculateOffset(side, pos.offset(this.magicOffsetFromDir(side)));
 

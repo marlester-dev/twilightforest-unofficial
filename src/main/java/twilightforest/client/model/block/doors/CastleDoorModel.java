@@ -168,7 +168,7 @@ public class CastleDoorModel implements BakedModel, FabricBakedModel {
 	}
 
 	//we need a class to make model data. Fine, here you go
-	private static final class CastleDoorData {
+	public static final class CastleDoorData {
 		private final ConnectionLogic[][] logic = new ConnectionLogic[6][4];
 
 		private CastleDoorData() {}

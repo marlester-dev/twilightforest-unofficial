@@ -576,12 +576,7 @@ public class UrGhast extends CarminiteGhastguard implements IBossLootBuffer {
 		return !this.isInTantrum();
 	}
 
-	@Override
-	protected boolean canRide(Entity entityIn) {
-		return false;
-	}
-
-	@Override
+    @Override
 	public boolean canChangeDimensions() {
 		return false;
 	}

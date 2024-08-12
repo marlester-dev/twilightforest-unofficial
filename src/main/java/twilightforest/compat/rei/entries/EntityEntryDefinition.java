@@ -55,7 +55,7 @@ import java.util.stream.Stream;
 
 public class EntityEntryDefinition implements EntryDefinition<Entity>, EntrySerializer<Entity> {
 
-    public static EntryType<Entity> ENTITY_TYPE = EntryType.deferred(new ResourceLocation("entity"));
+    public static final EntryType<Entity> ENTITY_TYPE = EntryType.deferred(new ResourceLocation("entity"));
 
     @Environment(EnvType.CLIENT)
     private EntryRenderer<Entity> renderer;
@@ -159,13 +159,13 @@ public class EntityEntryDefinition implements EntryDefinition<Entity>, EntrySeri
                 return value.getName();
             } catch (Throwable e) {
                 if (context != null && context.isSearch()) throw e;
-                e.printStackTrace();
+                TwilightForestMod.LOGGER.error(e);
                 SEARCH_BLACKLISTED.add((EntityType<Entity>) value.getType());
             }
         try {
             return Component.literal(I18n.get("entity." + BuiltInRegistries.ENTITY_TYPE.getKey(value.getType()).toString().replace(":", ".")));
         } catch (Throwable e) {
-            e.printStackTrace();
+            TwilightForestMod.LOGGER.error(e);
         }
         return Component.literal("ERROR");
     }
@@ -177,7 +177,7 @@ public class EntityEntryDefinition implements EntryDefinition<Entity>, EntrySeri
                 return Lists.newArrayList(value.getName());
             } catch (Throwable e) {
                 if (context.isSearch()) throw e;
-                e.printStackTrace();
+                TwilightForestMod.LOGGER.error(e);
                 SEARCH_BLACKLISTED.add((EntityType<Entity>) value.getType());
             }
         return Lists.newArrayList(asFormattedText(entry, value, context));
@@ -220,7 +220,7 @@ public class EntityEntryDefinition implements EntryDefinition<Entity>, EntrySeri
     @Environment(EnvType.CLIENT)
     public class EntityEntryRenderer implements EntryRenderer<Entity> {
 
-        public int size = 32;
+        public final int size = 32;
 
         @Override
         public void render(EntryStack<Entity> entry, GuiGraphics graphics, Rectangle bounds, int mouseX, int mouseY, float delta) {
@@ -245,7 +245,7 @@ public class EntityEntryDefinition implements EntryDefinition<Entity>, EntrySeri
                 try {
                     this.renderTheEntity(this.size / 2, this.size - 2, scale, (LivingEntity) entity);
                 } catch (Exception e) {
-                    TwilightForestMod.LOGGER.error("Error drawing entity " + BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), e);
+                    TwilightForestMod.LOGGER.error("Error drawing entity {}", BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), e);
 //                    IGNORED_ENTITIES.add(type);
 //                    this.ENTITY_MAP.remove(type);
                 }

@@ -182,11 +182,6 @@ public abstract class TFStructureComponentOld extends TFStructureComponent {
      * Place a treasure chest at the specified coordinates
      */
     protected void placeTreasureRotated(WorldGenLevel world, int x, int y, int z, Direction facing, Rotation rotation, TFLootTables treasureType, boolean trapped, BoundingBox sbb) {
-        if (facing == null) {
-            TwilightForestMod.LOGGER.error("Loot Chest at {}, {}, {} has null direction, setting it to north", x, y, z);
-            facing = Direction.NORTH;
-        }
-
         int dx = getXWithOffsetRotated(x, z, rotation);
         int dy = getWorldY(y);
         int dz = getZWithOffsetRotated(x, z, rotation);
@@ -229,7 +224,7 @@ public abstract class TFStructureComponentOld extends TFStructureComponent {
     /**
      * Places a tripwire.
      * <p>
-     * Tries to delay notifying tripwire blocks of placement so they won't
+     * Tries to delay notifying tripwire blocks of placement, so they won't
      * scan unloaded chunks looking for connections.
      */
     protected void placeTripwire(WorldGenLevel world, int x, int y, int z, int size, Direction facing, BoundingBox sbb) {
@@ -296,21 +291,17 @@ public abstract class TFStructureComponentOld extends TFStructureComponent {
         int dy = getWorldY(y);
         int dz = getWorldZ(x, z);
 
-        switch (direction) {
-            case SOUTH:
-                return new BlockPos(dx + 1, dy - 1, dz - towerSize / 2);
-            case WEST:
-                return new BlockPos(dx + towerSize / 2, dy - 1, dz + 1);
-            case NORTH:
-                return new BlockPos(dx - 1, dy - 1, dz + towerSize / 2);
-            case EAST:
-                return new BlockPos(dx - towerSize / 2, dy - 1, dz - 1);
-            default:
-                break;
-        }
+        return switch (direction) {
+            case SOUTH -> new BlockPos(dx + 1, dy - 1, dz - towerSize / 2);
+            case WEST -> new BlockPos(dx + towerSize / 2, dy - 1, dz + 1);
+            case NORTH -> new BlockPos(dx - 1, dy - 1, dz + towerSize / 2);
+            case EAST -> new BlockPos(dx - towerSize / 2, dy - 1, dz - 1);
+            default ->
 
-        // ugh?
-        return new BlockPos(x, y, z);
+                // ugh?
+                    new BlockPos(x, y, z);
+        };
+
     }
 
     @Override

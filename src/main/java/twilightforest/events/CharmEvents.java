@@ -268,7 +268,7 @@ public class CharmEvents {
 					casket.setItems(NonNullList.of(ItemStack.EMPTY, list.toArray(new ItemStack[casketCapacity])));
 				}
 			} else {
-				TwilightForestMod.LOGGER.error("Could not place Keepsake Casket at " + pos);
+                TwilightForestMod.LOGGER.error("Could not place Keepsake Casket at {}", pos);
 			}
 		}
 	}

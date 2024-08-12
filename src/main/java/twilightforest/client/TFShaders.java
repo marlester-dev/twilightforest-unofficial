@@ -17,7 +17,7 @@ public class TFShaders {
 			try {
 				context.register(new ResourceLocation(TwilightForestMod.ID, "red_thread/red_thread"), DefaultVertexFormat.BLOCK, i -> RED_THREAD = i);
 			} catch (IOException e) {
-				e.printStackTrace();
+				TwilightForestMod.LOGGER.error(e);
 			}
 		});
 	}

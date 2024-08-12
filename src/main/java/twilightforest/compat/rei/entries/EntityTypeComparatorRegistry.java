@@ -13,7 +13,7 @@ public interface EntityTypeComparatorRegistry extends EntryComparatorRegistry<En
         EntryComparator<Tag> nbtHasher = EntryComparator.nbt();
         return (context, entity) -> {
             CompoundTag tag = entity.saveWithoutId(new CompoundTag());
-            return tag == null ? 0L : nbtHasher.hash(context, tag);
+            return nbtHasher.hash(context, tag);
         };
     }
 

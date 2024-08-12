@@ -332,7 +332,7 @@ public class SnowQueen extends Monster implements IBreathAttacker, EnforcedHomeP
 		boolean result = super.hurt(source, damage);
 
 		if (result && this.getCurrentPhase() == Phase.BEAM) {
-			this.damageWhileBeaming += damage;
+			this.damageWhileBeaming += (int) damage;
 		}
 
 		if (source.getEntity() instanceof ServerPlayer player && !this.hurtBy.contains(player)) {

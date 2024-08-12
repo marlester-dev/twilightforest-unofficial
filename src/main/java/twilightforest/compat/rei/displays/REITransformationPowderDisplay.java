@@ -43,14 +43,10 @@ public class REITransformationPowderDisplay extends BasicDisplay {
         List<EntryIngredient> outputs = new ArrayList<>();
 
         getEntity(Minecraft.getInstance().level, recipe.input())
-                .ifPresent(entity -> {
-                    inputs.add(EntryIngredients.of(TwilightForestREIClientPlugin.ENTITY_DEFINITION, List.of(entity)));
-                });
+                .ifPresent(entity -> inputs.add(EntryIngredients.of(TwilightForestREIClientPlugin.ENTITY_DEFINITION, List.of(entity))));
 
         getEntity(Minecraft.getInstance().level, recipe.result())
-                .ifPresent(entity -> {
-                    outputs.add(EntryIngredients.of(TwilightForestREIClientPlugin.ENTITY_DEFINITION, List.of(entity)));
-                });
+                .ifPresent(entity -> outputs.add(EntryIngredients.of(TwilightForestREIClientPlugin.ENTITY_DEFINITION, List.of(entity))));
 
         if(!inputs.isEmpty() && !outputs.isEmpty()) {
 

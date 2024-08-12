@@ -192,7 +192,7 @@ public class EntityUtil {
             }
         }
 
-        if (valid.size() > 0) {
+        if (!valid.isEmpty()) {
             return valid.get(rand.nextInt(valid.size()));
         } else {
             return null;

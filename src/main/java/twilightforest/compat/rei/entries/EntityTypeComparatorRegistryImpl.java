@@ -7,7 +7,7 @@ import net.minecraft.world.entity.EntityType;
 
 public class EntityTypeComparatorRegistryImpl extends EntryComparatorRegistryImpl<Entity, EntityType<Entity>> implements EntityTypeComparatorRegistry {
 
-    public static EntityTypeComparatorRegistryImpl INSTANCE = new EntityTypeComparatorRegistryImpl();
+    public static final EntityTypeComparatorRegistryImpl INSTANCE = new EntityTypeComparatorRegistryImpl();
 
     @Override
     public EntityType<Entity> getEntry(Entity entity) {

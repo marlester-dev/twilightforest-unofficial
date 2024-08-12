@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.biome.Biome;
+import twilightforest.TwilightForestMod;
 import twilightforest.init.TFBiomes;
 import twilightforest.item.MagicMapItem;
 import twilightforest.util.ColorUtil;
@@ -145,7 +146,7 @@ public class MapBiomesCommand {
 		try {
 			img.writeToFile(p.toAbsolutePath().toFile());
 		} catch (IOException e) {
-			e.printStackTrace();
+			TwilightForestMod.LOGGER.error(e);
 			source.sendFailure(Component.literal("Could not save image! Please report this!"));
 			return 0;
 		}
