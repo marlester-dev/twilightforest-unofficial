@@ -4,6 +4,7 @@ import com.google.common.base.Suppliers;
 import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
@@ -13,10 +14,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -39,11 +44,15 @@ import twilightforest.block.KeepsakeCasketBlock;
 import twilightforest.block.TFChestBlock;
 import twilightforest.block.entity.KeepsakeCasketBlockEntity;
 import twilightforest.block.entity.TwilightChestEntity;
+import twilightforest.client.model.TFModelLayers;
+import twilightforest.client.model.entity.KnightmetalShieldModel;
 import twilightforest.client.model.tileentity.GenericTrophyModel;
 import twilightforest.client.renderer.tileentity.SkullCandleTileEntityRenderer;
 import twilightforest.client.renderer.tileentity.TrophyTileEntityRenderer;
 import twilightforest.enums.BossVariant;
 import twilightforest.init.TFBlocks;
+import twilightforest.item.GiantItem;
+import twilightforest.item.KnightmetalShieldItem;
 import twilightforest.item.WearableItem;
 
 import java.util.HashMap;
@@ -67,6 +76,8 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
 		makeInstance(map, TFBlocks.SORTING_CHEST);
 	});
 	@Nullable
+	private KnightmetalShieldModel shield;
+	@Nullable
 	private Map<BossVariant, GenericTrophyModel> trophies;
 
 	// Use the cached INSTANCE.get instead
@@ -75,6 +86,7 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
 
 	@Override
 	public void onResourceManagerReload(ResourceManager manager) {
+		this.shield = new KnightmetalShieldModel(Minecraft.getInstance().getEntityModels().bakeLayer(TFModelLayers.KNIGHTMETAL_SHIELD));
 		this.trophies = TrophyTileEntityRenderer.createTrophyRenderers(Minecraft.getInstance().getEntityModels());
 
 		TwilightForestMod.LOGGER.debug("Reloaded ISTER!");
@@ -164,6 +176,17 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
 					Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(blockEntity).render(blockEntity, 0, ms, buffers, light, overlay);
 					ms.popPose();
 				}
+			}
+		} else {
+			if (item instanceof KnightmetalShieldItem) {
+				ms.pushPose();
+				ms.scale(1.0F, -1.0F, -1.0F);
+				Material material = new Material(Sheets.SHIELD_SHEET, new ResourceLocation(TwilightForestMod.ID, "model/knightmetal_shield"));
+				if (this.shield != null) {
+					VertexConsumer vertexconsumer = material.sprite().wrap(ItemRenderer.getFoilBufferDirect(buffers, this.shield.renderType(material.atlasLocation()), true, stack.hasFoil()));
+					this.shield.renderToBuffer(ms, vertexconsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+				}
+				ms.popPose();
 			}
 		}
 	}

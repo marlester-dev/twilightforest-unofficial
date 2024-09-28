@@ -141,6 +141,8 @@ public class TFModelLayers {
 
 	public static final ModelLayerLocation RED_THREAD = register("red_thread");
 
+	public static final ModelLayerLocation KNIGHTMETAL_SHIELD = register("knightmetal_shield");
+
 	public static final ModelLayerLocation CHARM_OF_LIFE = register("charm_of_life");
 
 	private static ModelLayerLocation register(String p_171294_) {
