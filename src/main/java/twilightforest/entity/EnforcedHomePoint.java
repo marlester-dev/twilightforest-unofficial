@@ -46,7 +46,7 @@ public interface EnforcedHomePoint {
 
 	default boolean isMobWithinHomeArea(Entity entity) {
 		if (!this.isRestrictionPointValid(entity.level().dimension())) return true;
-		return this.getRestrictionPoint().pos().distSqr(entity.blockPosition()) < (double)(this.getHomeRadius() * this.getHomeRadius());
+		return this.getRestrictionPoint().pos().distSqr(entity.blockPosition()) < (double) (this.getHomeRadius() * this.getHomeRadius());
 	}
 
 	default boolean isRestrictionPointValid(ResourceKey<Level> currentMobLevel) {
@@ -54,7 +54,8 @@ public interface EnforcedHomePoint {
 
 	}
 
-	@Nullable GlobalPos getRestrictionPoint();
+	@Nullable
+	GlobalPos getRestrictionPoint();
 
 	void setRestrictionPoint(@Nullable GlobalPos pos);
 

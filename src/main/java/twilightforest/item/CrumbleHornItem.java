@@ -155,7 +155,7 @@ public class CrumbleHornItem extends Item implements ReequipAnimationItem, Conti
 
 	private void postTrigger(LivingEntity living) {
 		if (living instanceof ServerPlayer player) {
-            player.awardStat(Stats.ITEM_USED.get(this));
+			player.awardStat(Stats.ITEM_USED.get(this));
 		}
 	}
 }

@@ -114,6 +114,6 @@ public class CarminiteGolem extends Monster {
 
 	@Override
 	public boolean canSpawnSprintParticle() {
-		return this.getDeltaMovement().horizontalDistanceSqr() > (double)2.5000003E-7F && this.getRandom().nextInt(5) == 0;
+		return this.getDeltaMovement().horizontalDistanceSqr() > (double) 2.5000003E-7F && this.getRandom().nextInt(5) == 0;
 	}
 }

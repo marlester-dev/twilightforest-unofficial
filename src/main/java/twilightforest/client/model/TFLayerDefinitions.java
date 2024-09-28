@@ -42,7 +42,7 @@ public class TFLayerDefinitions {
 
 	public static void registerLayers() {
 
-		for(TwilightBoat.Type boatType : TwilightBoat.Type.values()) {
+		for (TwilightBoat.Type boatType : TwilightBoat.Type.values()) {
 			EntityModelLayerRegistry.registerModelLayer(TwilightBoatRenderer.createBoatModelName(boatType), BoatModel::createBodyModel);
 			EntityModelLayerRegistry.registerModelLayer(TwilightBoatRenderer.createChestBoatModelName(boatType), ChestBoatModel::createBodyModel);
 		}

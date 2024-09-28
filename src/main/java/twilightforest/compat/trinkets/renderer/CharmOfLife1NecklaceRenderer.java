@@ -15,7 +15,7 @@ import twilightforest.TwilightForestMod;
 import twilightforest.client.model.TFModelLayers;
 import twilightforest.compat.trinkets.model.CharmOfLife1NecklaceModel;
 
-public abstract class CharmOfLife1NecklaceRenderer  {
+public abstract class CharmOfLife1NecklaceRenderer {
 
 	private static CharmOfLife1NecklaceModel model;
 

@@ -86,7 +86,7 @@ public class IceTowerWingComponent extends TowerWingComponent {
 				int[] dest = getValidOpening(rand, dir);
 
 				if (this.getGenDepth() == 4 && (parent instanceof IceTowerMainComponent) && !((IceTowerMainComponent) parent).hasBossWing) {
-                    ((IceTowerMainComponent) parent).hasBossWing = makeBossTowerWing(list, rand, this.getGenDepth() + 1, dest[0], dest[1], dest[2], 15, 41, dir);
+					((IceTowerMainComponent) parent).hasBossWing = makeBossTowerWing(list, rand, this.getGenDepth() + 1, dest[0], dest[1], dest[2], 15, 41, dir);
 				} else {
 					int childHeight = (rand.nextInt(2) + rand.nextInt(2) + 2) * 10 + 1;
 					makeTowerWing(list, rand, this.getGenDepth() + 1, dest[0], dest[1], dest[2], SIZE, childHeight, dir);
@@ -269,7 +269,6 @@ public class IceTowerWingComponent extends TowerWingComponent {
 
 	/**
 	 * Called to decorate each floor.  This is responsible for adding a ladder up, the stub of the ladder going down, then picking a theme for each floor and executing it.
-	 *
 	 */
 	@Override
 	@SuppressWarnings("fallthrough")
@@ -316,8 +315,10 @@ public class IceTowerWingComponent extends TowerWingComponent {
 		// make a bounding box of the area
 		BoundingBox exclusionBox = switch (rotation) {
 			case CLOCKWISE_90 -> new BoundingBox(this.size - 1 - maxZ, minY, minX, this.size - 1 - minZ, maxY, maxX);
-			case CLOCKWISE_180 -> new BoundingBox(this.size - 1 - maxX, minY, this.size - 1 - maxZ, this.size - 1 - minX, maxY, this.size - 1 - minZ);
-			case COUNTERCLOCKWISE_90 -> new BoundingBox(minZ, minY, this.size - 1 - maxX, maxZ, maxY, this.size - 1 - minX);
+			case CLOCKWISE_180 ->
+					new BoundingBox(this.size - 1 - maxX, minY, this.size - 1 - maxZ, this.size - 1 - minX, maxY, this.size - 1 - minZ);
+			case COUNTERCLOCKWISE_90 ->
+					new BoundingBox(minZ, minY, this.size - 1 - maxX, maxZ, maxY, this.size - 1 - minX);
 			default -> new BoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
 		};
 
@@ -454,7 +455,7 @@ public class IceTowerWingComponent extends TowerWingComponent {
 	}
 
 	private void decorateWraparoundWallStepsPillars(WorldGenLevel world, int bottom, int top, Rotation ladderUpDir, Rotation ladderDownDir, boolean hasTreasure, BoundingBox sbb) {
-        final BlockState pillarEW = deco.pillarState.setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z);
+		final BlockState pillarEW = deco.pillarState.setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z);
 		final BlockState pillarNS = deco.pillarState.setValue(RotatedPillarBlock.AXIS, Direction.Axis.X);
 
 		this.decorateWraparoundWallSteps(world, bottom, top, ladderUpDir, false, sbb);
@@ -616,7 +617,7 @@ public class IceTowerWingComponent extends TowerWingComponent {
 
 	private void decoratePillarParkour(WorldGenLevel world, RandomSource rand, int bottom, int top, Rotation ladderUpDir, Rotation ladderDownDir, boolean hasTreasure, BoundingBox sbb) {
 
-        final BlockState pillarEW = deco.pillarState.setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z);
+		final BlockState pillarEW = deco.pillarState.setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z);
 		final BlockState pillarNS = deco.pillarState.setValue(RotatedPillarBlock.AXIS, Direction.Axis.X);
 
 		// 4 pillars

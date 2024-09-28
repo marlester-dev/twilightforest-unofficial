@@ -60,144 +60,144 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, ResourceManagerReloadListener, IdentifiableResourceReloadListener {
-    // fabric: reloader stuff
-    public static final ResourceLocation ID = TwilightForestMod.prefix("ister");
+	// fabric: reloader stuff
+	public static final ResourceLocation ID = TwilightForestMod.prefix("ister");
 
-    public static final Supplier<ISTER> INSTANCE = Suppliers.memoize(ISTER::new);
-    private final KeepsakeCasketBlockEntity casket = new KeepsakeCasketBlockEntity(BlockPos.ZERO, TFBlocks.KEEPSAKE_CASKET.get().defaultBlockState());
-    private final Map<Block, TwilightChestEntity> chestEntities = Util.make(new HashMap<>(), map -> {
-        makeInstance(map, TFBlocks.TWILIGHT_OAK_CHEST);
-        makeInstance(map, TFBlocks.CANOPY_CHEST);
-        makeInstance(map, TFBlocks.MANGROVE_CHEST);
-        makeInstance(map, TFBlocks.DARK_CHEST);
-        makeInstance(map, TFBlocks.TIME_CHEST);
-        makeInstance(map, TFBlocks.TRANSFORMATION_CHEST);
-        makeInstance(map, TFBlocks.MINING_CHEST);
-        makeInstance(map, TFBlocks.SORTING_CHEST);
-    });
-    @Nullable
-    private KnightmetalShieldModel shield;
-    @Nullable
-    private Map<BossVariant, GenericTrophyModel> trophies;
+	public static final Supplier<ISTER> INSTANCE = Suppliers.memoize(ISTER::new);
+	private final KeepsakeCasketBlockEntity casket = new KeepsakeCasketBlockEntity(BlockPos.ZERO, TFBlocks.KEEPSAKE_CASKET.get().defaultBlockState());
+	private final Map<Block, TwilightChestEntity> chestEntities = Util.make(new HashMap<>(), map -> {
+		makeInstance(map, TFBlocks.TWILIGHT_OAK_CHEST);
+		makeInstance(map, TFBlocks.CANOPY_CHEST);
+		makeInstance(map, TFBlocks.MANGROVE_CHEST);
+		makeInstance(map, TFBlocks.DARK_CHEST);
+		makeInstance(map, TFBlocks.TIME_CHEST);
+		makeInstance(map, TFBlocks.TRANSFORMATION_CHEST);
+		makeInstance(map, TFBlocks.MINING_CHEST);
+		makeInstance(map, TFBlocks.SORTING_CHEST);
+	});
+	@Nullable
+	private KnightmetalShieldModel shield;
+	@Nullable
+	private Map<BossVariant, GenericTrophyModel> trophies;
 
-    // Use the cached INSTANCE.get instead
-    private ISTER() {
-    }
+	// Use the cached INSTANCE.get instead
+	private ISTER() {
+	}
 
-    @Override
-    public void onResourceManagerReload(ResourceManager manager) {
-        this.shield = new KnightmetalShieldModel(Minecraft.getInstance().getEntityModels().bakeLayer(TFModelLayers.KNIGHTMETAL_SHIELD));
-        this.trophies = TrophyTileEntityRenderer.createTrophyRenderers(Minecraft.getInstance().getEntityModels());
+	@Override
+	public void onResourceManagerReload(ResourceManager manager) {
+		this.shield = new KnightmetalShieldModel(Minecraft.getInstance().getEntityModels().bakeLayer(TFModelLayers.KNIGHTMETAL_SHIELD));
+		this.trophies = TrophyTileEntityRenderer.createTrophyRenderers(Minecraft.getInstance().getEntityModels());
 
-        TwilightForestMod.LOGGER.debug("Reloaded ISTER!");
-    }
+		TwilightForestMod.LOGGER.debug("Reloaded ISTER!");
+	}
 
-    @Override
-    public void render(ItemStack stack, ItemDisplayContext camera, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-        Item item = stack.getItem();
-        if (item instanceof BlockItem blockItem) {
-            Block block = blockItem.getBlock();
-            if (block instanceof AbstractTrophyBlock trophyBlock && this.trophies != null) {
-                BossVariant variant = trophyBlock.getVariant();
-                GenericTrophyModel trophy = this.trophies.get(variant);
+	@Override
+	public void render(ItemStack stack, ItemDisplayContext camera, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		Item item = stack.getItem();
+		if (item instanceof BlockItem blockItem) {
+			Block block = blockItem.getBlock();
+			if (block instanceof AbstractTrophyBlock trophyBlock && this.trophies != null) {
+				BossVariant variant = trophyBlock.getVariant();
+				GenericTrophyModel trophy = this.trophies.get(variant);
 
-                if (camera == ItemDisplayContext.GUI) {
-                    ModelResourceLocation back = new ModelResourceLocation(TwilightForestMod.prefix(((AbstractTrophyBlock) block).getVariant().getTrophyType().getModelName()), "inventory");
-                    BakedModel modelBack = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getModelManager().getModel(back);
+				if (camera == ItemDisplayContext.GUI) {
+					ModelResourceLocation back = new ModelResourceLocation(TwilightForestMod.prefix(((AbstractTrophyBlock) block).getVariant().getTrophyType().getModelName()), "inventory");
+					BakedModel modelBack = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getModelManager().getModel(back);
 
-                    Lighting.setupForFlatItems();
-                    MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-                    ms.pushPose();
-                    Lighting.setupForFlatItems();
-                    ms.translate(0.5F, 0.5F, -1.5F);
-                    modelBack.getTransforms().getTransform(camera).apply(false, ms); // applyTransform
-                    Minecraft.getInstance().getItemRenderer().render(TrophyTileEntityRenderer.stack, ItemDisplayContext.GUI, false, ms, bufferSource, 15728880, OverlayTexture.NO_OVERLAY, modelBack);
-                    ms.popPose();
-                    bufferSource.endBatch();
-                    Lighting.setupFor3DItems();
+					Lighting.setupForFlatItems();
+					MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
+					ms.pushPose();
+					Lighting.setupForFlatItems();
+					ms.translate(0.5F, 0.5F, -1.5F);
+					modelBack.getTransforms().getTransform(camera).apply(false, ms); // applyTransform
+					Minecraft.getInstance().getItemRenderer().render(TrophyTileEntityRenderer.stack, ItemDisplayContext.GUI, false, ms, bufferSource, 15728880, OverlayTexture.NO_OVERLAY, modelBack);
+					ms.popPose();
+					bufferSource.endBatch();
+					Lighting.setupFor3DItems();
 
-                    ms.pushPose();
-                    ms.translate(0.5F, 0.5F, 0.5F);
-                    if (trophyBlock.getVariant() == BossVariant.HYDRA || trophyBlock.getVariant() == BossVariant.QUEST_RAM)
-                        ms.scale(0.9F, 0.9F, 0.9F);
-                    ms.mulPose(Axis.XP.rotationDegrees(30));
-                    ms.mulPose(Axis.YN.rotationDegrees(TFConfig.CLIENT_CONFIG.rotateTrophyHeadsGui.get() && !Minecraft.getInstance().isPaused() ? TFClientEvents.rotationTicker : -45));
-                    ms.translate(-0.5F, -0.5F, -0.5F);
-                    ms.translate(0.0F, 0.25F, 0.0F);
-                    if (trophyBlock.getVariant() == BossVariant.UR_GHAST) ms.translate(0.0F, 0.5F, 0.0F);
-                    if (trophyBlock.getVariant() == BossVariant.ALPHA_YETI) ms.translate(0.0F, -0.15F, 0.0F);
-                    TrophyTileEntityRenderer.render(null, 180.0F, trophy, variant, !Minecraft.getInstance().isPaused() ? TFClientEvents.time + Minecraft.getInstance().getDeltaFrameTime() : 0, ms, buffers, light, camera);
-                    ms.popPose();
-                } else {
-                    TrophyTileEntityRenderer.render(null, 180.0F, trophy, variant, !Minecraft.getInstance().isPaused() ? TFClientEvents.time + Minecraft.getInstance().getDeltaFrameTime() : 0, ms, buffers, light, camera);
-                }
+					ms.pushPose();
+					ms.translate(0.5F, 0.5F, 0.5F);
+					if (trophyBlock.getVariant() == BossVariant.HYDRA || trophyBlock.getVariant() == BossVariant.QUEST_RAM)
+						ms.scale(0.9F, 0.9F, 0.9F);
+					ms.mulPose(Axis.XP.rotationDegrees(30));
+					ms.mulPose(Axis.YN.rotationDegrees(TFConfig.CLIENT_CONFIG.rotateTrophyHeadsGui.get() && !Minecraft.getInstance().isPaused() ? TFClientEvents.rotationTicker : -45));
+					ms.translate(-0.5F, -0.5F, -0.5F);
+					ms.translate(0.0F, 0.25F, 0.0F);
+					if (trophyBlock.getVariant() == BossVariant.UR_GHAST) ms.translate(0.0F, 0.5F, 0.0F);
+					if (trophyBlock.getVariant() == BossVariant.ALPHA_YETI) ms.translate(0.0F, -0.15F, 0.0F);
+					TrophyTileEntityRenderer.render(null, 180.0F, trophy, variant, !Minecraft.getInstance().isPaused() ? TFClientEvents.time + Minecraft.getInstance().getDeltaFrameTime() : 0, ms, buffers, light, camera);
+					ms.popPose();
+				} else {
+					TrophyTileEntityRenderer.render(null, 180.0F, trophy, variant, !Minecraft.getInstance().isPaused() ? TFClientEvents.time + Minecraft.getInstance().getDeltaFrameTime() : 0, ms, buffers, light, camera);
+				}
 
-            } else if (block instanceof KeepsakeCasketBlock) {
-                Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(this.casket, ms, buffers, light, overlay);
-            } else if (block instanceof TFChestBlock) {
-                Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(this.chestEntities.get(block), ms, buffers, light, overlay);
-            } else if (block instanceof AbstractSkullCandleBlock candleBlock) {
-                GameProfile gameprofile = null;
-                if (stack.hasTag()) {
-                    CompoundTag compoundtag = stack.getTag();
-                    if (compoundtag.contains("SkullOwner", 10)) {
-                        gameprofile = NbtUtils.readGameProfile(compoundtag.getCompound("SkullOwner"));
-                    } else if (compoundtag.contains("SkullOwner", 8) && !StringUtils.isBlank(compoundtag.getString("SkullOwner"))) {
-                        gameprofile = new GameProfile(null, compoundtag.getString("SkullOwner"));
-                        compoundtag.remove("SkullOwner");
-                        SkullBlockEntity.updateGameprofile(gameprofile, (p_172560_) ->
-                                compoundtag.put("SkullOwner", NbtUtils.writeGameProfile(new CompoundTag(), p_172560_)));
-                    }
-                }
+			} else if (block instanceof KeepsakeCasketBlock) {
+				Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(this.casket, ms, buffers, light, overlay);
+			} else if (block instanceof TFChestBlock) {
+				Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(this.chestEntities.get(block), ms, buffers, light, overlay);
+			} else if (block instanceof AbstractSkullCandleBlock candleBlock) {
+				GameProfile gameprofile = null;
+				if (stack.hasTag()) {
+					CompoundTag compoundtag = stack.getTag();
+					if (compoundtag.contains("SkullOwner", 10)) {
+						gameprofile = NbtUtils.readGameProfile(compoundtag.getCompound("SkullOwner"));
+					} else if (compoundtag.contains("SkullOwner", 8) && !StringUtils.isBlank(compoundtag.getString("SkullOwner"))) {
+						gameprofile = new GameProfile(null, compoundtag.getString("SkullOwner"));
+						compoundtag.remove("SkullOwner");
+						SkullBlockEntity.updateGameprofile(gameprofile, (p_172560_) ->
+								compoundtag.put("SkullOwner", NbtUtils.writeGameProfile(new CompoundTag(), p_172560_)));
+					}
+				}
 
-                SkullBlock.Type type = candleBlock.getType();
-                SkullModelBase base = SkullCandleTileEntityRenderer.createSkullRenderers(Minecraft.getInstance().getEntityModels()).get(type);
-                RenderType renderType = SkullCandleTileEntityRenderer.getRenderType(type, gameprofile);
-                SkullCandleTileEntityRenderer.renderSkull(null, 180.0F, 0.0F, ms, buffers, light, base, renderType);
+				SkullBlock.Type type = candleBlock.getType();
+				SkullModelBase base = SkullCandleTileEntityRenderer.createSkullRenderers(Minecraft.getInstance().getEntityModels()).get(type);
+				RenderType renderType = SkullCandleTileEntityRenderer.getRenderType(type, gameprofile);
+				SkullCandleTileEntityRenderer.renderSkull(null, 180.0F, 0.0F, ms, buffers, light, base, renderType);
 
-                //we put the candle
-                ms.translate(0.0F, 0.5F, 0.0F);
-                CompoundTag tag = stack.getTagElement("BlockEntityTag");
-                if (tag != null && tag.contains("CandleColor") && tag.contains("CandleAmount")) {
-                    if (tag.getInt("CandleAmount") <= 0) tag.putInt("CandleAmount", 1);
-                    Minecraft.getInstance().getBlockRenderer().renderSingleBlock(
-                            AbstractSkullCandleBlock.candleColorToCandle(AbstractSkullCandleBlock.CandleColors.colorFromInt(tag.getInt("CandleColor")))
-                                    .defaultBlockState().setValue(CandleBlock.CANDLES, tag.getInt("CandleAmount")), ms, buffers, light, overlay);
-                }
-            } else if (block instanceof EntityBlock be) {
-                BlockEntity blockEntity = be.newBlockEntity(BlockPos.ZERO, block.defaultBlockState());
-                if (blockEntity != null) {
-                    ms.pushPose();
-                    ms.mulPose(Axis.YP.rotationDegrees(180));
-                    if (block.asItem() instanceof WearableItem)
-                        ms.translate(-2, 0, 0);
-                    else
-                        ms.translate(-1, 0, 0);
-                    Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(blockEntity).render(blockEntity, 0, ms, buffers, light, overlay);
-                    ms.popPose();
-                }
-            }
-        } else {
-            if (item instanceof KnightmetalShieldItem) {
-                ms.pushPose();
-                ms.scale(1.0F, -1.0F, -1.0F);
-                Material material = new Material(Sheets.SHIELD_SHEET, new ResourceLocation(TwilightForestMod.ID, "model/knightmetal_shield"));
-                if (this.shield != null) {
-                    VertexConsumer vertexconsumer = material.sprite().wrap(ItemRenderer.getFoilBufferDirect(buffers, this.shield.renderType(material.atlasLocation()), true, stack.hasFoil()));
-                    this.shield.renderToBuffer(ms, vertexconsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-                }
-                ms.popPose();
-            }
-        }
-    }
+				//we put the candle
+				ms.translate(0.0F, 0.5F, 0.0F);
+				CompoundTag tag = stack.getTagElement("BlockEntityTag");
+				if (tag != null && tag.contains("CandleColor") && tag.contains("CandleAmount")) {
+					if (tag.getInt("CandleAmount") <= 0) tag.putInt("CandleAmount", 1);
+					Minecraft.getInstance().getBlockRenderer().renderSingleBlock(
+							AbstractSkullCandleBlock.candleColorToCandle(AbstractSkullCandleBlock.CandleColors.colorFromInt(tag.getInt("CandleColor")))
+									.defaultBlockState().setValue(CandleBlock.CANDLES, tag.getInt("CandleAmount")), ms, buffers, light, overlay);
+				}
+			} else if (block instanceof EntityBlock be) {
+				BlockEntity blockEntity = be.newBlockEntity(BlockPos.ZERO, block.defaultBlockState());
+				if (blockEntity != null) {
+					ms.pushPose();
+					ms.mulPose(Axis.YP.rotationDegrees(180));
+					if (block.asItem() instanceof WearableItem)
+						ms.translate(-2, 0, 0);
+					else
+						ms.translate(-1, 0, 0);
+					Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(blockEntity).render(blockEntity, 0, ms, buffers, light, overlay);
+					ms.popPose();
+				}
+			}
+		} else {
+			if (item instanceof KnightmetalShieldItem) {
+				ms.pushPose();
+				ms.scale(1.0F, -1.0F, -1.0F);
+				Material material = new Material(Sheets.SHIELD_SHEET, new ResourceLocation(TwilightForestMod.ID, "model/knightmetal_shield"));
+				if (this.shield != null) {
+					VertexConsumer vertexconsumer = material.sprite().wrap(ItemRenderer.getFoilBufferDirect(buffers, this.shield.renderType(material.atlasLocation()), true, stack.hasFoil()));
+					this.shield.renderToBuffer(ms, vertexconsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+				}
+				ms.popPose();
+			}
+		}
+	}
 
-    public static void makeInstance(Map<Block, TwilightChestEntity> map, RegistryObject<? extends ChestBlock> registryObject) {
-        ChestBlock block = registryObject.get();
-        map.put(block, new TwilightChestEntity(BlockPos.ZERO, block.defaultBlockState()));
-    }
+	public static void makeInstance(Map<Block, TwilightChestEntity> map, RegistryObject<? extends ChestBlock> registryObject) {
+		ChestBlock block = registryObject.get();
+		map.put(block, new TwilightChestEntity(BlockPos.ZERO, block.defaultBlockState()));
+	}
 
-    @Override
-    public ResourceLocation getFabricId() {
-        return ID;
-    }
+	@Override
+	public ResourceLocation getFabricId() {
+		return ID;
+	}
 }

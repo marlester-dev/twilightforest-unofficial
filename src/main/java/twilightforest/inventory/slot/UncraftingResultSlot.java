@@ -71,7 +71,7 @@ public class UncraftingResultSlot extends ResultSlot {
 		NonNullList<ItemStack> remainingItems = player.level().getRecipeManager().getRemainingItemsFor(RecipeType.CRAFTING, this.assemblyMatrix, player.level());
 //		net.minecraftforge.common.ForgeHooks.setCraftingPlayer(null);
 
-		for(int i = 0; i < remainingItems.size(); ++i) {
+		for (int i = 0; i < remainingItems.size(); ++i) {
 			ItemStack currentStack = this.assemblyMatrix.getItem(i);
 			ItemStack remainingStack = remainingItems.get(i);
 			if (!currentStack.isEmpty()) {

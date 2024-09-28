@@ -28,7 +28,7 @@ public class NagaTrophyModel extends GenericTrophyModel {
 				CubeListBuilder.create()
 						.texOffs(0, 0)
 						.addBox(-8.0F, -16.0F, -8.0F, 16.0F, 16.0F, 16.0F),
-		PartPose.offset(0.0F, -4.0F, 0.0F));
+				PartPose.offset(0.0F, -4.0F, 0.0F));
 
 		head.addOrReplaceChild("tongue",
 				CubeListBuilder.create()
@@ -47,6 +47,6 @@ public class NagaTrophyModel extends GenericTrophyModel {
 
 	@Override
 	public void renderToBuffer(PoseStack matrix, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		this.head.render(matrix, buffer, packedLight, packedOverlay, red, green, blue, alpha); 
+		this.head.render(matrix, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 }

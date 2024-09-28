@@ -14,7 +14,8 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.Map;
 import java.util.function.Function;
 
-public record UnbakedForceFieldModel(Map<BlockElement, ForceFieldModelLoader.Condition> elementsAndConditions) implements IUnbakedGeometry<UnbakedForceFieldModel> {
+public record UnbakedForceFieldModel(
+		Map<BlockElement, ForceFieldModelLoader.Condition> elementsAndConditions) implements IUnbakedGeometry<UnbakedForceFieldModel> {
 
 	@Override
 	public BakedModel bake(BlockModel context, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelState, ItemOverrides overrides, ResourceLocation modelLocation, boolean isGui3d) {

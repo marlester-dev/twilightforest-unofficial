@@ -48,8 +48,8 @@ public class HollowLogVertical extends Block implements SimpleWaterloggedBlock {
 		this.climbable = climbable;
 
 		this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, false));
-        FlammableBlockRegistry.getDefaultInstance().add(this, getFireSpreadSpeed(), getFlammability());
-    }
+		FlammableBlockRegistry.getDefaultInstance().add(this, getFireSpreadSpeed(), getFlammability());
+	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
@@ -116,11 +116,11 @@ public class HollowLogVertical extends Block implements SimpleWaterloggedBlock {
 		return (0.124 <= vec.x() && vec.x() <= 0.876) && (0.124 <= vec.z() && vec.z() <= 0.876);
 	}
 
-    public int getFlammability() {
-        return 5;
-    }
+	public int getFlammability() {
+		return 5;
+	}
 
-    public int getFireSpreadSpeed() {
-        return 5;
-    }
+	public int getFireSpreadSpeed() {
+		return 5;
+	}
 }

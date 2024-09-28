@@ -88,7 +88,8 @@ public class RedThreadRenderer<T extends RedThreadBlockEntity> implements BlockE
 					}
 				}
 
-				if (flag) this.redThreadModel.getPart(face, direction).render(poseStack, consumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+				if (flag)
+					this.redThreadModel.getPart(face, direction).render(poseStack, consumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 			}
 		}
 	}

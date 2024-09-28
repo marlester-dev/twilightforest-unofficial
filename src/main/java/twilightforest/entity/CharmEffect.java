@@ -21,6 +21,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.Nullable;
 
 @EnvironmentInterface(value = EnvType.CLIENT, itf = ItemSupplier.class)

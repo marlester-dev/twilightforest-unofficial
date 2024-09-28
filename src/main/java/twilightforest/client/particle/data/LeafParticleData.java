@@ -30,9 +30,9 @@ public class LeafParticleData implements ParticleOptions {
 
 	public static Codec<LeafParticleData> codecLeaf() {
 		return RecordCodecBuilder.create((instance) -> instance.group(
-				Codec.INT.fieldOf("r").forGetter((obj) -> obj.r),
-				Codec.INT.fieldOf("g").forGetter((obj) -> obj.g),
-				Codec.INT.fieldOf("b").forGetter((obj) -> obj.b))
+						Codec.INT.fieldOf("r").forGetter((obj) -> obj.r),
+						Codec.INT.fieldOf("g").forGetter((obj) -> obj.g),
+						Codec.INT.fieldOf("b").forGetter((obj) -> obj.b))
 				.apply(instance, LeafParticleData::new));
 	}
 

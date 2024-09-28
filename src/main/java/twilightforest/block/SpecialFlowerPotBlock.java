@@ -13,6 +13,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
+
 import java.util.function.Supplier;
 
 public class SpecialFlowerPotBlock extends FlowerPotBlock {
@@ -23,7 +24,7 @@ public class SpecialFlowerPotBlock extends FlowerPotBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		if(!this.isEmpty()) {
+		if (!this.isEmpty()) {
 			level.setBlock(pos, Blocks.FLOWER_POT.defaultBlockState(), 3);
 			level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 			return InteractionResult.sidedSuccess(level.isClientSide());

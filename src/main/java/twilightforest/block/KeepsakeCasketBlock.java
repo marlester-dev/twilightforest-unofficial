@@ -46,6 +46,7 @@ import twilightforest.init.TFItems;
 import twilightforest.init.TFSounds;
 
 import org.jetbrains.annotations.Nullable;
+
 import java.util.Optional;
 
 public class KeepsakeCasketBlock extends BaseEntityBlock implements BlockLoggingEnum.IMultiLoggable, EntityDestroyBlock {

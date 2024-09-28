@@ -12,15 +12,15 @@ import twilightforest.client.renderer.TFOverlays;
 
 @Mixin(Gui.class)
 public class GuiMixin {
-    @Shadow
-    private int screenWidth;
+	@Shadow
+	private int screenWidth;
 
-    @Shadow
-    private int screenHeight;
+	@Shadow
+	private int screenHeight;
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderCrosshair(Lnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER))
-    public void twilightforest$renderQuestingRamOverlay(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-        TFOverlays.registerOverlays((Gui) (Object) this, guiGraphics, partialTick, this.screenWidth, this.screenHeight);
-        RenderSystem.defaultBlendFunc(); //Must happen or the sky rendering will die!!!!!
-    }
+	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderCrosshair(Lnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER))
+	public void twilightforest$renderQuestingRamOverlay(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+		TFOverlays.registerOverlays((Gui) (Object) this, guiGraphics, partialTick, this.screenWidth, this.screenHeight);
+		RenderSystem.defaultBlendFunc(); //Must happen or the sky rendering will die!!!!!
+	}
 }

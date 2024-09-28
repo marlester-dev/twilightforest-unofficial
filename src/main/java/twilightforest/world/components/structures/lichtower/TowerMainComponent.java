@@ -449,7 +449,7 @@ public class TowerMainComponent extends TowerWingComponent {
 			// get some random coordinates on the wall in the chunk
 			BlockPos wCoords = getRandomWallSpot(rand, floorLevel, direction, sbb);
 
-			if(wCoords == null)
+			if (wCoords == null)
 				continue;
 
 			// offset to see where the fence should be

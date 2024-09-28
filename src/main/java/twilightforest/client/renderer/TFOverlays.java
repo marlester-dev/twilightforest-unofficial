@@ -42,7 +42,7 @@ public class TFOverlays {
 	public static void renderIndicator(Minecraft minecraft, GuiGraphics graphics, Gui gui, Player player, int screenWidth, int screenHeight) {
 		Options options = minecraft.options;
 		if (options.getCameraType().isFirstPerson()) {
-			if (minecraft.gameMode.getPlayerMode() != GameType.SPECTATOR || ((GuiAccessor)gui).porting_lib$canRenderCrosshairForSpectator(minecraft.hitResult)) {
+			if (minecraft.gameMode.getPlayerMode() != GameType.SPECTATOR || ((GuiAccessor) gui).porting_lib$canRenderCrosshairForSpectator(minecraft.hitResult)) {
 				RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 				int j = ((screenHeight - 1) / 2) - 11;
 				int k = ((screenWidth - 1) / 2) - 3;

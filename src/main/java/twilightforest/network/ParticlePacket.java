@@ -38,12 +38,12 @@ public class ParticlePacket implements S2CPacket {
 	}
 
 	@Override
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeInt(this.queuedParticles.size());
-        for (QueuedParticle queuedParticle : this.queuedParticles) {
-            int d = BuiltInRegistries.PARTICLE_TYPE.getId(queuedParticle.particleOptions.getType());
-            buf.writeInt(d);
-            queuedParticle.particleOptions.writeToNetwork(buf);
+	public void encode(FriendlyByteBuf buf) {
+		buf.writeInt(this.queuedParticles.size());
+		for (QueuedParticle queuedParticle : this.queuedParticles) {
+			int d = BuiltInRegistries.PARTICLE_TYPE.getId(queuedParticle.particleOptions.getType());
+			buf.writeInt(d);
+			queuedParticle.particleOptions.writeToNetwork(buf);
 			buf.writeBoolean(queuedParticle.b);
 			buf.writeDouble(queuedParticle.x);
 			buf.writeDouble(queuedParticle.y);
@@ -67,13 +67,13 @@ public class ParticlePacket implements S2CPacket {
 	}
 
 	@Override
-    public void handle(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
-        client.execute(() -> {
-            ClientLevel level = Minecraft.getInstance().level;
-            if (level == null) return;
-            for (QueuedParticle queuedParticle : queuedParticles) {
-                level.addParticle(queuedParticle.particleOptions, queuedParticle.b, queuedParticle.x, queuedParticle.y, queuedParticle.z, queuedParticle.x2, queuedParticle.y2, queuedParticle.z2);
-            }
-        });
-    }
+	public void handle(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
+		client.execute(() -> {
+			ClientLevel level = Minecraft.getInstance().level;
+			if (level == null) return;
+			for (QueuedParticle queuedParticle : queuedParticles) {
+				level.addParticle(queuedParticle.particleOptions, queuedParticle.b, queuedParticle.x, queuedParticle.y, queuedParticle.z, queuedParticle.x2, queuedParticle.y2, queuedParticle.z2);
+			}
+		});
+	}
 }

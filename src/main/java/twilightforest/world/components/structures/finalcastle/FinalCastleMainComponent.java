@@ -206,7 +206,8 @@ public class FinalCastleMainComponent extends TFStructureComponentOld {
 			case WEST -> dz += howFar;
 			case NORTH -> dx -= howFar;
 			case EAST -> dz -= howFar;
-			default -> { }
+			default -> {
+			}
 		}
 
 		// ugh?

@@ -49,7 +49,7 @@ public class TowerRoofStairsOverhangComponent extends TowerRoofComponent {
 		BlockState birchStairsWest = Blocks.BIRCH_STAIRS.defaultBlockState().setValue(StairBlock.FACING, Direction.WEST);
 
 		for (int y = 0; y <= height; y++) {
-            int max = size - y - 1;
+			int max = size - y - 1;
 			for (int x = y; x <= max; x++) {
 				for (int z = y; z <= max; z++) {
 					if (x == y) {

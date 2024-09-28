@@ -48,7 +48,7 @@ public class HugeWaterLilyItem extends PlaceOnWaterBlockItem {
 				FluidState ifluidstate = level.getFluidState(blockpos);
 				if ((ifluidstate.getType() == Fluids.WATER || blockstate.is(BlockTags.ICE)) && level.isEmptyBlock(blockpos1)) {
 
-                    // TF - getBlock() instead of hardcoded lilypad
+					// TF - getBlock() instead of hardcoded lilypad
 					level.setBlock(blockpos1, getBlock().defaultBlockState(), 11);
 
 					if (player instanceof ServerPlayer) {

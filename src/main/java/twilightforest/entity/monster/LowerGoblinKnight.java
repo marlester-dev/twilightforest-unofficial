@@ -28,6 +28,7 @@ import twilightforest.init.TFEntities;
 import twilightforest.entity.ai.goal.RiderSpearAttackGoal;
 
 import org.jetbrains.annotations.Nullable;
+
 import java.util.Objects;
 
 public class LowerGoblinKnight extends Monster {

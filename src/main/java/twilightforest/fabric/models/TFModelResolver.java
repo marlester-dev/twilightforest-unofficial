@@ -6,17 +6,17 @@ import org.jetbrains.annotations.Nullable;
 import twilightforest.TwilightForestMod;
 
 public interface TFModelResolver extends ModelResolver {
-    @Override
-    @Nullable
-    default UnbakedModel resolveModel(Context context) {
-        try {
-            return tryResolveModel(context);
-        } catch (Exception e) {
-            TwilightForestMod.LOGGER.error("Error loading model {}", context.id(), e);
-            return null;
-        }
-    }
+	@Override
+	@Nullable
+	default UnbakedModel resolveModel(Context context) {
+		try {
+			return tryResolveModel(context);
+		} catch (Exception e) {
+			TwilightForestMod.LOGGER.error("Error loading model {}", context.id(), e);
+			return null;
+		}
+	}
 
-    @Nullable
-    UnbakedModel tryResolveModel(Context context) throws Exception;
+	@Nullable
+	UnbakedModel tryResolveModel(Context context) throws Exception;
 }

@@ -11,7 +11,7 @@ public class KnightmetalArmorModel {
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
 		var head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0)
-				.addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, deformation),
+						.addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, deformation),
 				PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		var rightHorn = head.addOrReplaceChild("right_horn_1",

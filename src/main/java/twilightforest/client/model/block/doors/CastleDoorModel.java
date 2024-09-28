@@ -171,6 +171,7 @@ public class CastleDoorModel implements BakedModel, FabricBakedModel {
 	public static final class CastleDoorData {
 		private final ConnectionLogic[][] logic = new ConnectionLogic[6][4];
 
-		private CastleDoorData() {}
+		private CastleDoorData() {
+		}
 	}
 }

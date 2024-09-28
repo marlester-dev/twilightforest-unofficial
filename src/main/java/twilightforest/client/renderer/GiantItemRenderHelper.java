@@ -5,10 +5,10 @@ import net.minecraft.world.item.ItemStack;
 import twilightforest.item.GiantItem;
 
 public class GiantItemRenderHelper {
-    public static void handle(PoseStack poseStack, ItemStack itemStack) {
-        if (itemStack.getItem() instanceof GiantItem) {
-            poseStack.translate(-0.5, -0.5, -1.5);
-            poseStack.scale(4, 4, 4);
-        }
-    }
+	public static void handle(PoseStack poseStack, ItemStack itemStack) {
+		if (itemStack.getItem() instanceof GiantItem) {
+			poseStack.translate(-0.5, -0.5, -1.5);
+			poseStack.scale(4, 4, 4);
+		}
+	}
 }

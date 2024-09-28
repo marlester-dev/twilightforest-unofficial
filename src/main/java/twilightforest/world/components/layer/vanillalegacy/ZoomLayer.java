@@ -27,7 +27,7 @@ public enum ZoomLayer implements AreaTransformer1 {
 	private static final int ZOOM_MASK = 1;
 
 	@Override
-    public int getParentX(int x) {
+	public int getParentX(int x) {
 		return x >> 1;
 	}
 

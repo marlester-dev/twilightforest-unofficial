@@ -13,7 +13,8 @@ import twilightforest.world.registration.TFGenerationSettings;
 import org.jetbrains.annotations.Nullable;
 
 public final class WorldUtil {
-	private WorldUtil() {}
+	private WorldUtil() {
+	}
 
 	/**
 	 * Inclusive of edges

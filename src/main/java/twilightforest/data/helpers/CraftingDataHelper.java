@@ -246,7 +246,7 @@ public abstract class CraftingDataHelper extends FabricRecipeProvider {
 				.unlockedBy("has_item", has(material.get()))
 				.save(consumer, locWood(name + "_trapdoor"));
 	}
-	
+
 	protected final void woodBlock(Consumer<FinishedRecipe> consumer, String name, Supplier<? extends Block> result, Supplier<? extends Block> material) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, result.get(), 3)
 				.pattern("##")

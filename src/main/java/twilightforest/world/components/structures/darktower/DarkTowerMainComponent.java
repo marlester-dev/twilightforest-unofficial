@@ -442,7 +442,6 @@ public class DarkTowerMainComponent extends DarkTowerWingComponent {
 
 	/**
 	 * Make a single three quarter floor
-	 *
 	 */
 	protected void makeThreeQuarterFloor(WorldGenLevel world, BoundingBox sbb, Rotation rotation, int y, boolean isBottom, boolean isTowerTopFloor) {
 		int half = size / 2;
@@ -1084,16 +1083,16 @@ public class DarkTowerMainComponent extends DarkTowerWingComponent {
 		if (sbb.isInside(new BlockPos(dx, dy, dz))) {
 			ResourceKey<ConfiguredFeature<?, ?>> treeGen = switch (treeNum) {
 				case 1 ->
-						// jungle tree
-						// made a custom one so it doesnt cut through the floor
+					// jungle tree
+					// made a custom one so it doesnt cut through the floor
 						TFConfiguredFeatures.SMALLER_JUNGLE_TREE;
 				case 2 ->
-						// birch
+					// birch
 						TreeFeatures.BIRCH;
 				case 3 -> TFConfiguredFeatures.TWILIGHT_OAK_TREE;
 				case 4 -> TFConfiguredFeatures.RAINBOW_OAK_TREE;
 				default ->
-						// oak tree
+					// oak tree
 						TreeFeatures.OAK;
 			};
 			// grow a tree
@@ -1139,7 +1138,6 @@ public class DarkTowerMainComponent extends DarkTowerWingComponent {
 
 	/**
 	 * Make a lattice of log blocks
-	 *
 	 */
 	protected void makeTimberBeams(WorldGenLevel world, RandomSource rand, BoundingBox sbb, Rotation rotation, int y, boolean isBottom, boolean isTop, int top) {
 		BlockState beamID = TFBlocks.TWILIGHT_OAK_LOG.get().defaultBlockState();

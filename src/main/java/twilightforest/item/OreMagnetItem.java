@@ -287,6 +287,7 @@ public class OreMagnetItem extends Item implements CustomEnchantingBehaviorItem 
 			public ResourceLocation getFabricId() {
 				return new ResourceLocation(TwilightForestMod.ID, "ore_magnet");
 			}
+
 			@Override
 			public CompletableFuture<Void> reload(PreparationBarrier stage, ResourceManager resourceManager, ProfilerFiller preparationsProfiler, ProfilerFiller reloadProfiler, Executor backgroundExecutor, Executor gameExecutor) {
 				if (!cacheNeedsBuild) {
@@ -295,7 +296,7 @@ public class OreMagnetItem extends Item implements CustomEnchantingBehaviorItem 
 				}
 
 				return stage.wait(null).thenRun(() -> {
-			}); // Nothing to do here
+				}); // Nothing to do here
 			}
 		});
 	}

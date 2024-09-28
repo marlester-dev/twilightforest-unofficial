@@ -53,7 +53,7 @@ public class FallingIce extends Entity {
 	private BlockState blockState = Blocks.PACKED_ICE.defaultBlockState(); //TF: change default block to packed ice
 	public int time;
 	protected final int fallDamageMax = 100; //TF: change max damage to 100 damage from 40
-	public final float[] damagePerDifficulty = { 0.0F, 0.5F, 1.0F, 2.0F }; //TF: change the damage done per block fallen based on difficulty
+	public final float[] damagePerDifficulty = {0.0F, 0.5F, 1.0F, 2.0F}; //TF: change the damage done per block fallen based on difficulty
 	@Nullable
 	public CompoundTag blockData;
 	protected static final EntityDataAccessor<BlockPos> DATA_START_POS = SynchedEntityData.defineId(FallingIce.class, EntityDataSerializers.BLOCK_POS);
@@ -118,7 +118,7 @@ public class FallingIce extends Entity {
 			if (!this.level().isClientSide()) {
 				BlockPos blockpos = this.blockPosition();
 				boolean flag = this.blockState.getBlock() instanceof ConcretePowderBlock;
-                double d0 = this.getDeltaMovement().lengthSqr();
+				double d0 = this.getDeltaMovement().lengthSqr();
 //				if (flag && d0 > 1.0D) { TODO: there is no use for this since fabric doesn't have this method
 //					BlockHitResult blockhitresult = this.level().clip(new ClipContext(new Vec3(this.xo, this.yo, this.zo), this.position(), ClipContext.Block.COLLIDER, ClipContext.Fluid.SOURCE_ONLY, this));
 //					if (blockhitresult.getType() != HitResult.Type.MISS && this.blockState.canBeHydrated(this.level(), blockpos, this.level().getFluidState(blockhitresult.getBlockPos()), blockhitresult.getBlockPos())) {

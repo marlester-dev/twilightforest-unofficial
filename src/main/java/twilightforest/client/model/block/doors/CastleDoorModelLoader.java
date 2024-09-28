@@ -9,21 +9,21 @@ import twilightforest.TwilightForestMod;
 import twilightforest.fabric.models.TFModelResolver;
 
 public class CastleDoorModelLoader implements TFModelResolver {
-    public static final CastleDoorModelLoader INSTANCE = new CastleDoorModelLoader();
-    public static final ResourceLocation ID=new ResourceLocation(TwilightForestMod.ID,"castle_door");
+	public static final CastleDoorModelLoader INSTANCE = new CastleDoorModelLoader();
+	public static final ResourceLocation ID = new ResourceLocation(TwilightForestMod.ID, "castle_door");
 
-    @Override
-    public UnbakedModel tryResolveModel(Context ctx) throws Exception {
-        ResourceLocation id = ctx.id();
-        if (!id.getNamespace().equals(TwilightForestMod.ID))
-            return null;
-        JsonObject object = BlockModel.GSON.fromJson(PortingLibModelLoadingRegistry.getModelJson(id), JsonObject.class);
-        if (object.has("loader")) {
-            if (!object.get("loader").getAsString().equals(ID.toString()))
-                return null;
-            BlockModel ownerModel = BlockModel.fromString(object.toString());
-            return new UnbakedCastleDoorModel(ownerModel);
-        }
-        return null;
-    }
+	@Override
+	public UnbakedModel tryResolveModel(Context ctx) throws Exception {
+		ResourceLocation id = ctx.id();
+		if (!id.getNamespace().equals(TwilightForestMod.ID))
+			return null;
+		JsonObject object = BlockModel.GSON.fromJson(PortingLibModelLoadingRegistry.getModelJson(id), JsonObject.class);
+		if (object.has("loader")) {
+			if (!object.get("loader").getAsString().equals(ID.toString()))
+				return null;
+			BlockModel ownerModel = BlockModel.fromString(object.toString());
+			return new UnbakedCastleDoorModel(ownerModel);
+		}
+		return null;
+	}
 }

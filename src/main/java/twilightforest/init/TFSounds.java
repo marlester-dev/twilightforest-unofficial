@@ -9,7 +9,7 @@ import net.minecraft.world.entity.animal.Parrot;
 import twilightforest.TwilightForestMod;
 
 public final class TFSounds {
-	
+
 	public static final LazyRegistrar<SoundEvent> SOUNDS = LazyRegistrar.create(Registries.SOUND_EVENT, TwilightForestMod.ID);
 
 	public static final RegistryObject<SoundEvent> ACID_RAIN_BURNS = createEvent("environment.twilightforest.acid_rain");

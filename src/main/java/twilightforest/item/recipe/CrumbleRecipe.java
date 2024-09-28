@@ -18,7 +18,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.init.TFRecipes;
 
-public record CrumbleRecipe(ResourceLocation recipeID, BlockState input, BlockState result) implements Recipe<Container> {
+public record CrumbleRecipe(ResourceLocation recipeID, BlockState input,
+							BlockState result) implements Recipe<Container> {
 
 	@Override
 	public boolean matches(Container container, Level level) {

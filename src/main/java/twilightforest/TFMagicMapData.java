@@ -122,13 +122,13 @@ public class TFMagicMapData extends MapItemSavedData {
 	@Nullable
 	public static TFMagicMapData getMagicMapData(Level world, String name) {
 		if (world.isClientSide) return CLIENT_DATA.get(name);
-		else return ((ServerLevel)world).getServer().overworld().getDataStorage().get(TFMagicMapData::load, name);
+		else return ((ServerLevel) world).getServer().overworld().getDataStorage().get(TFMagicMapData::load, name);
 	}
 
 	// [VanillaCopy] Adapted from World.registerMapData
 	public static void registerMagicMapData(Level world, TFMagicMapData data, String id) {
 		if (world.isClientSide) CLIENT_DATA.put(id, data);
-		else ((ServerLevel)world).getServer().overworld().getDataStorage().set(id, data);
+		else ((ServerLevel) world).getServer().overworld().getDataStorage().set(id, data);
 	}
 
 	@Nullable
@@ -140,7 +140,7 @@ public class TFMagicMapData extends MapItemSavedData {
 
 	public static class TFMapDecoration extends MapDecoration {
 
-		private static final Int2ObjectArrayMap<TFLandmark> ICONS = new Int2ObjectArrayMap<>(){{
+		private static final Int2ObjectArrayMap<TFLandmark> ICONS = new Int2ObjectArrayMap<>() {{
 			defaultReturnValue(TFLandmark.NOTHING);
 			put(0, TFLandmark.NOTHING);
 			put(1, TFLandmark.SMALL_HILL);
@@ -159,7 +159,7 @@ public class TFMagicMapData extends MapItemSavedData {
 			put(18, TFLandmark.TROLL_CAVE);
 			put(19, TFLandmark.FINAL_CASTLE);
 		}};
-		private static final Object2IntArrayMap<TFLandmark> ICONS_FLIPPED = new Object2IntArrayMap<>(){{
+		private static final Object2IntArrayMap<TFLandmark> ICONS_FLIPPED = new Object2IntArrayMap<>() {{
 			ICONS.forEach((k, v) -> put(v, k.intValue()));
 		}};
 

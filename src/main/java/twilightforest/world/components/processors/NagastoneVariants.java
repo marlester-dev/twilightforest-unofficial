@@ -21,7 +21,7 @@ public final class NagastoneVariants extends StructureProcessor {
 	public static final Codec<NagastoneVariants> CODEC = Codec.unit(() -> INSTANCE);
 
 	private NagastoneVariants() {
-    }
+	}
 
 	@Override
 	public StructureTemplate.StructureBlockInfo processBlock(LevelReader worldIn, BlockPos pos, BlockPos piecepos, StructureTemplate.StructureBlockInfo oldInfo, StructureTemplate.StructureBlockInfo modifiedBlockInfo, StructurePlaceSettings settings) {

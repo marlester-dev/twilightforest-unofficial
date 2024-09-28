@@ -56,13 +56,13 @@ public class SmallFallenLogFeature extends Feature<HollowLogConfig> {
 		BlockState hollowLogState = config.hollow();
 		BlockState branchState;
 
-		if(config.hollow().isAir()) hollowLogState = null;
+		if (config.hollow().isAir()) hollowLogState = null;
 
 		//sometimes make floating logs
-		if(rand.nextInt(5) == 0 && world.getBlockState(pos).liquid()) {
+		if (rand.nextInt(5) == 0 && world.getBlockState(pos).liquid()) {
 			BlockPos.MutableBlockPos floatingPos = pos.mutable();
-			for(int i = 0; i < 10; i++) {
-				if(world.getBlockState(floatingPos.above()).isAir()) {
+			for (int i = 0; i < 10; i++) {
+				if (world.getBlockState(floatingPos.above()).isAir()) {
 					pos = floatingPos.immutable();
 					break;
 				} else {
@@ -74,7 +74,7 @@ public class SmallFallenLogFeature extends Feature<HollowLogConfig> {
 		// make log
 		if (goingX) {
 			logState = logState.setValue(RotatedPillarBlock.AXIS, Direction.Axis.X);
-			if(hollowLogState != null) {
+			if (hollowLogState != null) {
 				hollowLogState = hollowLogState.setValue(HollowLogHorizontal.HORIZONTAL_AXIS, Direction.Axis.X)
 						.setValue(HollowLogHorizontal.VARIANT, determineHollowProperties(world, pos, rand));
 			}
@@ -89,7 +89,7 @@ public class SmallFallenLogFeature extends Feature<HollowLogConfig> {
 			}
 		} else {
 			logState = logState.setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z);
-			if(hollowLogState != null) {
+			if (hollowLogState != null) {
 				hollowLogState = hollowLogState.setValue(HollowLogHorizontal.HORIZONTAL_AXIS, Direction.Axis.Z)
 						.setValue(HollowLogHorizontal.VARIANT, determineHollowProperties(world, pos, rand));
 			}
@@ -128,7 +128,7 @@ public class SmallFallenLogFeature extends Feature<HollowLogConfig> {
 
 	private BlockState mossOrSeagrass(WorldGenLevel level, BlockPos pos) {
 		//no moss if we're cold
-		if(level.getBlockState(pos.below(2)).is(BlockTags.SNOW)) {
+		if (level.getBlockState(pos.below(2)).is(BlockTags.SNOW)) {
 			return Blocks.AIR.defaultBlockState();
 		}
 		return level.getBlockState(pos).is(Blocks.WATER) ? Blocks.SEAGRASS.defaultBlockState() : TFBlocks.MOSS_PATCH.get().defaultBlockState();

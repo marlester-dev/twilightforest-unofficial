@@ -40,7 +40,7 @@ public class UpdateTFMultipartPacket implements S2CPacket {
 
 	public void encode(FriendlyByteBuf buf) {
 		buf.writeInt(this.entity.getId());
-		PartEntity<?>[] parts = ((MultiPartEntity)this.entity).getParts();
+		PartEntity<?>[] parts = ((MultiPartEntity) this.entity).getParts();
 		// We assume the client and server part arrays are identical, else everything will crash and burn. Don't even bother handling it.
 		if (parts != null) {
 			buf.writeInt(parts.length);
@@ -68,22 +68,22 @@ public class UpdateTFMultipartPacket implements S2CPacket {
 //			ctx.get().enqueueWork(new Runnable() {
 //				@Override
 //				public void run() {
-					Level world = Minecraft.getInstance().level;
-					if (world == null)
-						return;
-					Entity ent = world.getEntity(message.id);
-					if (ent instanceof MultiPartEntity multipart) {
-						PartEntity<?>[] parts = multipart.getParts();
-						if (parts == null)
-							return;
-						int index = 0;
-						for (PartEntity<?> part : parts) {
-							if (part instanceof TFPart<?> tfPart) {
-								tfPart.readData(message.data.get(index));
-								index++;
-							}
-						}
+			Level world = Minecraft.getInstance().level;
+			if (world == null)
+				return;
+			Entity ent = world.getEntity(message.id);
+			if (ent instanceof MultiPartEntity multipart) {
+				PartEntity<?>[] parts = multipart.getParts();
+				if (parts == null)
+					return;
+				int index = 0;
+				for (PartEntity<?> part : parts) {
+					if (part instanceof TFPart<?> tfPart) {
+						tfPart.readData(message.data.get(index));
+						index++;
 					}
+				}
+			}
 //				}
 //			});
 		}
@@ -112,7 +112,7 @@ public class UpdateTFMultipartPacket implements S2CPacket {
 			buffer.writeBoolean(this.fixed);
 			buffer.writeBoolean(this.dirty);
 			if (this.dirty) {
-				for(SynchedEntityData.DataValue<?> datavalue : this.data) {
+				for (SynchedEntityData.DataValue<?> datavalue : this.data) {
 					datavalue.write(buffer);
 				}
 
@@ -140,7 +140,7 @@ public class UpdateTFMultipartPacket implements S2CPacket {
 			List<SynchedEntityData.DataValue<?>> list = new ArrayList<>();
 
 			int i;
-			while((i = buf.readUnsignedByte()) != 255) {
+			while ((i = buf.readUnsignedByte()) != 255) {
 				list.add(SynchedEntityData.DataValue.read(buf, i));
 			}
 

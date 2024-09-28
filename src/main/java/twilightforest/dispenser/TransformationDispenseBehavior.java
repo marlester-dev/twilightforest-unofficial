@@ -19,56 +19,56 @@ import java.util.UUID;
 
 public class TransformationDispenseBehavior extends DefaultDispenseItemBehavior {
 
-    boolean fired = false;
+	boolean fired = false;
 
-    @Override
-    protected ItemStack execute(BlockSource source, ItemStack stack) {
-        Level level = source.getLevel();
-        RandomSource random = level.getRandom();
-        BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-        if (!level.isClientSide()) {
-            for (LivingEntity livingentity : level.getEntitiesOfClass(LivingEntity.class, new AABB(blockpos), EntitySelector.NO_SPECTATORS)) {
-                level.getRecipeManager().getAllRecipesFor(TFRecipes.TRANSFORM_POWDER_RECIPE.get()).forEach((recipe) -> {
-                    if (recipe.input() == livingentity.getType() || (recipe.isReversible() && recipe.result() == livingentity.getType())) {
-                        EntityType<?> type = recipe.isReversible() && recipe.result() == livingentity.getType() ? recipe.input() : recipe.result();
-                        Entity newEntity = type.create(level);
-                        if (newEntity != null) {
-                            newEntity.moveTo(livingentity.getX(), livingentity.getY(), livingentity.getZ(), livingentity.getYRot(), livingentity.getXRot());
-                            if (newEntity instanceof Mob mob && livingentity.level() instanceof ServerLevelAccessor accessor)
-                                mob.finalizeSpawn(accessor, livingentity.level().getCurrentDifficultyAt(livingentity.blockPosition()), MobSpawnType.CONVERSION, null, null);
+	@Override
+	protected ItemStack execute(BlockSource source, ItemStack stack) {
+		Level level = source.getLevel();
+		RandomSource random = level.getRandom();
+		BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+		if (!level.isClientSide()) {
+			for (LivingEntity livingentity : level.getEntitiesOfClass(LivingEntity.class, new AABB(blockpos), EntitySelector.NO_SPECTATORS)) {
+				level.getRecipeManager().getAllRecipesFor(TFRecipes.TRANSFORM_POWDER_RECIPE.get()).forEach((recipe) -> {
+					if (recipe.input() == livingentity.getType() || (recipe.isReversible() && recipe.result() == livingentity.getType())) {
+						EntityType<?> type = recipe.isReversible() && recipe.result() == livingentity.getType() ? recipe.input() : recipe.result();
+						Entity newEntity = type.create(level);
+						if (newEntity != null) {
+							newEntity.moveTo(livingentity.getX(), livingentity.getY(), livingentity.getZ(), livingentity.getYRot(), livingentity.getXRot());
+							if (newEntity instanceof Mob mob && livingentity.level() instanceof ServerLevelAccessor accessor)
+								mob.finalizeSpawn(accessor, livingentity.level().getCurrentDifficultyAt(livingentity.blockPosition()), MobSpawnType.CONVERSION, null, null);
 
-                            try {
-                                UUID uuid = newEntity.getUUID();
-                                newEntity.load(livingentity.saveWithoutId(newEntity.saveWithoutId(new CompoundTag())));
-                                newEntity.setUUID(uuid);
-                            } catch (Exception e) {
-                                TwilightForestMod.LOGGER.warn("Couldn't transform entity NBT data", e);
-                            }
+							try {
+								UUID uuid = newEntity.getUUID();
+								newEntity.load(livingentity.saveWithoutId(newEntity.saveWithoutId(new CompoundTag())));
+								newEntity.setUUID(uuid);
+							} catch (Exception e) {
+								TwilightForestMod.LOGGER.warn("Couldn't transform entity NBT data", e);
+							}
 
-                            livingentity.level().addFreshEntity(newEntity);
-                            livingentity.discard();
+							livingentity.level().addFreshEntity(newEntity);
+							livingentity.discard();
 
-                            if (livingentity instanceof Mob && livingentity.level().isClientSide()) {
-                                ((Mob) livingentity).spawnAnim();
-                                ((Mob) livingentity).spawnAnim();
-                            }
-                            livingentity.playSound(TFSounds.POWDER_USE.get(), 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.3F);
-                            stack.shrink(1);
-                            this.fired = true;
-                        }
-                    }
-                });
-            }
-        }
-        return stack;
-    }
+							if (livingentity instanceof Mob && livingentity.level().isClientSide()) {
+								((Mob) livingentity).spawnAnim();
+								((Mob) livingentity).spawnAnim();
+							}
+							livingentity.playSound(TFSounds.POWDER_USE.get(), 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.3F);
+							stack.shrink(1);
+							this.fired = true;
+						}
+					}
+				});
+			}
+		}
+		return stack;
+	}
 
-    @Override
-    protected void playSound(BlockSource source) {
-        if (this.fired) {
-            super.playSound(source);
-        } else {
-            source.getLevel().levelEvent(1001, source.getPos(), 0);
-        }
-    }
+	@Override
+	protected void playSound(BlockSource source) {
+		if (this.fired) {
+			super.playSound(source);
+		} else {
+			source.getLevel().levelEvent(1001, source.getPos(), 0);
+		}
+	}
 }

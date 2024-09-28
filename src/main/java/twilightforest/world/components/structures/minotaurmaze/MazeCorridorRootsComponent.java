@@ -29,7 +29,7 @@ public class MazeCorridorRootsComponent extends MazeCorridorComponent {
 	public void postProcess(WorldGenLevel world, StructureManager manager, ChunkGenerator generator, RandomSource rand, BoundingBox sbb, ChunkPos chunkPosIn, BlockPos blockPos) {
 		for (int x = 1; x < 5; x++) {
 			for (int z = 0; z < 5; z++) {
-                if (rand.nextInt(x + 2) > 0) {
+				if (rand.nextInt(x + 2) > 0) {
 					int length = rand.nextInt(6);
 
 					//place dirt above ceiling

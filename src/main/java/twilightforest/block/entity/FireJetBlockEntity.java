@@ -48,8 +48,7 @@ public class FireJetBlockEntity extends BlockEntity {
 			}
 		} else {
 			if (te.counter % 20 == 0) {
-				for (int i = 0; i < 8; i++)
-				{
+				for (int i = 0; i < 8; i++) {
 					level.addParticle(ParticleTypes.LAVA, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 0.0D, 0.0D, 0.0D);
 				}
 				level.playSound(null, pos, TFSounds.JET_POP.get(), SoundSource.BLOCKS, 0.2F + level.random.nextFloat() * 0.2F, 0.9F + level.random.nextFloat() * 0.15F);

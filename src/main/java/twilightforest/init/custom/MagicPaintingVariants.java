@@ -23,46 +23,46 @@ import static twilightforest.util.MagicPaintingVariant.Layer.OpacityModifier;
 import static twilightforest.util.MagicPaintingVariant.Layer.Parallax;
 
 public class MagicPaintingVariants {
-    public static final ResourceKey<Registry<MagicPaintingVariant>> REGISTRY_KEY = ResourceKey.createRegistryKey(TwilightForestMod.namedRegistry("magic_paintings"));
-    public static final Codec<Holder<MagicPaintingVariant>> CODEC = RegistryFileCodec.create(REGISTRY_KEY, MagicPaintingVariant.CODEC, false);
+	public static final ResourceKey<Registry<MagicPaintingVariant>> REGISTRY_KEY = ResourceKey.createRegistryKey(TwilightForestMod.namedRegistry("magic_paintings"));
+	public static final Codec<Holder<MagicPaintingVariant>> CODEC = RegistryFileCodec.create(REGISTRY_KEY, MagicPaintingVariant.CODEC, false);
 
-    public static final ResourceKey<MagicPaintingVariant> DARKNESS = makeKey(TwilightForestMod.prefix("darkness"));
+	public static final ResourceKey<MagicPaintingVariant> DARKNESS = makeKey(TwilightForestMod.prefix("darkness"));
 
-    private static ResourceKey<MagicPaintingVariant> makeKey(ResourceLocation name) {
-        return ResourceKey.create(REGISTRY_KEY, name);
-    }
+	private static ResourceKey<MagicPaintingVariant> makeKey(ResourceLocation name) {
+		return ResourceKey.create(REGISTRY_KEY, name);
+	}
 
-    public static void bootstrap(BootstapContext<MagicPaintingVariant> context) {
-        register(context, DARKNESS, "Darkness", "???", 64, 32, List.of(
-                new Layer("background", null, null, true),
-                new Layer("sky", new Parallax(Parallax.Type.VIEW_ANGLE, 0.01F, 128, 32), new OpacityModifier(OpacityModifier.Type.SINE_TIME, 0.03F, false), true),
-                new Layer("terrain", null, null, false),
-                new Layer("gems", null, null, true),
-                new Layer("gems", null, new OpacityModifier(OpacityModifier.Type.DAY_TIME, 2.0F, true), true),
-                new Layer("lightning", null, new OpacityModifier(OpacityModifier.Type.LIGHTNING, 1.0F, false), true)
-        ));
-    }
+	public static void bootstrap(BootstapContext<MagicPaintingVariant> context) {
+		register(context, DARKNESS, "Darkness", "???", 64, 32, List.of(
+				new Layer("background", null, null, true),
+				new Layer("sky", new Parallax(Parallax.Type.VIEW_ANGLE, 0.01F, 128, 32), new OpacityModifier(OpacityModifier.Type.SINE_TIME, 0.03F, false), true),
+				new Layer("terrain", null, null, false),
+				new Layer("gems", null, null, true),
+				new Layer("gems", null, new OpacityModifier(OpacityModifier.Type.DAY_TIME, 2.0F, true), true),
+				new Layer("lightning", null, new OpacityModifier(OpacityModifier.Type.LIGHTNING, 1.0F, false), true)
+		));
+	}
 
-    public static void register(BootstapContext<MagicPaintingVariant> context, ResourceKey<MagicPaintingVariant> key, String title, String author, int width, int height, List<Layer> layers) {
-        MagicPaintingVariant variant = new MagicPaintingVariant(width, height, layers);
-        AtlasGenerator.MAGIC_PAINTING_HELPER.put(key.location(), variant);
-        LangGenerator.MAGIC_PAINTING_HELPER.put(key.location(), Pair.of(title, author));
-        context.register(key, variant);
-    }
+	public static void register(BootstapContext<MagicPaintingVariant> context, ResourceKey<MagicPaintingVariant> key, String title, String author, int width, int height, List<Layer> layers) {
+		MagicPaintingVariant variant = new MagicPaintingVariant(width, height, layers);
+		AtlasGenerator.MAGIC_PAINTING_HELPER.put(key.location(), variant);
+		LangGenerator.MAGIC_PAINTING_HELPER.put(key.location(), Pair.of(title, author));
+		context.register(key, variant);
+	}
 
-    public static Optional<MagicPaintingVariant> getVariant(RegistryAccess regAccess, String id) {
-        return getVariant(regAccess, new ResourceLocation(id));
-    }
+	public static Optional<MagicPaintingVariant> getVariant(RegistryAccess regAccess, String id) {
+		return getVariant(regAccess, new ResourceLocation(id));
+	}
 
-    public static Optional<MagicPaintingVariant> getVariant(RegistryAccess regAccess, ResourceLocation id) {
-        return regAccess.registry(REGISTRY_KEY).map(reg -> reg.get(id));
-    }
+	public static Optional<MagicPaintingVariant> getVariant(RegistryAccess regAccess, ResourceLocation id) {
+		return regAccess.registry(REGISTRY_KEY).map(reg -> reg.get(id));
+	}
 
-    public static String getVariantId(RegistryAccess regAccess, MagicPaintingVariant variant) {
-        return getVariantResourceLocation(regAccess, variant).toString();
-    }
+	public static String getVariantId(RegistryAccess regAccess, MagicPaintingVariant variant) {
+		return getVariantResourceLocation(regAccess, variant).toString();
+	}
 
-    public static ResourceLocation getVariantResourceLocation(RegistryAccess regAccess, MagicPaintingVariant variant) {
-        return regAccess.registry(REGISTRY_KEY).map(reg -> reg.getKey(variant)).orElse(new ResourceLocation(MagicPainting.EMPTY));
-    }
+	public static ResourceLocation getVariantResourceLocation(RegistryAccess regAccess, MagicPaintingVariant variant) {
+		return regAccess.registry(REGISTRY_KEY).map(reg -> reg.getKey(variant)).orElse(new ResourceLocation(MagicPainting.EMPTY));
+	}
 }

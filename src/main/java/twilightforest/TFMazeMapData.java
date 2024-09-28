@@ -70,7 +70,7 @@ public class TFMazeMapData extends MapItemSavedData {
 	@Nullable
 	public static TFMazeMapData getMazeMapData(Level world, String name) {
 		if (world.isClientSide) return CLIENT_DATA.get(name);
-		else return ((ServerLevel)world).getServer().overworld().getDataStorage().get(TFMazeMapData::load, name);
+		else return ((ServerLevel) world).getServer().overworld().getDataStorage().get(TFMazeMapData::load, name);
 	}
 
 	// [VanillaCopy] Adapted from World.registerMapData

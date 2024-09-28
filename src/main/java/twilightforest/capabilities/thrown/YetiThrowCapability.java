@@ -9,22 +9,22 @@ import twilightforest.TwilightForestMod;
 
 public interface YetiThrowCapability extends Component {
 
-    ResourceLocation ID = TwilightForestMod.prefix("cap_thrown");
+	ResourceLocation ID = TwilightForestMod.prefix("cap_thrown");
 
-    void setEntity(LivingEntity entity);
+	void setEntity(LivingEntity entity);
 
-    void update();
+	void update();
 
-    boolean getThrown();
+	boolean getThrown();
 
-    void setThrown(boolean thrown, @Nullable LivingEntity thrower);
+	void setThrown(boolean thrown, @Nullable LivingEntity thrower);
 
-    @Nullable
-    LivingEntity getThrower();
+	@Nullable
+	LivingEntity getThrower();
 
-    int getThrowCooldown();
+	int getThrowCooldown();
 
-    void setThrowCooldown(int cooldown);
+	void setThrowCooldown(int cooldown);
 
-    void setThrowVector(Vec3 vector);
+	void setThrowVector(Vec3 vector);
 }

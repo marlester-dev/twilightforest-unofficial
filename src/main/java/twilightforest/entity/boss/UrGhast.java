@@ -242,7 +242,8 @@ public class UrGhast extends CarminiteGhastguard implements IBossLootBuffer {
 
 	@Override
 	public void tick() {
-		if (this.level().isClientSide() && !this.isDeadOrDying() && this.isInTantrum()) TFWeatherRenderer.urGhastAlive = true;
+		if (this.level().isClientSide() && !this.isDeadOrDying() && this.isInTantrum())
+			TFWeatherRenderer.urGhastAlive = true;
 		super.tick();
 	}
 
@@ -348,7 +349,7 @@ public class UrGhast extends CarminiteGhastguard implements IBossLootBuffer {
 	private List<BlockPos> scanForTraps(ServerLevel level) {
 		PoiManager poimanager = level.getPoiManager();
 		Stream<PoiRecord> stream = poimanager.getInRange(type ->
-				type.is(TFPOITypes.GHAST_TRAP.getKey()),
+						type.is(TFPOITypes.GHAST_TRAP.getKey()),
 				this.getLogicalScanPoint(),
 				this.getHomeRadius(),
 				PoiManager.Occupancy.ANY);
@@ -576,7 +577,7 @@ public class UrGhast extends CarminiteGhastguard implements IBossLootBuffer {
 		return !this.isInTantrum();
 	}
 
-    @Override
+	@Override
 	public boolean canChangeDimensions() {
 		return false;
 	}

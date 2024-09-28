@@ -18,14 +18,14 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 @Mixin(ItemRenderer.class)
 public class ItemRendererMixin {
-    @Inject(method = "renderQuadList", at = @At("HEAD"))
-    private void startRenderItem(PoseStack poseStack, VertexConsumer buffer, List<BakedQuad> quads, ItemStack itemStack, int combinedLight, int combinedOverlay, CallbackInfo ci) {
-        poseStack.pushPose();
-        GiantItemRenderHelper.handle(poseStack, itemStack);
-    }
+	@Inject(method = "renderQuadList", at = @At("HEAD"))
+	private void startRenderItem(PoseStack poseStack, VertexConsumer buffer, List<BakedQuad> quads, ItemStack itemStack, int combinedLight, int combinedOverlay, CallbackInfo ci) {
+		poseStack.pushPose();
+		GiantItemRenderHelper.handle(poseStack, itemStack);
+	}
 
-    @Inject(method = "renderQuadList", at = @At("RETURN"))
-    private void endRenderItem(PoseStack poseStack, VertexConsumer buffer, List<BakedQuad> quads, ItemStack itemStack, int combinedLight, int combinedOverlay, CallbackInfo ci) {
-        poseStack.popPose();
-    }
+	@Inject(method = "renderQuadList", at = @At("RETURN"))
+	private void endRenderItem(PoseStack poseStack, VertexConsumer buffer, List<BakedQuad> quads, ItemStack itemStack, int combinedLight, int combinedOverlay, CallbackInfo ci) {
+		poseStack.popPose();
+	}
 }

@@ -16,7 +16,8 @@ import twilightforest.world.components.layer.vanillalegacy.context.LazyAreaConte
 
 import java.util.function.LongFunction;
 
-public record BorderLayer(ResourceKey<Biome> targetBiome, ResourceKey<Biome> borderBiome) implements IThornsTransformer {
+public record BorderLayer(ResourceKey<Biome> targetBiome,
+						  ResourceKey<Biome> borderBiome) implements IThornsTransformer {
 	@Override
 	public ResourceKey<Biome> apply(Context noise, ResourceKey<Biome> up, ResourceKey<Biome> left, ResourceKey<Biome> down, ResourceKey<Biome> right, ResourceKey<Biome> center, ResourceKey<Biome> nw, ResourceKey<Biome> sw, ResourceKey<Biome> se, ResourceKey<Biome> ne) {
 

@@ -175,7 +175,8 @@ public class NagaMovementPattern extends Goal {
 	}
 
 	private void crumbleBelowTarget(int range) {
-		if (!this.naga.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) || naga.getTarget() == null) return;
+		if (!this.naga.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) || naga.getTarget() == null)
+			return;
 
 		int floor = (int) this.naga.getBoundingBox().minY;
 		int targetY = (int) this.naga.getTarget().getBoundingBox().minY;

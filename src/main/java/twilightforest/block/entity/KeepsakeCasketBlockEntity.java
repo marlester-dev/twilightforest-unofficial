@@ -25,6 +25,7 @@ import twilightforest.init.TFBlocks;
 import twilightforest.init.TFSounds;
 
 import org.jetbrains.annotations.Nullable;
+
 import java.util.UUID;
 
 //used a fair bit of chest logic in this for the lid
@@ -180,9 +181,9 @@ public class KeepsakeCasketBlockEntity extends RandomizableContainerBlockEntity 
 	}
 
 	//remove stored player when chest is broken
-    @Override
-    public void setRemoved() {
-        this.playeruuid = null;
+	@Override
+	public void setRemoved() {
+		this.playeruuid = null;
 		super.setRemoved();
 	}
 

@@ -68,7 +68,6 @@ public enum StabilizeLayer implements AreaTransformer1 {
 //
 //		return output;
 //	}
-
 	@Override
 	public ResourceKey<Biome> applyPixel(BigContext<?> context, Area layer, int x, int z) {
 		int offX = getParentX(x << 4);

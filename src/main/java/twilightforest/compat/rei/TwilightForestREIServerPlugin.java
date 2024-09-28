@@ -8,17 +8,17 @@ import twilightforest.compat.rei.displays.REIUncraftingDisplay;
 
 public class TwilightForestREIServerPlugin implements REIServerPlugin {
 
-    public static final CategoryIdentifier<REIUncraftingDisplay> UNCRAFTING = CategoryIdentifier.of(TwilightForestMod.ID, "uncrafting");
+	public static final CategoryIdentifier<REIUncraftingDisplay> UNCRAFTING = CategoryIdentifier.of(TwilightForestMod.ID, "uncrafting");
 
-    //FIXME
+	//FIXME
 //    @Override
 //    public void registerMenuInfo(MenuInfoRegistry registry) {
 //        registry.register(UNCRAFTING, UncraftingMenu.class, SimpleMenuInfoProvider.of(UncraftingTableMenuInfo::new));
 //        registry.register(BuiltinPlugin.CRAFTING, UncraftingMenu.class, SimpleMenuInfoProvider.of(UncraftingTableMenuInfo::new));
 //    }
 
-    @Override
-    public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
-        registry.register(UNCRAFTING, REIUncraftingDisplay.Serializer.INSTANCE);
-    }
+	@Override
+	public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
+		registry.register(UNCRAFTING, REIUncraftingDisplay.Serializer.INSTANCE);
+	}
 }

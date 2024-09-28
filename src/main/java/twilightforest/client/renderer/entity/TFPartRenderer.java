@@ -81,12 +81,12 @@ public abstract class TFPartRenderer<T extends TFPart<?>, M extends ListModel<T>
 	}
 
 	protected float handleRotationFloat(T livingBase, float partialTicks) {
-		return (float)livingBase.tickCount + partialTicks;
+		return (float) livingBase.tickCount + partialTicks;
 	}
 
 	protected void applyRotations(T entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
 		if (entityLiving.deathTime > 0) {
-			float f = ((float)entityLiving.deathTime + partialTicks - 1.0F) / 20.0F * 1.6F;
+			float f = ((float) entityLiving.deathTime + partialTicks - 1.0F) / 20.0F * 1.6F;
 			f = Mth.sqrt(f);
 			if (f > 1.0F) {
 				f = 1.0F;

@@ -11,27 +11,27 @@ import twilightforest.TwilightForestMod;
 import twilightforest.fabric.models.TFModelResolver;
 
 public final class PatchModelLoader implements TFModelResolver {
-    public static final PatchModelLoader INSTANCE = new PatchModelLoader();
-    public static final ResourceLocation ID = new ResourceLocation(TwilightForestMod.ID, "patch");
+	public static final PatchModelLoader INSTANCE = new PatchModelLoader();
+	public static final ResourceLocation ID = new ResourceLocation(TwilightForestMod.ID, "patch");
 
-    private PatchModelLoader() {
-    }
+	private PatchModelLoader() {
+	}
 
-    @Override
-    public UnbakedModel tryResolveModel(Context ctx) throws Exception {
-        ResourceLocation id = ctx.id();
-        if (!id.getNamespace().equals(TwilightForestMod.ID))
-            return null;
-        JsonObject object = BlockModel.GSON.fromJson(PortingLibModelLoadingRegistry.getModelJson(id), JsonObject.class);
-        if (object.has("loader")) {
-            if (!object.get("loader").getAsString().equals(ID.toString()))
-                return null;
-            if (!object.has("texture"))
-                throw new JsonParseException("Patch model missing value for 'texture'.");
+	@Override
+	public UnbakedModel tryResolveModel(Context ctx) throws Exception {
+		ResourceLocation id = ctx.id();
+		if (!id.getNamespace().equals(TwilightForestMod.ID))
+			return null;
+		JsonObject object = BlockModel.GSON.fromJson(PortingLibModelLoadingRegistry.getModelJson(id), JsonObject.class);
+		if (object.has("loader")) {
+			if (!object.get("loader").getAsString().equals(ID.toString()))
+				return null;
+			if (!object.has("texture"))
+				throw new JsonParseException("Patch model missing value for 'texture'.");
 
-            return new UnbakedPatchModel(new ResourceLocation(object.get("texture").getAsString()), JsonUtils.getBooleanOr("shaggify", object, false));
-        }
+			return new UnbakedPatchModel(new ResourceLocation(object.get("texture").getAsString()), JsonUtils.getBooleanOr("shaggify", object, false));
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

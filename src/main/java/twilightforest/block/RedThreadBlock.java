@@ -16,7 +16,7 @@ import twilightforest.init.TFBlocks;
 
 import org.jetbrains.annotations.Nullable;
 
-public class RedThreadBlock extends MultifaceBlock implements EntityBlock , ValidSpawnBlock {
+public class RedThreadBlock extends MultifaceBlock implements EntityBlock, ValidSpawnBlock {
 	public RedThreadBlock(Properties properties) {
 		super(properties);
 	}

@@ -60,8 +60,8 @@ public class HollowLogClimbable extends HorizontalDirectionalBlock implements Wa
 		this.vertical = vertical;
 
 		this.registerDefaultState(this.getStateDefinition().any().setValue(VARIANT, HollowLogVariants.Climbable.VINE).setValue(FACING, Direction.NORTH));
-        FlammableBlockRegistry.getDefaultInstance().add(this, getFireSpreadSpeed(), getFlammability());
-    }
+		FlammableBlockRegistry.getDefaultInstance().add(this, getFireSpreadSpeed(), getFlammability());
+	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
@@ -96,7 +96,8 @@ public class HollowLogClimbable extends HorizontalDirectionalBlock implements Wa
 	@Override
 	public BlockState setWaterlog(BlockState prior, boolean doWater) {
 		return switch (prior.getValue(VARIANT)) {
-			case VINE -> doWater ? this.vertical.get().defaultBlockState().setValue(HollowLogVertical.WATERLOGGED, true) : prior;
+			case VINE ->
+					doWater ? this.vertical.get().defaultBlockState().setValue(HollowLogVertical.WATERLOGGED, true) : prior;
 			case LADDER -> prior.setValue(VARIANT, HollowLogVariants.Climbable.LADDER_WATERLOGGED);
 			case LADDER_WATERLOGGED -> prior.setValue(VARIANT, HollowLogVariants.Climbable.LADDER);
 		};
@@ -143,11 +144,11 @@ public class HollowLogClimbable extends HorizontalDirectionalBlock implements Wa
 		return (0.124 <= vec.x() && vec.x() <= 0.876) && (0.124 <= vec.z() && vec.z() <= 0.876);
 	}
 
-    public int getFlammability() {
-        return 5;
-    }
+	public int getFlammability() {
+		return 5;
+	}
 
-    public int getFireSpreadSpeed() {
-        return 5;
-    }
+	public int getFireSpreadSpeed() {
+		return 5;
+	}
 }

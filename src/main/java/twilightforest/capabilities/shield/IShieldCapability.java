@@ -24,5 +24,5 @@ public interface IShieldCapability extends Component {
 
 	void setShields(int amount, boolean temp);
 
-    void addShields(int amount, boolean temp);
+	void addShields(int amount, boolean temp);
 }

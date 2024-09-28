@@ -141,14 +141,14 @@ public class ArcticArmorItem extends ArmorItem implements DyeableLeatherItem, Wa
 
 		@Override
 		public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack itemStack, LivingEntity entityLiving, EquipmentSlot armorSlot, int light, HumanoidModel<LivingEntity> parentModel) {
-			if(armorModel == null) {
+			if (armorModel == null) {
 				EntityModelSet models = Minecraft.getInstance().getEntityModels();
 				ModelPart root = models.bakeLayer(armorSlot == EquipmentSlot.LEGS ? TFModelLayers.ARCTIC_ARMOR_INNER : TFModelLayers.ARCTIC_ARMOR_OUTER);
 				armorModel = new TFArmorModel(root);
 			}
 			parentModel.copyPropertiesTo(armorModel);
 			TFArmorRenderer.setPartVisibility(armorModel, armorSlot);
-			int color = ((DyeableLeatherItem)itemStack.getItem()).getColor(itemStack);
+			int color = ((DyeableLeatherItem) itemStack.getItem()).getColor(itemStack);
 			TFArmorRenderer.renderArmorPart(matrices, vertexConsumers, light, itemStack, armorModel, new ResourceLocation(getArmorTexture(itemStack, entityLiving, armorSlot, null)), color);
 			ArmorRenderer.renderPart(matrices, vertexConsumers, light, itemStack, armorModel, new ResourceLocation(getArmorTexture(itemStack, entityLiving, armorSlot, "overlay")));
 		}

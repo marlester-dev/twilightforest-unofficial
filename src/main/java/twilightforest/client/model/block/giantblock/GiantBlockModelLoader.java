@@ -9,24 +9,24 @@ import twilightforest.TwilightForestMod;
 import twilightforest.fabric.models.TFModelResolver;
 
 public class GiantBlockModelLoader implements TFModelResolver {
-    public static final GiantBlockModelLoader INSTANCE = new GiantBlockModelLoader();
-    public static final ResourceLocation ID = new ResourceLocation(TwilightForestMod.ID, "giant_block");
+	public static final GiantBlockModelLoader INSTANCE = new GiantBlockModelLoader();
+	public static final ResourceLocation ID = new ResourceLocation(TwilightForestMod.ID, "giant_block");
 
-    @Override
-    public UnbakedModel tryResolveModel(Context ctx) throws Exception {
-        ResourceLocation id = ctx.id();
-        if (!id.getNamespace().equals(TwilightForestMod.ID))
-            return null;
-        JsonObject object = BlockModel.GSON.fromJson(PortingLibModelLoadingRegistry.getModelJson(id), JsonObject.class);
-        if (object.has("loader")) {
-            if (!object.get("loader").getAsString().equals(ID.toString()))
-                return null;
-            BlockModel ownerModel = BlockModel.fromString(object.toString());
-            ResourceLocation parent = ResourceLocation.tryParse(object.get("parent_block").getAsString());
-            assert parent != null;
-            return new UnbakedGiantBlockModel(parent, ownerModel);
-        }
+	@Override
+	public UnbakedModel tryResolveModel(Context ctx) throws Exception {
+		ResourceLocation id = ctx.id();
+		if (!id.getNamespace().equals(TwilightForestMod.ID))
+			return null;
+		JsonObject object = BlockModel.GSON.fromJson(PortingLibModelLoadingRegistry.getModelJson(id), JsonObject.class);
+		if (object.has("loader")) {
+			if (!object.get("loader").getAsString().equals(ID.toString()))
+				return null;
+			BlockModel ownerModel = BlockModel.fromString(object.toString());
+			ResourceLocation parent = ResourceLocation.tryParse(object.get("parent_block").getAsString());
+			assert parent != null;
+			return new UnbakedGiantBlockModel(parent, ownerModel);
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

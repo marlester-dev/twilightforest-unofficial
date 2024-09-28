@@ -19,7 +19,8 @@ import twilightforest.world.components.layer.vanillalegacy.traits.DimensionOffse
 
 import java.util.function.LongFunction;
 
-public record FilteredBiomeLayer(ResourceKey<Biome> biomeFirst) implements AreaTransformer2, DimensionOffset0Transformer {
+public record FilteredBiomeLayer(
+		ResourceKey<Biome> biomeFirst) implements AreaTransformer2, DimensionOffset0Transformer {
 	@Override
 	public ResourceKey<Biome> applyPixel(Context context, Area area1, Area area2, int x, int z) {
 		ResourceKey<Biome> riverInputs = area2.getBiome(this.getParentX(x), this.getParentY(z));

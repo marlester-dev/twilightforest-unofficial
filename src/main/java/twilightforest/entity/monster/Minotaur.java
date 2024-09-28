@@ -133,7 +133,7 @@ public class Minotaur extends Monster implements ITFCharger {
 			}
 
 			if (entity instanceof Player player) {
-				((MobAccessor)this).port_lib$maybeDisableShield(player, this.getMainHandItem(), player.isUsingItem() ? player.getUseItem() : ItemStack.EMPTY);
+				((MobAccessor) this).port_lib$maybeDisableShield(player, this.getMainHandItem(), player.isUsingItem() ? player.getUseItem() : ItemStack.EMPTY);
 			}
 
 			this.doEnchantDamageEffects(this, entity);

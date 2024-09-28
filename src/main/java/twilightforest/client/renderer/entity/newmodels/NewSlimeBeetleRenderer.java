@@ -34,7 +34,7 @@ public class NewSlimeBeetleRenderer extends MobRenderer<SlimeBeetle, NewSlimeBee
 
 		public LayerInner(RenderLayerParent<SlimeBeetle, NewSlimeBeetleModel> renderer, EntityRendererProvider.Context manager) {
 			super(renderer);
-			innerModel =  new NewSlimeBeetleModel(manager.bakeLayer(TFModelLayers.SLIME_BEETLE_TAIL));
+			innerModel = new NewSlimeBeetleModel(manager.bakeLayer(TFModelLayers.SLIME_BEETLE_TAIL));
 		}
 
 		@Override

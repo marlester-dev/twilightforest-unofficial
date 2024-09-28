@@ -67,7 +67,7 @@ public class SpikeBlock extends BlockChainGoblin.MultipartGenericsAreDumb {
 		return this == entity || this.getParent() == entity;
 	}
 
-    @Override
+	@Override
 	protected void defineSynchedData() {
 	}
 

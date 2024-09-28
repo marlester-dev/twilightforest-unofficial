@@ -12,9 +12,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class TFHorizontalBlock extends HorizontalDirectionalBlock {
 
-    public TFHorizontalBlock(Properties properties) {
-        super(properties);
-    }
+	public TFHorizontalBlock(Properties properties) {
+		super(properties);
+	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

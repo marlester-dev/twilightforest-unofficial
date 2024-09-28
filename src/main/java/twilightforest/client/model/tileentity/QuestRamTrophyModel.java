@@ -14,7 +14,7 @@ public class QuestRamTrophyModel extends GenericTrophyModel {
 
 	public final ModelPart horns;
 	public final ModelPart head;
-	
+
 	public QuestRamTrophyModel(ModelPart part) {
 		this.head = part.getChild("head");
 		this.horns = this.head.getChild("horns");
@@ -40,13 +40,13 @@ public class QuestRamTrophyModel extends GenericTrophyModel {
 
 		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
-	
+
 	@Override
 	public void setRotations(float x, float y, float z) {
 		this.head.yRot = y * ((float) Math.PI / 180F);
 		this.head.xRot = z * ((float) Math.PI / 180F);
 	}
-	
+
 	@Override
 	public void renderToBuffer(PoseStack matrix, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		this.head.render(matrix, buffer, packedLight, packedOverlay, red, green, blue, alpha);

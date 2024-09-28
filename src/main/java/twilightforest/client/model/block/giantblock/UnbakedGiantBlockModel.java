@@ -27,7 +27,7 @@ public record UnbakedGiantBlockModel(ResourceLocation parent, BlockModel ownerMo
 
 	@Override
 	public BakedModel bake(ModelBaker bakery, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelState, ResourceLocation modelLocation) {
-		ItemOverrides overrides = ((BlockModelAccessor)ownerModel()).tf$callGetItemOverrides(bakery, ownerModel);
+		ItemOverrides overrides = ((BlockModelAccessor) ownerModel()).tf$callGetItemOverrides(bakery, ownerModel);
 		TextureAtlasSprite[] sprites;
 		if (ownerModel.hasTexture("all")) {
 			sprites = new TextureAtlasSprite[]{spriteGetter.apply(ownerModel.getMaterial("all"))};

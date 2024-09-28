@@ -34,13 +34,13 @@ public class MinoshroomTrophyModel extends GenericTrophyModel {
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
-	
+
 	@Override
 	public void setRotations(float x, float y, float z) {
 		this.head.yRot = y * ((float) Math.PI / 180F);
 		this.head.xRot = z * ((float) Math.PI / 180F);
 	}
-	
+
 	@Override
 	public void renderToBuffer(PoseStack matrix, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		matrix.translate(0.0F, .25F, 0.0F);

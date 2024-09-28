@@ -194,7 +194,7 @@ public class FinalCastleMuralComponent extends TFStructureComponentOld {
 	private void fillHorizontalLine(byte[][] mural, int sx, int sy, int length, boolean positive) {
 		int x = sx;
 
-        for (int i = 0; i <= length; i++) {
+		for (int i = 0; i <= length; i++) {
 			if (x >= 0 && x < width && sy >= 0 && sy < height) {
 				mural[x][sy] = (byte) (positive ? 1 : 4);
 
@@ -204,7 +204,7 @@ public class FinalCastleMuralComponent extends TFStructureComponentOld {
 	}
 
 	private void fillVerticalLine(byte[][] mural, int sx, int sy, int length, boolean positive) {
-        int y = sy;
+		int y = sy;
 
 		for (int i = 0; i <= length; i++) {
 			if (sx >= 0 && sx < width && y >= 0 && y < height) {

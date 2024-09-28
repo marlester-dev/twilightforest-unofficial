@@ -13,6 +13,7 @@ import net.minecraft.world.phys.Vec3;
 import twilightforest.init.TFEntities;
 
 import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 public class SeekerArrow extends TFArrow {

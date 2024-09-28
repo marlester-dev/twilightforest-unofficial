@@ -29,10 +29,10 @@ public class UrGhastFireball extends LargeFireball implements ITFProjectile {
 	protected void onHit(HitResult pResult) {
 		HitResult.Type hitresult$type = pResult.getType();
 		if (hitresult$type == HitResult.Type.ENTITY) {
-			this.onHitEntity((EntityHitResult)pResult);
+			this.onHitEntity((EntityHitResult) pResult);
 			this.level().gameEvent(GameEvent.PROJECTILE_LAND, pResult.getLocation(), GameEvent.Context.of(this, null));
 		} else if (hitresult$type == HitResult.Type.BLOCK) {
-			BlockHitResult blockhitresult = (BlockHitResult)pResult;
+			BlockHitResult blockhitresult = (BlockHitResult) pResult;
 			this.onHitBlock(blockhitresult);
 			BlockPos blockpos = blockhitresult.getBlockPos();
 			this.level().gameEvent(GameEvent.PROJECTILE_LAND, blockpos, GameEvent.Context.of(this, this.level().getBlockState(blockpos)));

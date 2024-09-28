@@ -70,7 +70,6 @@ public class QuestRam extends Animal implements EnforcedHomePoint {
 	}
 
 
-
 	@Override
 	public boolean isFood(ItemStack stack) {
 		return false;

@@ -19,38 +19,38 @@ import java.util.List;
 import java.util.Map;
 
 public class ForceFieldModelLoader implements IGeometryLoader<UnbakedForceFieldModel> {
-    public static final ForceFieldModelLoader INSTANCE = new ForceFieldModelLoader();
-    public static final ResourceLocation ID=new ResourceLocation(TwilightForestMod.ID,"force_field");
+	public static final ForceFieldModelLoader INSTANCE = new ForceFieldModelLoader();
+	public static final ResourceLocation ID = new ResourceLocation(TwilightForestMod.ID, "force_field");
 
-    @Override
-    @SuppressWarnings("ConstantConditions")
-    public UnbakedForceFieldModel read(JsonObject json, JsonDeserializationContext context) throws JsonParseException {
+	@Override
+	@SuppressWarnings("ConstantConditions")
+	public UnbakedForceFieldModel read(JsonObject json, JsonDeserializationContext context) throws JsonParseException {
 
-        Map<BlockElement, Condition> elementsAndConditions = new HashMap<>();
+		Map<BlockElement, Condition> elementsAndConditions = new HashMap<>();
 
-        if (json.has("elements")) {
-            for (JsonElement jsonElement : GsonHelper.getAsJsonArray(json, "elements")) {
-                ExtraDirection direction = null;
-                boolean b = false;
-                List<ExtraDirection> parents = new ArrayList<>();
+		if (json.has("elements")) {
+			for (JsonElement jsonElement : GsonHelper.getAsJsonArray(json, "elements")) {
+				ExtraDirection direction = null;
+				boolean b = false;
+				List<ExtraDirection> parents = new ArrayList<>();
 
-                if (jsonElement instanceof JsonObject element) {
-                    if (element.get("condition") instanceof JsonObject condition) {
-                        direction = ForceFieldModel.ExtraDirection.byName(GsonHelper.getAsString(condition, "direction", "up"));
-                        b = GsonHelper.getAsBoolean(condition, "if", true);
-                        for (JsonElement parentElement : GsonHelper.getAsJsonArray(condition, "parents")) {
-                            parents.add(ForceFieldModel.ExtraDirection.byName(parentElement.getAsString()));
-                        }
-                    }
-                }
-                elementsAndConditions.put(context.deserialize(jsonElement, BlockElement.class), new Condition(direction, b, parents));
-            }
-        }
+				if (jsonElement instanceof JsonObject element) {
+					if (element.get("condition") instanceof JsonObject condition) {
+						direction = ForceFieldModel.ExtraDirection.byName(GsonHelper.getAsString(condition, "direction", "up"));
+						b = GsonHelper.getAsBoolean(condition, "if", true);
+						for (JsonElement parentElement : GsonHelper.getAsJsonArray(condition, "parents")) {
+							parents.add(ForceFieldModel.ExtraDirection.byName(parentElement.getAsString()));
+						}
+					}
+				}
+				elementsAndConditions.put(context.deserialize(jsonElement, BlockElement.class), new Condition(direction, b, parents));
+			}
+		}
 
-        return new UnbakedForceFieldModel(elementsAndConditions);
-    }
+		return new UnbakedForceFieldModel(elementsAndConditions);
+	}
 
-    public record Condition(@Nullable ExtraDirection direction, boolean b, List<ExtraDirection> parents) {
+	public record Condition(@Nullable ExtraDirection direction, boolean b, List<ExtraDirection> parents) {
 
-    }
+	}
 }

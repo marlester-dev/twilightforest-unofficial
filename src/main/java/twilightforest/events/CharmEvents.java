@@ -61,7 +61,7 @@ public class CharmEvents {
 
 	// For when the player dies
 	public static boolean applyDeathItems(LivingEntity entity, DamageSource damageSource, float damageAmount) {
-		if(!(entity instanceof Player player)) return true;
+		if (!(entity instanceof Player player)) return true;
 		//ensure our player is real and in survival before attempting anything
 		if (player.level().isClientSide() || (player.getClass() != ServerPlayer.class) || player instanceof FakePlayer ||
 				player.isCreative() || player.isSpectator()) return true;
@@ -268,7 +268,7 @@ public class CharmEvents {
 					casket.setItems(NonNullList.of(ItemStack.EMPTY, list.toArray(new ItemStack[casketCapacity])));
 				}
 			} else {
-                TwilightForestMod.LOGGER.error("Could not place Keepsake Casket at {}", pos);
+				TwilightForestMod.LOGGER.error("Could not place Keepsake Casket at {}", pos);
 			}
 		}
 	}
@@ -319,7 +319,7 @@ public class CharmEvents {
 	}
 
 	private static boolean hasCharmCurio(Item item, Player player) {
-		if(FabricLoader.getInstance().isModLoaded("trinkets")) {
+		if (FabricLoader.getInstance().isModLoaded("trinkets")) {
 			List<Tuple<SlotReference, ItemStack>> slots = player.getComponent(TrinketsApi.TRINKET_COMPONENT).getEquipped(stack -> stack.is(item));
 
 			if (!slots.isEmpty() && !slots.get(0).getB().isEmpty()) {

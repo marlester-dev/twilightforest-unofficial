@@ -26,6 +26,7 @@ import twilightforest.init.TFBlocks;
 import twilightforest.init.TFItems;
 
 import org.jetbrains.annotations.Nullable;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

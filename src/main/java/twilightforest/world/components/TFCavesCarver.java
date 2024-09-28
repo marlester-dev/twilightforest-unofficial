@@ -117,9 +117,12 @@ public class TFCavesCarver extends WorldCarver<CaveCarverConfiguration> {
 
 						if ((access.getBlockState(pos.above()).is(BlockTags.BASE_STONE_OVERWORLD) || access.getFluidState(pos.above()).is(FluidTags.WATER)) && access.getBlockState(pos).isAir() && !this.isHighlands) {
 							switch (rand.nextInt(5)) {
-								case 0, 1, 2 -> access.setBlockState(pos.above(), Blocks.DIRT.defaultBlockState(), false);
-								case 3 -> access.setBlockState(pos.above(), Blocks.ROOTED_DIRT.defaultBlockState(), false);
-								case 4 -> access.setBlockState(pos.above(), Blocks.COARSE_DIRT.defaultBlockState(), false);
+								case 0, 1, 2 ->
+										access.setBlockState(pos.above(), Blocks.DIRT.defaultBlockState(), false);
+								case 3 ->
+										access.setBlockState(pos.above(), Blocks.ROOTED_DIRT.defaultBlockState(), false);
+								case 4 ->
+										access.setBlockState(pos.above(), Blocks.COARSE_DIRT.defaultBlockState(), false);
 							}
 						}
 						if (isSurface.isTrue()) {

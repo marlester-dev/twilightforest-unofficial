@@ -47,14 +47,14 @@ public class TFStructureDecorator {
 	}
 
 	public static TFStructureDecorator getDecoFor(String decoString) {
-        return switch (decoString) {
-            case "DecoDarkTower" -> new StructureDecoratorDarkTower();
-            case "DecoIceTower" -> new IceTowerDecorator();
-            case "DecoMushroomTower" -> new MushroomTowerDecorator();
-            case "DecoStronghold" -> new StrongholdDecorator();
-            case "DecoCastle" -> new StructureTFDecoratorCastle();
-            default -> new TFStructureDecorator();
-        };
+		return switch (decoString) {
+			case "DecoDarkTower" -> new StructureDecoratorDarkTower();
+			case "DecoIceTower" -> new IceTowerDecorator();
+			case "DecoMushroomTower" -> new MushroomTowerDecorator();
+			case "DecoStronghold" -> new StrongholdDecorator();
+			case "DecoCastle" -> new StructureTFDecoratorCastle();
+			default -> new TFStructureDecorator();
+		};
 
-    }
+	}
 }

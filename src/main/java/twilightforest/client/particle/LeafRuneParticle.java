@@ -17,7 +17,7 @@ public class LeafRuneParticle extends TextureSheetParticle {
 		this.zd = velZ;
 
 		this.quadSize = this.random.nextFloat() * 0.25F;
-		this.lifetime = (int)(Math.random() * 10.0D) + 40;
+		this.lifetime = (int) (Math.random() * 10.0D) + 40;
 		this.gravity = 0.3F + random.nextFloat() * 0.6F;
 	}
 

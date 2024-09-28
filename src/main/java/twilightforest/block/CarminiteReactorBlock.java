@@ -17,6 +17,7 @@ import twilightforest.block.entity.CarminiteReactorBlockEntity;
 import twilightforest.init.TFBlockEntities;
 
 import org.jetbrains.annotations.Nullable;
+
 import java.util.Arrays;
 
 public class CarminiteReactorBlock extends BaseEntityBlock {
