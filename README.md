@@ -4,9 +4,9 @@ Twilight Forest Unofficial
 This is the github page of the Twilight Forest Unofficial mod
 
 ## Licensing
-This project is double licensed under LGPL-2.1 and CC BY-NC-SA 4.0
-The code is under LGPL-2.1, just like original project
-The non-code assets are under CC BY-NC-SA 4.0 , just like in the original project
+This project is double licensed under LGPL-2.1 and CC BY-NC-SA 4.0  
+The code is under LGPL-2.1, just like original project  
+The non-code assets are under CC BY-NC-SA 4.0 , just like in the original project  
 The original sounds were deleted to escape legal problems.
 
 ## Downloads
