@@ -10,7 +10,7 @@ The non-code assets are under CC BY-NC-SA 4.0 , just like in the original projec
 The original sounds were deleted to escape legal problems.
 
 ## Downloads
-Releases will be available on [CurseForge](https://www.curseforge.com/projects/the-twilight-forest-unofficial/files) when ready.
+Releases will be available on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/the-twilight-forest-unofficial/files) when ready.
 
 ## Community
 Keep in touch with development on our [Discord server](https://discord.gg/qySFRKMzkY).
