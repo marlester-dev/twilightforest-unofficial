@@ -1,0 +1,17 @@
+the most sound assets that we used are from the GTHN's MC1.7.10 fork of Twilight Forest. They are licensed under the license of that project (LGPL-2.1), so we are in the grey zone.
+Other sounds that are not derived from GTHN's fork include:
+- findings.ogg
+- home.ogg
+- maker.ogg
+- motion.ogg
+- radiance.ogg
+- steps.ogg
+- superstitious.ogg
+- thread.ogg
+- wayfarer.ogg
+- mob/deer/*
+- mob/mist_wolf/*
+- mob/tome/*
+- etc.
+These sounds have either been deleted or are empty (0 Bytes) due to the copyright, or they were made by us and are licensed under CC BY-NC-SA 4.0, or they are free sounds available under a CC-compatible license.
+Since The Twilight Forest can't legally hold copyright for the names of the sounds, we can use these names.
