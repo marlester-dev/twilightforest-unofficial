@@ -897,7 +897,8 @@
   "entity.twilightforest.hydra.growl": {
     "sounds": [
       "twilightforest:mob/hydra/growl1",
-      "twilightforest:mob/hydra/growl2"
+      "twilightforest:mob/hydra/growl2",
+      "twilightforest:mob/hydra/growl3"
     ],
     "subtitle": "subtitles.twilightforest.entity.hydra.growl"
   },
@@ -905,7 +906,8 @@
     "sounds": [
       "twilightforest:mob/hydra/hurt1",
       "twilightforest:mob/hydra/hurt2",
-      "twilightforest:mob/hydra/hurt3"
+      "twilightforest:mob/hydra/hurt3",
+      "twilightforest:mob/hydra/hurt4"
     ],
     "subtitle": "subtitles.twilightforest.entity.hydra.hurt"
   },
