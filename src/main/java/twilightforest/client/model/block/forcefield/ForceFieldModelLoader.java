@@ -11,7 +11,6 @@ import net.minecraft.util.GsonHelper;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.TwilightForestMod;
 import twilightforest.client.model.block.forcefield.ForceFieldModel.ExtraDirection;
-import twilightforest.enums.TwilightArmorMaterial;
 
 import java.util.ArrayList;
 import java.util.HashMap;

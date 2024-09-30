@@ -1,5 +1,6 @@
 package twilightforest.inventory;
 
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,9 +20,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-
-import io.github.fabricators_of_create.porting_lib.tags.Tags;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.TFConfig;
 import twilightforest.data.tags.ItemTagGenerator;

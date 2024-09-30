@@ -1,5 +1,7 @@
 package twilightforest.entity.monster;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -21,13 +23,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import twilightforest.init.TFSounds;
-import twilightforest.init.TFEntities;
-import twilightforest.entity.ai.goal.RiderSpearAttackGoal;
-
 import org.jetbrains.annotations.Nullable;
+import twilightforest.entity.ai.goal.RiderSpearAttackGoal;
+import twilightforest.init.TFEntities;
+import twilightforest.init.TFSounds;
 
 import java.util.Objects;
 

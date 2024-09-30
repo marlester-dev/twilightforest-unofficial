@@ -6,9 +6,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import twilightforest.init.TFSounds;
+import twilightforest.init.TFStats;
 import twilightforest.network.TFPacketHandler;
 import twilightforest.network.UpdateShieldPacket;
-import twilightforest.init.TFStats;
 
 public class ShieldCapabilityHandler implements IShieldCapability {
 	private int temporaryShields;

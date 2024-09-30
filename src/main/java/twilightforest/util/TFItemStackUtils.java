@@ -1,11 +1,9 @@
 package twilightforest.util;
 
+import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;

@@ -1,9 +1,6 @@
 package twilightforest.mixin;
 
 import io.netty.channel.ChannelHandlerContext;
-
-import java.util.concurrent.TimeoutException;
-
 import net.minecraft.network.Connection;
 import net.minecraft.network.SkipPacketException;
 import org.slf4j.Logger;
@@ -13,6 +10,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.concurrent.TimeoutException;
 
 @Mixin(Connection.class)
 public class ConnectionMixin {

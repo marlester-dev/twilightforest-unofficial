@@ -3,13 +3,12 @@ package twilightforest.client.model.entity.newmodels;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.QuadrupedModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import twilightforest.entity.passive.Deer;
 
 /**

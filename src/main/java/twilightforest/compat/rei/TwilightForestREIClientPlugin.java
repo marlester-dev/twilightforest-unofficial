@@ -41,7 +41,6 @@ import twilightforest.item.recipe.CrumbleRecipe;
 import twilightforest.item.recipe.TransformPowderRecipe;
 import twilightforest.item.recipe.UncraftingRecipe;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.WeakHashMap;

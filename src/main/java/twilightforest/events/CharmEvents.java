@@ -42,7 +42,6 @@ import twilightforest.util.TFItemStackUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CharmEvents {
 	public static final String CHARM_INV_TAG = "TFCharmInventory";

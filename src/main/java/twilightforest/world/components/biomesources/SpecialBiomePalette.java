@@ -5,7 +5,6 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.fabricators_of_create.porting_lib.util.ServerLifecycleHooks;
-import it.unimi.dsi.fastutil.floats.Float2ObjectAVLTreeMap;
 import it.unimi.dsi.fastutil.floats.Float2ObjectSortedMap;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
@@ -14,9 +13,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
-import twilightforest.util.Codecs;
-
 import org.jetbrains.annotations.Nullable;
+import twilightforest.util.Codecs;
 
 import java.util.Collections;
 import java.util.List;

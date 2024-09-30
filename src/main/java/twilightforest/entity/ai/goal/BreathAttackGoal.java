@@ -10,9 +10,8 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import twilightforest.entity.IBreathAttacker;
-
 import org.jetbrains.annotations.Nullable;
+import twilightforest.entity.IBreathAttacker;
 
 import java.util.*;
 
