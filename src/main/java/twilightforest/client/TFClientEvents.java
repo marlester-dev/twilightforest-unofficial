@@ -51,6 +51,8 @@ import twilightforest.TFConfig;
 import twilightforest.TwilightForestMod;
 import twilightforest.block.entity.GrowingBeanstalkBlockEntity;
 import twilightforest.client.model.block.doors.CastleDoorModelLoader;
+import twilightforest.client.model.block.doors.NewCastleDoorModelLoader;
+import twilightforest.client.model.block.doors.NewUnbakedCastleDoorModel;
 import twilightforest.client.model.block.forcefield.ForceFieldModelLoader;
 import twilightforest.client.model.block.giantblock.GiantBlockModelLoader;
 import twilightforest.client.model.block.patch.PatchModelLoader;
@@ -74,6 +76,9 @@ import java.util.function.Consumer;
 public class TFClientEvents {
 
 	public static void init() {
+		RegisterGeometryLoadersCallback.EVENT.register(loaders -> {
+			loaders.put(NewCastleDoorModelLoader.ID, NewCastleDoorModelLoader.INSTANCE);
+		});
 		TFItems.addItemModelProperties();
 //        RegisterGeometryLoadersCallback.EVENT.register(TFClientEvents::registerModelLoader);
 		ModelLoadingPlugin.register(TFModelLoadingPlugin.INSTANCE);
@@ -99,7 +104,6 @@ public class TFClientEvents {
 		public static void registerLoaders(Consumer<ModelResolver> out) {
 			out.accept(PatchModelLoader.INSTANCE);
 			out.accept(GiantBlockModelLoader.INSTANCE);
-			out.accept(CastleDoorModelLoader.INSTANCE);
 		}
 
 		public static void registerModels(Consumer<ResourceLocation> out) {
