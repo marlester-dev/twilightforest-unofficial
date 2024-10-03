@@ -1,4 +1,5 @@
 {
+  "parent": "twilightforest:item/giant_sword_gui",
   "elements": [
     {
       "faces": {
