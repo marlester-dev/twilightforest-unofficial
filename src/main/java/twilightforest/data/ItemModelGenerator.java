@@ -821,7 +821,10 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 		ItemModelBuilder gui = getBuilder(name + "_gui").texture("all", parent)
 				.element().from(0, 0, 0).to(16, 16, 0).face(Direction.SOUTH).texture("#all").uvs(x, y, x + 8, y + 8).tintindex(0).end().end();
-		withExistingParent(name + "_gui", gui.getLocation()).texture("all", parent);
+		//FIXME
+//		withExistingParent(name, parent).customLoader(SeparateTransformsModelBuilder::begin)
+//				.base(withExistingParent(name + "_base", base.getLocation()).texture("layer0", parent))
+//				.perspective(ItemDisplayContext.GUI, gui.texture("all", parent)).end();
 	}
 
 	@Override
