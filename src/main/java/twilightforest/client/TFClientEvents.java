@@ -50,7 +50,7 @@ import twilightforest.TFConfig;
 import twilightforest.TwilightForestMod;
 import twilightforest.block.entity.GrowingBeanstalkBlockEntity;
 import twilightforest.client.model.block.doors.CastleDoorModelLoader;
-import twilightforest.client.model.block.giantblock.GiantBlockModelLoader;
+import twilightforest.client.model.block.giantblock.NewGiantBlockModelLoader;
 import twilightforest.client.model.block.patch.PatchModelLoader;
 import twilightforest.client.renderer.TFSkyRenderer;
 import twilightforest.client.renderer.TFWeatherRenderer;
@@ -74,6 +74,7 @@ public class TFClientEvents {
 		RegisterGeometryLoadersCallback.EVENT.register(loaders -> {
 			loaders.put(CastleDoorModelLoader.ID, CastleDoorModelLoader.INSTANCE);
 			loaders.put(PatchModelLoader.ID, PatchModelLoader.INSTANCE);
+			loaders.put(NewGiantBlockModelLoader.ID, NewGiantBlockModelLoader.INSTANCE);
 		});
 		TFItems.addItemModelProperties();
 //        RegisterGeometryLoadersCallback.EVENT.register(TFClientEvents::registerModelLoader);
@@ -97,10 +98,6 @@ public class TFClientEvents {
 //    }
 
 	public static class ModBusEvents {
-		public static void registerLoaders(Consumer<ModelResolver> out) {
-			out.accept(GiantBlockModelLoader.INSTANCE);
-		}
-
 		public static void registerModels(Consumer<ResourceLocation> out) {
 			out.accept(ShieldLayer.LOC);
 			out.accept(new ModelResourceLocation(TwilightForestMod.prefix("trophy"), "inventory"));
