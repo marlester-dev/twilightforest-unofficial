@@ -73,6 +73,7 @@ public class TFClientEvents {
 	public static void init() {
 		RegisterGeometryLoadersCallback.EVENT.register(loaders -> {
 			loaders.put(CastleDoorModelLoader.ID, CastleDoorModelLoader.INSTANCE);
+			loaders.put(PatchModelLoader.ID, PatchModelLoader.INSTANCE);
 		});
 		TFItems.addItemModelProperties();
 //        RegisterGeometryLoadersCallback.EVENT.register(TFClientEvents::registerModelLoader);
@@ -97,7 +98,6 @@ public class TFClientEvents {
 
 	public static class ModBusEvents {
 		public static void registerLoaders(Consumer<ModelResolver> out) {
-			out.accept(PatchModelLoader.INSTANCE);
 			out.accept(GiantBlockModelLoader.INSTANCE);
 		}
 
