@@ -49,7 +49,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import twilightforest.TFConfig;
 import twilightforest.TwilightForestMod;
 import twilightforest.block.entity.GrowingBeanstalkBlockEntity;
-import twilightforest.client.model.block.doors.NewCastleDoorModelLoader;
+import twilightforest.client.model.block.doors.CastleDoorModelLoader;
 import twilightforest.client.model.block.giantblock.GiantBlockModelLoader;
 import twilightforest.client.model.block.patch.PatchModelLoader;
 import twilightforest.client.renderer.TFSkyRenderer;
@@ -72,7 +72,7 @@ public class TFClientEvents {
 
 	public static void init() {
 		RegisterGeometryLoadersCallback.EVENT.register(loaders -> {
-			loaders.put(NewCastleDoorModelLoader.ID, NewCastleDoorModelLoader.INSTANCE);
+			loaders.put(CastleDoorModelLoader.ID, CastleDoorModelLoader.INSTANCE);
 		});
 		TFItems.addItemModelProperties();
 //        RegisterGeometryLoadersCallback.EVENT.register(TFClientEvents::registerModelLoader);

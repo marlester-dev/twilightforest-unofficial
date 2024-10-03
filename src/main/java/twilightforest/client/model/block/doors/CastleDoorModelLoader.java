@@ -7,14 +7,14 @@ import io.github.fabricators_of_create.porting_lib.models.geometry.IGeometryLoad
 import net.minecraft.resources.ResourceLocation;
 import twilightforest.TwilightForestMod;
 
-public class NewCastleDoorModelLoader implements IGeometryLoader<NewUnbakedCastleDoorModel> {
-	public static final NewCastleDoorModelLoader INSTANCE = new NewCastleDoorModelLoader();
+public class CastleDoorModelLoader implements IGeometryLoader<UnbakedCastleDoorModel> {
+	public static final CastleDoorModelLoader INSTANCE = new CastleDoorModelLoader();
 	public static final ResourceLocation ID = new ResourceLocation(TwilightForestMod.ID, "castle_door");
 
-	public NewCastleDoorModelLoader() {}
+	public CastleDoorModelLoader() {}
 
 	@Override
-	public NewUnbakedCastleDoorModel read(JsonObject jsonObject, JsonDeserializationContext deserializationContext) throws JsonParseException {
-		return new NewUnbakedCastleDoorModel();
+	public UnbakedCastleDoorModel read(JsonObject jsonObject, JsonDeserializationContext deserializationContext) throws JsonParseException {
+		return new UnbakedCastleDoorModel();
 	}
 }

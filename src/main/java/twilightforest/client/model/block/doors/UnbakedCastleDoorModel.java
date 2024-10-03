@@ -25,12 +25,12 @@ import twilightforest.mixin.BlockModelAccessor;
 import java.util.Map;
 import java.util.function.Function;
 
-public class NewUnbakedCastleDoorModel implements IUnbakedGeometry<NewUnbakedCastleDoorModel> {
+public class UnbakedCastleDoorModel implements IUnbakedGeometry<UnbakedCastleDoorModel> {
 
 	private final BlockElement[][] baseElements;
 	private final BlockElement[][][] faceElements;
 
-	public NewUnbakedCastleDoorModel() {
+	public UnbakedCastleDoorModel() {
 		//base elements - the base block. No Connected Textures on this bit.
 		//the array is made of the directions and quads
 		this.baseElements = new BlockElement[6][4];
