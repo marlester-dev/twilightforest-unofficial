@@ -3,7 +3,6 @@ package twilightforest.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import io.github.fabricators_of_create.porting_lib.event.client.*;
-import io.github.fabricators_of_create.porting_lib.models.geometry.IGeometryLoader;
 import io.github.fabricators_of_create.porting_lib.models.geometry.RegisterGeometryLoadersCallback;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -50,10 +49,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import twilightforest.TFConfig;
 import twilightforest.TwilightForestMod;
 import twilightforest.block.entity.GrowingBeanstalkBlockEntity;
-import twilightforest.client.model.block.doors.CastleDoorModelLoader;
 import twilightforest.client.model.block.doors.NewCastleDoorModelLoader;
-import twilightforest.client.model.block.doors.NewUnbakedCastleDoorModel;
-import twilightforest.client.model.block.forcefield.ForceFieldModelLoader;
 import twilightforest.client.model.block.giantblock.GiantBlockModelLoader;
 import twilightforest.client.model.block.patch.PatchModelLoader;
 import twilightforest.client.renderer.TFSkyRenderer;
@@ -69,7 +65,6 @@ import twilightforest.world.registration.TFGenerationSettings;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
