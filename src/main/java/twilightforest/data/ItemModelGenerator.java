@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
 import twilightforest.TwilightForestMod;
+import twilightforest.client.model.SeparateTransformsModelBuilder;
 import twilightforest.init.TFBlocks;
 import twilightforest.init.TFItems;
 import twilightforest.item.Experiment115Item;
@@ -810,10 +811,9 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 	private void toGiantModel(Block b, ResourceLocation model, ResourceLocation top, ItemModelBuilder base, ItemModelBuilder gui) {
 		String name = BuiltInRegistries.BLOCK.getKey(b).getPath();
-		//FIXME
-//		withExistingParent(name, model).customLoader(SeparateTransformsModelBuilder::begin)
-//				.base(withExistingParent(name + "_base", base.getLocation()).texture("all", model).texture("top", top))
-//				.perspective(ItemDisplayContext.GUI, withExistingParent(name + "_gui", gui.getLocation()).texture("all", model).texture("top", top)).end();
+		withExistingParent(name, model).customLoader(SeparateTransformsModelBuilder::begin)
+				.base(withExistingParent(name + "_base", base.getLocation()).texture("all", model).texture("top", top))
+				.perspective(ItemDisplayContext.GUI, withExistingParent(name + "_gui", gui.getLocation()).texture("all", model).texture("top", top)).end();
 	}
 
 	private void toGiantItemModel(RegistryObject<Item> item, ResourceLocation parent, ItemModelBuilder base, int x, int y) {
@@ -821,10 +821,9 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 		ItemModelBuilder gui = getBuilder(name + "_gui").texture("all", parent)
 				.element().from(0, 0, 0).to(16, 16, 0).face(Direction.SOUTH).texture("#all").uvs(x, y, x + 8, y + 8).tintindex(0).end().end();
-		//FIXME
-//		withExistingParent(name, parent).customLoader(SeparateTransformsModelBuilder::begin)
-//				.base(withExistingParent(name + "_base", base.getLocation()).texture("layer0", parent))
-//				.perspective(ItemDisplayContext.GUI, gui.texture("all", parent)).end();
+		withExistingParent(name, parent).customLoader(SeparateTransformsModelBuilder::begin)
+				.base(withExistingParent(name + "_base", base.getLocation()).texture("layer0", parent))
+				.perspective(ItemDisplayContext.GUI, gui.texture("all", parent)).end();
 	}
 
 	@Override
