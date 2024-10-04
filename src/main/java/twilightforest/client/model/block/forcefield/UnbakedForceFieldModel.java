@@ -19,6 +19,6 @@ public record UnbakedForceFieldModel(
 
 	@Override
 	public BakedModel bake(BlockModel context, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelState, ItemOverrides overrides, ResourceLocation modelLocation, boolean isGui3d) {
-		return new ForceFieldModel(this.elementsAndConditions, spriteGetter, context, overrides);
+		return new ForceFieldModel(this.elementsAndConditions, spriteGetter, context, overrides, isGui3d);
 	}
 }

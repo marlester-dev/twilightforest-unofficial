@@ -29,17 +29,19 @@ public class ForceFieldModel implements BakedModel {//IDynamicModel
 	private final BlockModel context;
 	private final TextureAtlasSprite particle;
 	private final ItemOverrides overrides;
+	private final boolean isGui3d;
 	//FIXME: Cannot find port hooks, so i comment them. These are not death code.
 //    private final ChunkRenderTypeSet blockRenderTypes;
 //    private final List<RenderType> itemRenderTypes;
 //    private final List<RenderType> fabulousItemRenderTypes;
 
-	public ForceFieldModel(Map<BlockElement, ForceFieldModelLoader.Condition> parts, Function<Material, TextureAtlasSprite> spriteFunction, BlockModel context, ItemOverrides overrides) {
+	public ForceFieldModel(Map<BlockElement, ForceFieldModelLoader.Condition> parts, Function<Material, TextureAtlasSprite> spriteFunction, BlockModel context, ItemOverrides overrides, boolean isGui3d) {
 		this.parts = parts;
 		this.spriteFunction = spriteFunction;
 		this.context = context;
 		this.particle = spriteFunction.apply(context.getMaterial("particle"));
 		this.overrides = overrides;
+		this.isGui3d = isGui3d;
 		//FIXME: Cannot find port hooks, so i comment them. These are not death code.
 //        ResourceLocation renderTypeHint = context.getRenderTypeHint();
 //        RenderTypeGroup group = renderTypeHint != null ? context.getRenderType(renderTypeHint) : RenderTypeGroup.EMPTY;
@@ -184,9 +186,7 @@ public class ForceFieldModel implements BakedModel {//IDynamicModel
 
 	@Override
 	public boolean isGui3d() {
-		//FIXME: Cannot find port hooks, so i comment them. These are not death code.
-//        return this.context.isGui3d();
-		return true;
+		return isGui3d;
 	}
 
 	@Override

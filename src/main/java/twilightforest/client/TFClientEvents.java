@@ -51,6 +51,7 @@ import twilightforest.TwilightForestMod;
 import twilightforest.block.entity.GrowingBeanstalkBlockEntity;
 import twilightforest.client.model.SeparateTransformsModel;
 import twilightforest.client.model.block.doors.CastleDoorModelLoader;
+import twilightforest.client.model.block.forcefield.ForceFieldModelLoader;
 import twilightforest.client.model.block.giantblock.NewGiantBlockModelLoader;
 import twilightforest.client.model.block.patch.PatchModelLoader;
 import twilightforest.client.renderer.TFSkyRenderer;
@@ -77,6 +78,7 @@ public class TFClientEvents {
 			loaders.put(CastleDoorModelLoader.ID, CastleDoorModelLoader.INSTANCE);
 			loaders.put(PatchModelLoader.ID, PatchModelLoader.INSTANCE);
 			loaders.put(NewGiantBlockModelLoader.ID, NewGiantBlockModelLoader.INSTANCE);
+			loaders.put(ForceFieldModelLoader.ID, ForceFieldModelLoader.INSTANCE);
 		});
 		TFItems.addItemModelProperties();
 //        RegisterGeometryLoadersCallback.EVENT.register(TFClientEvents::registerModelLoader);
