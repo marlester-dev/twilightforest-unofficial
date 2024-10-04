@@ -20,7 +20,6 @@ import twilightforest.block.AbstractTrophyBlock;
 import twilightforest.block.TrophyBlock;
 import twilightforest.block.TrophyWallBlock;
 import twilightforest.block.entity.TrophyBlockEntity;
-import twilightforest.client.JappaPackReloadListener;
 import twilightforest.client.model.TFModelLayers;
 import twilightforest.client.model.tileentity.*;
 import twilightforest.client.model.tileentity.legacy.HydraTrophyLegacyModel;
@@ -31,7 +30,6 @@ import twilightforest.enums.BossVariant;
 import twilightforest.init.TFBlocks;
 
 import java.util.Map;
-import java.util.function.BooleanSupplier;
 
 public class TrophyTileEntityRenderer implements BlockEntityRenderer<TrophyBlockEntity> {
 	public final Map<BossVariant, GenericTrophyModel> trophies;
@@ -53,32 +51,30 @@ public class TrophyTileEntityRenderer implements BlockEntityRenderer<TrophyBlock
 	}
 
 	public static Map<BossVariant, GenericTrophyModel> createTrophyRenderers(EntityModelSet set) {
-		boolean jappa = JappaPackReloadListener.INSTANCE.isJappaPackLoaded();
 		ImmutableMap.Builder<BossVariant, GenericTrophyModel> trophyList = ImmutableMap.builder();
 		trophyList.put(BossVariant.NAGA, new NagaTrophyModel(set.bakeLayer(TFModelLayers.NAGA_TROPHY)));
 		trophyList.put(BossVariant.LICH, new LichTrophyModel(set.bakeLayer(TFModelLayers.LICH_TROPHY)));
-		trophyList.put(BossVariant.MINOSHROOM, !jappa ? new MinoshroomTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_MINOSHROOM_TROPHY)) : new MinoshroomTrophyModel(set.bakeLayer(TFModelLayers.MINOSHROOM_TROPHY)));
-		trophyList.put(BossVariant.HYDRA, !jappa ? new HydraTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_HYDRA_TROPHY)) : new HydraTrophyModel(set.bakeLayer(TFModelLayers.HYDRA_TROPHY)));
+		trophyList.put(BossVariant.MINOSHROOM, new MinoshroomTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_MINOSHROOM_TROPHY)));
+		trophyList.put(BossVariant.HYDRA, new HydraTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_HYDRA_TROPHY)));
 		trophyList.put(BossVariant.KNIGHT_PHANTOM, new KnightPhantomTrophyModel(set.bakeLayer(TFModelLayers.KNIGHT_PHANTOM_TROPHY)));
 		trophyList.put(BossVariant.UR_GHAST, new UrGhastTrophyModel(set.bakeLayer(TFModelLayers.UR_GHAST_TROPHY)));
 		trophyList.put(BossVariant.ALPHA_YETI, new AlphaYetiTrophyModel(set.bakeLayer(TFModelLayers.ALPHA_YETI_TROPHY)));
-		trophyList.put(BossVariant.SNOW_QUEEN, !jappa ? new SnowQueenTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_SNOW_QUEEN_TROPHY)) : new SnowQueenTrophyModel(set.bakeLayer(TFModelLayers.SNOW_QUEEN_TROPHY)));
-		trophyList.put(BossVariant.QUEST_RAM, !jappa ? new QuestRamTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_QUEST_RAM_TROPHY)) : new QuestRamTrophyModel(set.bakeLayer(TFModelLayers.QUEST_RAM_TROPHY)));
+		trophyList.put(BossVariant.SNOW_QUEEN, new SnowQueenTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_SNOW_QUEEN_TROPHY)));
+		trophyList.put(BossVariant.QUEST_RAM, new QuestRamTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_QUEST_RAM_TROPHY)));
 		return trophyList.build();
 	}
 
 	public static Map<BossVariant, GenericTrophyModel> createTrophyRenderersUncached(EntityModelSet set) {
-		BooleanSupplier jappa = JappaPackReloadListener.INSTANCE.uncachedJappaPackCheck();
 		ImmutableMap.Builder<BossVariant, GenericTrophyModel> trophyList = ImmutableMap.builder();
 		trophyList.put(BossVariant.NAGA, new NagaTrophyModel(set.bakeLayer(TFModelLayers.NAGA_TROPHY)));
 		trophyList.put(BossVariant.LICH, new LichTrophyModel(set.bakeLayer(TFModelLayers.LICH_TROPHY)));
-		trophyList.put(BossVariant.MINOSHROOM, !jappa.getAsBoolean() ? new MinoshroomTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_MINOSHROOM_TROPHY)) : new MinoshroomTrophyModel(set.bakeLayer(TFModelLayers.MINOSHROOM_TROPHY)));
-		trophyList.put(BossVariant.HYDRA, !jappa.getAsBoolean() ? new HydraTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_HYDRA_TROPHY)) : new HydraTrophyModel(set.bakeLayer(TFModelLayers.HYDRA_TROPHY)));
+		trophyList.put(BossVariant.MINOSHROOM, new MinoshroomTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_MINOSHROOM_TROPHY)));
+		trophyList.put(BossVariant.HYDRA, new HydraTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_HYDRA_TROPHY)));
 		trophyList.put(BossVariant.KNIGHT_PHANTOM, new KnightPhantomTrophyModel(set.bakeLayer(TFModelLayers.KNIGHT_PHANTOM_TROPHY)));
 		trophyList.put(BossVariant.UR_GHAST, new UrGhastTrophyModel(set.bakeLayer(TFModelLayers.UR_GHAST_TROPHY)));
 		trophyList.put(BossVariant.ALPHA_YETI, new AlphaYetiTrophyModel(set.bakeLayer(TFModelLayers.ALPHA_YETI_TROPHY)));
-		trophyList.put(BossVariant.SNOW_QUEEN, !jappa.getAsBoolean() ? new SnowQueenTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_SNOW_QUEEN_TROPHY)) : new SnowQueenTrophyModel(set.bakeLayer(TFModelLayers.SNOW_QUEEN_TROPHY)));
-		trophyList.put(BossVariant.QUEST_RAM, !jappa.getAsBoolean() ? new QuestRamTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_QUEST_RAM_TROPHY)) : new QuestRamTrophyModel(set.bakeLayer(TFModelLayers.QUEST_RAM_TROPHY)));
+		trophyList.put(BossVariant.SNOW_QUEEN, new SnowQueenTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_SNOW_QUEEN_TROPHY)));
+		trophyList.put(BossVariant.QUEST_RAM, new QuestRamTrophyLegacyModel(set.bakeLayer(TFModelLayers.NEW_QUEST_RAM_TROPHY)));
 		return trophyList.build();
 	}
 
@@ -105,7 +101,6 @@ public class TrophyTileEntityRenderer implements BlockEntityRenderer<TrophyBlock
 	}
 
 	public static void render(@Nullable Direction directionIn, float y, GenericTrophyModel trophy, BossVariant variant, float animationProgress, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, ItemDisplayContext camera) {
-		BooleanSupplier jappa = JappaPackReloadListener.INSTANCE::isJappaPackLoaded;
 		matrixStackIn.pushPose();
 		if (directionIn == null || variant == BossVariant.UR_GHAST) {
 			matrixStackIn.translate(0.5D, 0.01D, 0.5D);
@@ -120,7 +115,7 @@ public class TrophyTileEntityRenderer implements BlockEntityRenderer<TrophyBlock
 					trophy.openMouthForTrophy(0.35F);
 				}
 				trophy.setRotations(animationProgress * 4.5F, y, 0.0F);
-				matrixStackIn.translate(!jappa.getAsBoolean() ? 1.0F : 0.0F, !jappa.getAsBoolean() ? -1.15F : -1.0F, 0.0F);
+				matrixStackIn.translate(1.0F, -1.15F, 0.0F);
 				VertexConsumer hydraVertex = buffer.getBuffer(RenderType.entityCutoutNoCull(textureLocHydra));
 				trophy.renderToBuffer(matrixStackIn, hydraVertex, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 			}
@@ -145,13 +140,13 @@ public class TrophyTileEntityRenderer implements BlockEntityRenderer<TrophyBlock
 			}
 			case SNOW_QUEEN -> {
 				trophy.setRotations(animationProgress * 4.5F, y, 0.0F);
-				matrixStackIn.translate(0.0F, !jappa.getAsBoolean() ? 0.25F : 0.0F, 0.0F);
+				matrixStackIn.translate(0.0F, 0.25F, 0.0F);
 				VertexConsumer waifuVertex = buffer.getBuffer(RenderType.entityCutoutNoCull(textureLocSnowQueen));
 				trophy.renderToBuffer(matrixStackIn, waifuVertex, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 			}
 			case MINOSHROOM -> {
 				trophy.setRotations(animationProgress * 4.5F, y, 0.0F);
-				matrixStackIn.translate(0.0F, !jappa.getAsBoolean() ? 0.12F : 0.065F, !jappa.getAsBoolean() ? 0.56F : 0.0F);
+				matrixStackIn.translate(0.0F, 0.12F, 0.56F);
 				VertexConsumer minoVertex = buffer.getBuffer(RenderType.entityCutoutNoCull(textureLocMinoshroom));
 				trophy.renderToBuffer(matrixStackIn, minoVertex, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 			}
