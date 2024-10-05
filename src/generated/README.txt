@@ -4,4 +4,4 @@ then run the `runData` gradle task to regenerate these files.
 
 Basically: src/main/resources = hand-edited, src/generated/resources = `runData`-generated.
 
-FIXME: fix broken datagen runs
+FIXME: fix errors at the end of datagen runs on fabric (these errors don't effect the generation of sources, but are
