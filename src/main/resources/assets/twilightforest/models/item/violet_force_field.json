@@ -4,11 +4,16 @@
   "render_materials": {
     "layers": {
       "0": {
-        "blendMode": "twilightforest:forge_entity_unsorted_translucent"
+        "blendMode": [
+          "minecraft:translucent"
+        ],
+        "emissive": [
+          true
+        ]
       }
     }
   },
   "textures": {
-    "layer0": "twilightforest:item/carminite"
+    "layer0": "twilightforest:block/forcefield_white"
   }
 }
