@@ -103,8 +103,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 				.transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(0.0F, -90.0F, 25.0F).translation(1.13F, 3.2F, 1.13F).scale(1.7F).end()
 				.transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).rotation(0.0F, 90.0F, -25.0F).translation(1.13F, 3.2F, 1.13F).scale(1.7F).end().end();
 
-		toGiantItemModel(TFItems.GIANT_PICKAXE, new ResourceLocation("item/stone_pickaxe"), giant_tool, 7, 2);
-		toGiantItemModel(TFItems.GIANT_SWORD, new ResourceLocation("item/stone_sword"), giant_tool, 3, 5);
+		toGiantItemModel(TFItems.GIANT_PICKAXE, new ResourceLocation("item/stone_pickaxe"), giant_tool, false);
+		toGiantItemModel(TFItems.GIANT_SWORD, new ResourceLocation("item/stone_sword"), giant_tool, true);
 
 		toBlock(TFBlocks.UBEROUS_SOIL.get());
 		toBlock(TFBlocks.HUGE_STALK.get());
@@ -816,14 +816,13 @@ public class ItemModelGenerator extends ItemModelProvider {
 				.perspective(ItemDisplayContext.GUI, withExistingParent(name + "_gui", gui.getLocation()).texture("all", model).texture("top", top)).end();
 	}
 
-	private void toGiantItemModel(RegistryObject<Item> item, ResourceLocation parent, ItemModelBuilder base, int x, int y) {
+	private void toGiantItemModel(RegistryObject<Item> item, ResourceLocation parent, ItemModelBuilder base, boolean sword) {
 		String name = item.getId().getPath();
 
-		ItemModelBuilder gui = getBuilder(name + "_gui").texture("all", parent)
-				.element().from(0, 0, 0).to(16, 16, 0).face(Direction.SOUTH).texture("#all").uvs(x, y, x + 8, y + 8).tintindex(0).end().end();
+		ItemModelBuilder gui = getBuilder(name + "_gui").texture("all", sword ? prefix("item/giantswordgui") : prefix("item/giantpickaxegui"));
 		withExistingParent(name, parent).customLoader(SeparateTransformsModelBuilder::begin)
 				.base(withExistingParent(name + "_base", base.getLocation()).texture("layer0", parent))
-				.perspective(ItemDisplayContext.GUI, gui.texture("all", parent)).end();
+				.perspective(ItemDisplayContext.GUI, gui).end();
 	}
 
 	@Override

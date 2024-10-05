@@ -6,20 +6,11 @@
       "layer0": "minecraft:item/stone_pickaxe"
     }
   },
-  "display": {
-    "gui": {
-      "scale": [
-        0.160,
-        0.160,
-        5
-      ]
-    }
-  },
   "loader": "twilightforest:separate_transforms",
   "perspectives": {
     "gui": {
       "textures": {
-        "all": "minecraft:item/stone_pickaxe"
+        "all": "twilightforest:item/giantpickaxegui"
       }
     }
   }

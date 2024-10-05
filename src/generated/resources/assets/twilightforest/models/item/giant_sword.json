@@ -6,20 +6,11 @@
       "layer0": "minecraft:item/stone_sword"
     }
   },
-  "display": {
-    "gui": {
-      "scale": [
-        0.160,
-        0.160,
-        5
-      ]
-    }
-  },
   "loader": "twilightforest:separate_transforms",
   "perspectives": {
     "gui": {
       "textures": {
-        "all": "minecraft:item/stone_sword"
+        "all": "twilightforest:item/giantswordgui"
       }
     }
   }
