@@ -3,3 +3,5 @@ will be closed without warning. Please see the twilightforest.data package and e
 then run the `runData` gradle task to regenerate these files.
 
 Basically: src/main/resources = hand-edited, src/generated/resources = `runData`-generated.
+
+FIXME: fix broken datagen runs
