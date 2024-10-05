@@ -103,8 +103,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 				.transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(0.0F, -90.0F, 25.0F).translation(1.13F, 3.2F, 1.13F).scale(1.7F).end()
 				.transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).rotation(0.0F, 90.0F, -25.0F).translation(1.13F, 3.2F, 1.13F).scale(1.7F).end().end();
 
-		toGiantItemModel(TFItems.GIANT_PICKAXE, new ResourceLocation("item/stone_pickaxe"), giant_tool, false);
-		toGiantItemModel(TFItems.GIANT_SWORD, new ResourceLocation("item/stone_sword"), giant_tool, true);
+		toGiantItemModel(TFItems.GIANT_PICKAXE, new ResourceLocation("item/stone_pickaxe"), giant_tool);
+		toGiantItemModel(TFItems.GIANT_SWORD, new ResourceLocation("item/stone_sword"), giant_tool);
 
 		toBlock(TFBlocks.UBEROUS_SOIL.get());
 		toBlock(TFBlocks.HUGE_STALK.get());
@@ -816,13 +816,10 @@ public class ItemModelGenerator extends ItemModelProvider {
 				.perspective(ItemDisplayContext.GUI, withExistingParent(name + "_gui", gui.getLocation()).texture("all", model).texture("top", top)).end();
 	}
 
-	private void toGiantItemModel(RegistryObject<Item> item, ResourceLocation parent, ItemModelBuilder base, boolean sword) {
+	private void toGiantItemModel(RegistryObject<Item> item, ResourceLocation parent, ItemModelBuilder base) {
 		String name = item.getId().getPath();
 
-		ItemModelBuilder gui = getBuilder(name + "_gui").texture("all", sword ? prefix("item/giantswordgui") : prefix("item/giantpickaxegui"));
-		withExistingParent(name, parent).customLoader(SeparateTransformsModelBuilder::begin)
-				.base(withExistingParent(name + "_base", base.getLocation()).texture("layer0", parent))
-				.perspective(ItemDisplayContext.GUI, gui).end();
+		withExistingParent(name + "_base", base.getLocation()).texture("layer0", parent);
 	}
 
 	@Override
