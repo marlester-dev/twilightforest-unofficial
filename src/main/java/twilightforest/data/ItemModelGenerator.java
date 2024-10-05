@@ -819,7 +819,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 	private void toGiantItemModel(RegistryObject<Item> item, ResourceLocation parent, ItemModelBuilder base) {
 		String name = item.getId().getPath();
 
-		withExistingParent(name + "_base", base.getLocation()).texture("layer0", parent);
+		withExistingParent(name, parent).customLoader(SeparateTransformsModelBuilder::begin)
+				.base(withExistingParent(name + "_base", base.getLocation()).texture("layer0", parent)).end();
 	}
 
 	@Override
