@@ -49,6 +49,8 @@ import twilightforest.TFConfig;
 import twilightforest.TwilightForestMod;
 import twilightforest.block.entity.GrowingBeanstalkBlockEntity;
 import twilightforest.client.model.SeparateTransformsModel;
+import twilightforest.client.model.TFItemLayerModel;
+import twilightforest.client.model.TFItemLayerModelBuilder;
 import twilightforest.client.model.block.doors.CastleDoorModelLoader;
 import twilightforest.client.model.block.giantblock.NewGiantBlockModelLoader;
 import twilightforest.client.model.block.patch.PatchModelLoader;
@@ -72,6 +74,7 @@ public class TFClientEvents {
 
 	public static void init() {
 		RegisterGeometryLoadersCallback.EVENT.register(loaders -> {
+			loaders.put(TFItemLayerModel.Loader.ID, TFItemLayerModel.Loader.INSTANCE);
 			loaders.put(SeparateTransformsModel.ID, SeparateTransformsModel.Loader.INSTANCE);
 			loaders.put(CastleDoorModelLoader.ID, CastleDoorModelLoader.INSTANCE);
 			loaders.put(PatchModelLoader.ID, PatchModelLoader.INSTANCE);

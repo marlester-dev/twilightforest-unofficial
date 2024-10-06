@@ -1,7 +1,6 @@
 package twilightforest.data;
 
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
-import io.github.fabricators_of_create.porting_lib.models.builders.ItemLayerModelBuilder;
 import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
 import io.github.fabricators_of_create.porting_lib.models.generators.item.ItemModelBuilder;
 import io.github.fabricators_of_create.porting_lib.models.generators.item.ItemModelProvider;
@@ -16,6 +15,7 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
 import twilightforest.TwilightForestMod;
 import twilightforest.client.model.SeparateTransformsModelBuilder;
+import twilightforest.client.model.TFItemLayerModelBuilder;
 import twilightforest.init.TFBlocks;
 import twilightforest.init.TFItems;
 import twilightforest.item.Experiment115Item;
@@ -706,7 +706,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		}
 		assert false;
 		if (emissivity > 0)
-			builder = builder.customLoader(ItemLayerModelBuilder::begin).emissive(emissivity == 15, 0).renderType("forge_entity_unsorted_translucent", 0).end();
+			builder = builder.customLoader(TFItemLayerModelBuilder::begin).emissive(emissivity == 15, 0).renderType(new ResourceLocation("translucent"), 0).end();
 		return builder;
 	}
 
@@ -715,7 +715,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		for (int i = 0; i < layers.length; i++) {
 			builder = builder.texture("layer" + i, layers[i]);
 		}
-		builder = builder.customLoader(ItemLayerModelBuilder::begin).emissive(true, 0).renderType(new ResourceLocation("translucent"), 0).end();
+		builder = builder.customLoader(TFItemLayerModelBuilder::begin).emissive(true, 0).renderType(new ResourceLocation("translucent"), 0).end();
 		return builder;
 	}
 
