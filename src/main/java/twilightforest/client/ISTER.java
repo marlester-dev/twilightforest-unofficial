@@ -178,10 +178,9 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
 				ms.pushPose();
 				ms.scale(1.0F, -1.0F, -1.0F);
 				Material material = new Material(Sheets.SHIELD_SHEET, new ResourceLocation(TwilightForestMod.ID, "model/knightmetal_shield"));
-				if (this.shield != null) {
-					VertexConsumer vertexconsumer = material.sprite().wrap(ItemRenderer.getFoilBufferDirect(buffers, this.shield.renderType(material.atlasLocation()), true, stack.hasFoil()));
-					this.shield.renderToBuffer(ms, vertexconsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-				}
+				if (this.shield == null) shield = new KnightmetalShieldModel(Minecraft.getInstance().getEntityModels().bakeLayer(TFModelLayers.KNIGHTMETAL_SHIELD));
+				VertexConsumer vertexconsumer = material.sprite().wrap(ItemRenderer.getFoilBufferDirect(buffers, this.shield.renderType(material.atlasLocation()), true, stack.hasFoil()));
+				this.shield.renderToBuffer(ms, vertexconsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 				ms.popPose();
 			}
 		}
