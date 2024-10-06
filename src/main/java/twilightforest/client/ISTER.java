@@ -85,7 +85,10 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
 		Item item = stack.getItem();
 		if (item instanceof BlockItem blockItem) {
 			Block block = blockItem.getBlock();
-			if (block instanceof AbstractTrophyBlock trophyBlock && this.trophies != null) {
+			if (block instanceof AbstractTrophyBlock trophyBlock) {
+				if (trophies == null) {
+					trophies = TrophyTileEntityRenderer.createTrophyRenderers(Minecraft.getInstance().getEntityModels());
+				}
 				BossVariant variant = trophyBlock.getVariant();
 				GenericTrophyModel trophy = this.trophies.get(variant);
 
