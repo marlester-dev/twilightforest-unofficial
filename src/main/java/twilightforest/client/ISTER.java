@@ -155,14 +155,7 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
 			} else if (block instanceof EntityBlock be) {
 				BlockEntity blockEntity = be.newBlockEntity(BlockPos.ZERO, block.defaultBlockState());
 				if (blockEntity != null) {
-					ms.pushPose();
-					ms.mulPose(Axis.YP.rotationDegrees(180));
-					if (block.asItem() instanceof WearableItem)
-						ms.translate(-2, 0, 0);
-					else
-						ms.translate(-1, 0, 0);
-					Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(blockEntity).render(blockEntity, 0, ms, buffers, light, overlay);
-					ms.popPose();
+					Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(blockEntity).render(null, 0, ms, buffers, light, overlay);
 				}
 			}
 		}
