@@ -605,6 +605,7 @@ public class Hydra extends Mob implements Enemy, EnforcedHomePoint, MultiPartEnt
 				return false;
 		}
 
+		// TODO fix the bug where hydra cant be damaged
 		double range = calculateRange(source);
 
 		// Give some leeway for reflected mortars
