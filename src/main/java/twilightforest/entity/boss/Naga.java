@@ -652,6 +652,11 @@ public class Naga extends Monster implements EnforcedHomePoint, IBossLootBuffer,
 	}
 
 	@Override
+	public boolean isMultipartEntity() {
+		return true;
+	}
+
+	@Override
 	protected boolean shouldDropLoot() {
 		return !TFConfig.COMMON_CONFIG.bossDropChests.get();
 	}
