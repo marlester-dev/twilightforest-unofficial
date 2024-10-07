@@ -138,7 +138,7 @@ public class ASMHooks {
 	 * [AFTER GETFIELD]
 	 */
 	public static Entity updateMultiparts(Entity entity) {
-		if (entity instanceof MultiPartEntity)
+		if (entity instanceof MultiPartEntity partEntity && partEntity.isMultipartEntity())
 			TFPacketHandler.CHANNEL.sendToClientsTracking(new UpdateTFMultipartPacket(entity), entity);
 		return entity;
 	}
@@ -176,7 +176,7 @@ public class ASMHooks {
 		List<Entity> list = new ArrayList<>();
 		iter.forEach(entity -> {
 			list.add(entity);
-			if (entity instanceof MultiPartEntity partEntity && partEntity.getParts() != null) {
+			if (entity instanceof MultiPartEntity partEntity && partEntity.isMultipartEntity() && partEntity.getParts() != null) {
 				for (PartEntity<?> part : partEntity.getParts()) {
 					if (part instanceof TFPart)
 						list.add(part);
