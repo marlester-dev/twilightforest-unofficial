@@ -13,6 +13,7 @@ import io.github.fabricators_of_create.porting_lib.models.materials.MaterialData
 import io.github.fabricators_of_create.porting_lib.models.generators.ModelBuilder;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import twilightforest.TwilightForestMod;
 
 public class TFItemLayerModelBuilder<T extends ModelBuilder<T>> extends CustomLoaderBuilder<T> {
 	public static <T extends ModelBuilder<T>> TFItemLayerModelBuilder<T> begin(T parent, ExistingFileHelper existingFileHelper) {
@@ -22,7 +23,7 @@ public class TFItemLayerModelBuilder<T extends ModelBuilder<T>> extends CustomLo
 	private final Int2ObjectMap<MaterialData> faceData = new Int2ObjectOpenHashMap<>();
 
 	protected TFItemLayerModelBuilder(T parent, ExistingFileHelper existingFileHelper) {
-		super(PortingLib.id("item_layers"), parent, existingFileHelper);
+		super(new ResourceLocation(TwilightForestMod.ID, "item_layers"), parent, existingFileHelper);
 	}
 
 	/**
