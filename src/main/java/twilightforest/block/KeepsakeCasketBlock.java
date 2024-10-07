@@ -4,6 +4,7 @@ import io.github.fabricators_of_create.porting_lib.block.EntityDestroyBlock;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -67,7 +69,7 @@ public class KeepsakeCasketBlock extends BaseEntityBlock implements BlockLogging
 	private static final VoxelShape SOLID_Z = Shapes.or(SOLID, TOPPER_Z);
 
 	public KeepsakeCasketBlock(BlockBehaviour.Properties properties) {
-		super(properties); // FIXME PORT 1.20: .explosionResistance(Float.MAX_VALUE)
+		super(properties); // FIXME irrelevant PORT 1.20: .explosionResistance(Float.MAX_VALUE)
 		this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(BREAKAGE, 0));
 	}
 

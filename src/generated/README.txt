@@ -4,5 +4,5 @@ then run the `runDatagen` gradle task to regenerate these files.
 
 Basically: src/main/resources = hand-edited, src/generated/resources = `runDatagen`-generated.
 
-FIXME: fix errors at the end of datagen runs on fabric (these errors don't effect the generation of sources, but are
-FIXME: datagen doesn't generate some files (uncrafting_recipe)
+FIXME relevant: fix errors at the end of datagen runs on fabric (these errors don't effect the generation of sources, but are
+FIXME relevant: datagen doesn't generate some files (uncrafting_recipe)
