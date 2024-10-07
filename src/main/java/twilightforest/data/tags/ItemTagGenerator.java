@@ -49,9 +49,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 	public static final TagKey<Item> STORAGE_BLOCKS_KNIGHTMETAL = TagKey.create(Registries.ITEM, new ResourceLocation("c", "knightmetal_storage_blocks"));
 	public static final TagKey<Item> STORAGE_BLOCKS_STEELEAF = TagKey.create(Registries.ITEM, new ResourceLocation("c", "steeleaf_storage_blocks"));
 
-	// FIXME PORT 1.20: which tag?
-	public static final TagKey<Item> RAW_MATERIALS_IRONWOOD = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "raw_materials/ironwood"));
-	public static final TagKey<Item> RAW_MATERIALS_KNIGHTMETAL = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "raw_materials/knightmetal"));
+	public static final TagKey<Item> RAW_MATERIALS_IRONWOOD = TagKey.create(Registries.ITEM, new ResourceLocation("c", "raw_materials/ironwood"));
+	public static final TagKey<Item> RAW_MATERIALS_KNIGHTMETAL = TagKey.create(Registries.ITEM, new ResourceLocation("c", "raw_materials/knightmetal"));
 
 	public static final TagKey<Item> PORTAL_ACTIVATOR = TagKey.create(Registries.ITEM, TwilightForestMod.prefix("portal_activators"));
 
