@@ -94,7 +94,6 @@ public class TwilightForestMod implements ModInitializer {
 		TFEnchantments.ENCHANTMENTS.register();
 		TFEntities.ENTITIES.register();
 		BiomeLayerTypes.BIOME_LAYER_TYPES.register();
-		BiomeLayerTypes.REGISTRY.get();
 		BiomeLayerStack.BIOME_LAYER_STACKS.register();
 		TFFeatures.FEATURES.register();
 		TFFeatureModifiers.FOLIAGE_PLACERS.register();
@@ -106,7 +105,7 @@ public class TwilightForestMod implements ModInitializer {
 		TFPOITypes.POIS.register();
 		TFFeatureModifiers.PLACEMENT_MODIFIERS.register();
 		TFRecipes.RECIPE_SERIALIZERS.register();
-		TFRecipes.RECIPE_TYPES.getEntries().forEach(RegistryObject::get);
+		TFRecipes.RECIPE_TYPES.register();
 		TFEntities.SPAWN_EGGS.register();
 		TFStats.STATS.register();
 		TFStructurePieceTypes.STRUCTURE_PIECE_TYPES.register();
