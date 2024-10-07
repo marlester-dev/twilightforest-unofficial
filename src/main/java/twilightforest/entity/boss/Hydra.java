@@ -149,6 +149,11 @@ public class Hydra extends Mob implements Enemy, EnforcedHomePoint, MultiPartEnt
 		}
 	}
 
+	@Override
+	public boolean isMultipartEntity() {
+		return true;
+	}
+
 	// [Vanilla Copy] from LivingEntity. Hydra doesn't like the one from EntityLiving for whatever reason
 	@Override
 	protected float tickHeadTurn(float p_110146_1_, float p_110146_2_) {
