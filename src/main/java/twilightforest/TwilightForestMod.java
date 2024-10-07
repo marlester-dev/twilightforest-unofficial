@@ -123,6 +123,7 @@ public class TwilightForestMod implements ModInitializer {
 		WoodPalettes.WOOD_PALETTES.register();
 		Enforcement.ENFORCEMENTS.register();
 		Restrictions.RESTRICTIONS.register();
+		MagicPaintingVariants.MAGIC_PAINTINGS.register();
 
 		Registry.register(BuiltInRegistries.BIOME_SOURCE, TwilightForestMod.prefix("twilight_biomes"), TFBiomeProvider.TF_CODEC);
 		Registry.register(BuiltInRegistries.BIOME_SOURCE, TwilightForestMod.prefix("landmarks"), LandmarkBiomeSource.CODEC);

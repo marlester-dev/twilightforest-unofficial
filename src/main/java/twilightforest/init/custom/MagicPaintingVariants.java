@@ -2,6 +2,7 @@ package twilightforest.init.custom;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -24,6 +25,7 @@ import static twilightforest.util.MagicPaintingVariant.Layer.Parallax;
 
 public class MagicPaintingVariants {
 	public static final ResourceKey<Registry<MagicPaintingVariant>> REGISTRY_KEY = ResourceKey.createRegistryKey(TwilightForestMod.namedRegistry("magic_paintings"));
+	public static final LazyRegistrar<MagicPaintingVariant> MAGIC_PAINTINGS = LazyRegistrar.create(REGISTRY_KEY, TwilightForestMod.ID);
 	public static final Codec<Holder<MagicPaintingVariant>> CODEC = RegistryFileCodec.create(REGISTRY_KEY, MagicPaintingVariant.CODEC, false);
 
 	public static final ResourceKey<MagicPaintingVariant> DARKNESS = makeKey(TwilightForestMod.prefix("darkness"));
