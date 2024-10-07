@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
-  "loader": "twilightforest:item_layers",
+  "loader": "porting_lib:item_layers",
   "overrides": [
     {
       "model": "twilightforest:item/moonworm_queen_alt",
