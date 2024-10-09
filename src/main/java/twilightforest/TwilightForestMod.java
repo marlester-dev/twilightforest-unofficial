@@ -192,7 +192,6 @@ public class TwilightForestMod implements ModInitializer {
 		AxeItem.STRIPPABLES.put(TFBlocks.MINING_WOOD.get(), TFBlocks.STRIPPED_MINING_WOOD.get());
 		AxeItem.STRIPPABLES.put(TFBlocks.SORTING_WOOD.get(), TFBlocks.STRIPPED_SORTING_WOOD.get());
 
-		// TODO: fix magic paintings crash
 		FireBlock fireblock = (FireBlock) Blocks.FIRE;
 		fireblock.setFlammable(TFBlocks.ROOT_BLOCK.get(), 5, 20);
 		fireblock.setFlammable(TFBlocks.ARCTIC_FUR_BLOCK.get(), 20, 20);
