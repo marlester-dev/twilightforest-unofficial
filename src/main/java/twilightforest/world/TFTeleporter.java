@@ -594,7 +594,7 @@ public class TFTeleporter implements ITeleporter {
 
 	@Override
 	public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
-		entity.fallDistance = 0;
+		entity.resetFallDistance();
 		return repositionEntity.apply(false);
 	}
 
