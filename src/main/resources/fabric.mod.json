@@ -68,9 +68,6 @@
     "minecraft": "1.20.1",
     "java": ">=17"
   },
-  "breaks": {
-    "c2me": "*"
-  },
   "suggests": {
     "modmenu": "*"
   },
