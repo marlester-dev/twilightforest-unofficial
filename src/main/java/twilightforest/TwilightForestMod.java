@@ -94,6 +94,7 @@ public class TwilightForestMod implements ModInitializer {
 		TFEnchantments.ENCHANTMENTS.register();
 		TFEntities.ENTITIES.register();
 		BiomeLayerTypes.BIOME_LAYER_TYPES.register();
+		BiomeLayerStack.BIOME_LAYER_STACKS.register();
 		TFFeatures.FEATURES.register();
 		TFFeatureModifiers.FOLIAGE_PLACERS.register();
 		TFLoot.FUNCTIONS.register();
@@ -119,7 +120,10 @@ public class TwilightForestMod implements ModInitializer {
 
 		DwarfRabbitVariant.DWARF_RABBITS.register();
 		TinyBirdVariant.TINY_BIRDS.register();
+		WoodPalettes.WOOD_PALETTES.register();
 		Enforcement.ENFORCEMENTS.register();
+		Restrictions.RESTRICTIONS.register();
+		MagicPaintingVariants.MAGIC_PAINTINGS.register();
 
 		Registry.register(BuiltInRegistries.BIOME_SOURCE, TwilightForestMod.prefix("twilight_biomes"), TFBiomeProvider.TF_CODEC);
 		Registry.register(BuiltInRegistries.BIOME_SOURCE, TwilightForestMod.prefix("landmarks"), LandmarkBiomeSource.CODEC);
