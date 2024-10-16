@@ -13,7 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import twilightforest.TwilightForestMod;
 import twilightforest.data.AtlasGenerator;
 import twilightforest.data.LangGenerator;
-import twilightforest.data.TFLazyRegistar;
 import twilightforest.entity.MagicPainting;
 import twilightforest.util.MagicPaintingVariant;
 import twilightforest.util.MagicPaintingVariant.Layer;
@@ -26,7 +25,7 @@ import static twilightforest.util.MagicPaintingVariant.Layer.Parallax;
 
 public class MagicPaintingVariants {
 	public static final ResourceKey<Registry<MagicPaintingVariant>> REGISTRY_KEY = ResourceKey.createRegistryKey(TwilightForestMod.namedRegistry("magic_paintings"));
-	public static final TFLazyRegistar MAGIC_PAINTINGS = TFLazyRegistar.create(REGISTRY_KEY, TwilightForestMod.ID);
+	public static final LazyRegistrar<MagicPaintingVariant> MAGIC_PAINTINGS = LazyRegistrar.create(REGISTRY_KEY, TwilightForestMod.ID);
 	public static final Codec<Holder<MagicPaintingVariant>> CODEC = RegistryFileCodec.create(REGISTRY_KEY, MagicPaintingVariant.CODEC, false);
 
 	public static final ResourceKey<MagicPaintingVariant> DARKNESS = makeKey(TwilightForestMod.prefix("darkness"));
