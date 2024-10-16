@@ -3,7 +3,6 @@ package twilightforest.init.custom;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -19,10 +18,8 @@ import twilightforest.world.components.layer.vanillalegacy.ZoomLayer;
 
 import java.util.List;
 
-
 public class BiomeLayerStack {
 	public static final ResourceKey<Registry<BiomeLayerFactory>> BIOME_STACK_KEY = ResourceKey.createRegistryKey(TwilightForestMod.namedRegistry("biome_layer_stack"));
-	public static final LazyRegistrar<BiomeLayerFactory> BIOME_LAYER_STACKS = LazyRegistrar.create(BIOME_STACK_KEY, TwilightForestMod.ID);
 	public static final Codec<BiomeLayerFactory> DISPATCH_CODEC = BiomeLayerTypes.CODEC.dispatch("layer_type", BiomeLayerFactory::getType, BiomeLayerType::getCodec);
 	public static final Codec<Holder<BiomeLayerFactory>> HOLDER_CODEC = RegistryFileCodec.create(BiomeLayerStack.BIOME_STACK_KEY, BiomeLayerStack.DISPATCH_CODEC, true);
 

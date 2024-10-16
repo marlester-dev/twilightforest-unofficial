@@ -129,12 +129,12 @@ public class CustomTagGenerator {
 	}
 
 	public static class WoodPaletteTagGenerator extends PortingLibTagsProvider<WoodPalette> {
-		public static final TagKey<WoodPalette> WELL_SWIZZLE_MASK = WoodPalettes.WOOD_PALETTES.createTagKey(TwilightForestMod.prefix("well_swizzle_mask"));
-		public static final TagKey<WoodPalette> DRUID_HUT_SWIZZLE_MASK = WoodPalettes.WOOD_PALETTES.createTagKey(TwilightForestMod.prefix("druid_hut_swizzle_mask"));
-		public static final TagKey<WoodPalette> COMMON_PALETTES = WoodPalettes.WOOD_PALETTES.createTagKey(TwilightForestMod.prefix("common"));
-		public static final TagKey<WoodPalette> UNCOMMON_PALETTES = WoodPalettes.WOOD_PALETTES.createTagKey(TwilightForestMod.prefix("uncommon"));
-		public static final TagKey<WoodPalette> RARE_PALETTES = WoodPalettes.WOOD_PALETTES.createTagKey(TwilightForestMod.prefix("rare"));
-		public static final TagKey<WoodPalette> TREASURE_PALETTES = WoodPalettes.WOOD_PALETTES.createTagKey(TwilightForestMod.prefix("treasure"));
+		public static final TagKey<WoodPalette> WELL_SWIZZLE_MASK = TagKey.create(WoodPalettes.WOOD_PALETTE_TYPE_KEY, TwilightForestMod.prefix("well_swizzle_mask"));
+		public static final TagKey<WoodPalette> DRUID_HUT_SWIZZLE_MASK = TagKey.create(WoodPalettes.WOOD_PALETTE_TYPE_KEY, TwilightForestMod.prefix("druid_hut_swizzle_mask"));
+		public static final TagKey<WoodPalette> COMMON_PALETTES = TagKey.create(WoodPalettes.WOOD_PALETTE_TYPE_KEY, TwilightForestMod.prefix("common"));
+		public static final TagKey<WoodPalette> UNCOMMON_PALETTES = TagKey.create(WoodPalettes.WOOD_PALETTE_TYPE_KEY, TwilightForestMod.prefix("uncommon"));
+		public static final TagKey<WoodPalette> RARE_PALETTES = TagKey.create(WoodPalettes.WOOD_PALETTE_TYPE_KEY, TwilightForestMod.prefix("rare"));
+		public static final TagKey<WoodPalette> TREASURE_PALETTES = TagKey.create(WoodPalettes.WOOD_PALETTE_TYPE_KEY, TwilightForestMod.prefix("treasure"));
 
 		public WoodPaletteTagGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper helper) {
 			super(output, WoodPalettes.WOOD_PALETTE_TYPE_KEY, provider, helper);

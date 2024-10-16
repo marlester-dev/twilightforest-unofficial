@@ -17,7 +17,6 @@ import java.util.Locale;
 
 public class WoodPalettes {
 	public static final ResourceKey<Registry<WoodPalette>> WOOD_PALETTE_TYPE_KEY = ResourceKey.createRegistryKey(TwilightForestMod.namedRegistry("wood_palettes"));
-	public static final LazyRegistrar<WoodPalette> WOOD_PALETTES = LazyRegistrar.create(WOOD_PALETTE_TYPE_KEY, TwilightForestMod.ID);
 	public static final Codec<Holder<WoodPalette>> CODEC = RegistryFileCodec.create(WoodPalettes.WOOD_PALETTE_TYPE_KEY, WoodPalette.CODEC, false);
 
 	public static final ResourceKey<WoodPalette> OAK = makeKey(new ResourceLocation("oak"));
