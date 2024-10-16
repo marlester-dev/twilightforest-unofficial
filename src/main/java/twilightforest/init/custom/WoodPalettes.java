@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import twilightforest.TwilightForestMod;
+import twilightforest.data.TFLazyRegistar;
 import twilightforest.init.TFBlocks;
 import twilightforest.util.WoodPalette;
 
@@ -17,7 +18,7 @@ import java.util.Locale;
 
 public class WoodPalettes {
 	public static final ResourceKey<Registry<WoodPalette>> WOOD_PALETTE_TYPE_KEY = ResourceKey.createRegistryKey(TwilightForestMod.namedRegistry("wood_palettes"));
-	public static final LazyRegistrar<WoodPalette> WOOD_PALETTES = LazyRegistrar.create(WOOD_PALETTE_TYPE_KEY, TwilightForestMod.ID);
+	public static final TFLazyRegistar WOOD_PALETTES = TFLazyRegistar.create(WOOD_PALETTE_TYPE_KEY, TwilightForestMod.ID);
 	public static final Codec<Holder<WoodPalette>> CODEC = RegistryFileCodec.create(WoodPalettes.WOOD_PALETTE_TYPE_KEY, WoodPalette.CODEC, false);
 
 	public static final ResourceKey<WoodPalette> OAK = makeKey(new ResourceLocation("oak"));
