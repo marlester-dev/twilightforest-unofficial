@@ -4,12 +4,9 @@ import com.google.gson.JsonElement;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.JsonOps;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -89,7 +86,7 @@ public class TFDatapackBuiltinEntriesProvider extends RegistriesDatapackGenerato
         var oldStream = registryOfRegistries.entrySet().stream().map(RegistryEntry::fromMapEntry);
         Stream newStream = oldStream.filter(obj -> {
           var value = obj.value();
-          if (value.key().registry().getNamespace().equals(TwilightForestMod.REGISTRY_NAMESPACE)) {
+          if (value.key().location().getNamespace().equals(TwilightForestMod.REGISTRY_NAMESPACE)) {
             return false;
           }
           return true;
