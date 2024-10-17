@@ -25,7 +25,8 @@ import twilightforest.TwilightForestMod;
 /**
  * An extension of the {@link RegistriesDatapackGenerator} which properly handles
  * referencing existing dynamic registry objects within another dynamic registry
- * object.
+ * object. It's properly handling the existing twilight registrys now (since fabric doesn't do it
+ * automatically like forge).
  */
 public class TFDatapackBuiltinEntriesProvider extends RegistriesDatapackGenerator {
   private final PackOutput output;
