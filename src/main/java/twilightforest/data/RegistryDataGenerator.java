@@ -10,12 +10,13 @@ import twilightforest.init.*;
 import twilightforest.init.custom.BiomeLayerStack;
 import twilightforest.init.custom.MagicPaintingVariants;
 import twilightforest.init.custom.Restrictions;
+import twilightforest.init.custom.TFDatapackBuiltinEntriesProvider;
 import twilightforest.init.custom.WoodPalettes;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
+public class RegistryDataGenerator extends TFDatapackBuiltinEntriesProvider {
 
 	public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
 			.add(Registries.CONFIGURED_FEATURE, TFConfiguredFeatures::bootstrap)
