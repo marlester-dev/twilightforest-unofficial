@@ -129,4 +129,8 @@ public class TFDatapackBuiltinEntriesProvider extends RegistriesDatapackGenerato
   public static String prefixNamespace(ResourceLocation registryKey) {
     return registryKey.getNamespace().equals("minecraft") ? registryKey.getPath() : registryKey.getNamespace() +  "/"  + registryKey.getPath();
   }
+
+  public CompletableFuture<HolderLookup.Provider> getRegistryProvider() {
+    return registries;
+  }
 }

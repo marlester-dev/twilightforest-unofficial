@@ -128,7 +128,6 @@ public class CustomTagGenerator {
 		}
 	}
 
-	// fixme: fix errors and conflicts with minecraft:oak
 	public static class WoodPaletteTagGenerator extends PortingLibTagsProvider<WoodPalette> {
 		public static final TagKey<WoodPalette> WELL_SWIZZLE_MASK = TagKey.create(WoodPalettes.WOOD_PALETTE_TYPE_KEY, TwilightForestMod.prefix("well_swizzle_mask"));
 		public static final TagKey<WoodPalette> DRUID_HUT_SWIZZLE_MASK = TagKey.create(WoodPalettes.WOOD_PALETTE_TYPE_KEY, TwilightForestMod.prefix("druid_hut_swizzle_mask"));

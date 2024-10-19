@@ -41,11 +41,12 @@ public class DataGenerators implements DataGeneratorEntrypoint {
 		generator.addProvider(CraftingGenerator::new);
 		generator.addProvider(LootModifierGenerator::new);
 
-		generator.addProvider(RegistryDataGenerator::new);
-		generator.addProvider(CustomTagGenerator.WoodPaletteTagGenerator::new);
-		generator.addProvider(BiomeTagGenerator::new);
-		generator.addProvider(DamageTypeTagGenerator::new);
-		generator.addProvider(StructureTagGenerator::new);
+		RegistryDataGenerator datapackProvider = generator.addProvider(RegistryDataGenerator::new);
+		CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();
+		generator.addProvider((output, provider, helper) -> new CustomTagGenerator.WoodPaletteTagGenerator(output, lookupProvider, helper));
+		generator.addProvider((output, provider, helper) -> new BiomeTagGenerator(output, lookupProvider, helper));
+		generator.addProvider((output, provider, helper) -> new DamageTypeTagGenerator(output, lookupProvider));
+		generator.addProvider((output, provider, helper) -> new StructureTagGenerator(output, lookupProvider));
 
 		generator.addProvider(CrumbleHornGenerator::new);
 		generator.addProvider(TransformationPowderGenerator::new);
