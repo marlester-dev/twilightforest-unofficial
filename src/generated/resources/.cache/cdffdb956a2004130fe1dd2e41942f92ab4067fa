@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-19T13:59:44.3833576	The Twilight Forest/Twilight Forest Item Tags
+// 1.20.1	2024-10-27T06:52:58.2977652	The Twilight Forest/Twilight Forest Item Tags
 8f4a1b422dae61821bb0f5ba0593722248800570 data\c\tags\items\boots.json
 81154170ebec75930d19a52e5e2cd13ebee40a7a data\c\tags\items\helmets.json
 67a7b3976bb8b8c39f23e3eec368ac7a62e2e643 data\twilightforest\tags\items\canopy_logs.json
@@ -12,16 +12,16 @@ bb25df05e525ea9d6172ff9a181b67e470894cf0 data\minecraft\tags\items\axes.json
 46a5eb44a15f2c0b5b4955a4fa8af6277b6e00df data\c\tags\items\raw_materials.json
 d388d03e7de04b9251761c0558535d873bc28390 data\c\tags\items\ingots.json
 363f310ab3e7fd7680eb432d02c0676a686f61ec data\minecraft\tags\items\hanging_signs.json
-b10d8a769f7fb89a049bff4f2c290e885066e40a data\twilightforest\tags\items\portal_activators.json
 76caf160d2fe1861437fbbecdb73444a7f4d48ec data\c\tags\items\raw_materials\knightmetal.json
+b10d8a769f7fb89a049bff4f2c290e885066e40a data\twilightforest\tags\items\portal_activators.json
 f95a5fa193b789d6c405bdcad0eb624dae4d883d data\c\tags\items\feathers.json
 6bc32117ca3889f07692e1fa65314dfd33c39843 data\c\tags\items\fences.json
 bedbedf792c7ee2ef487ac7569f52a9ffde596da data\minecraft\tags\items\signs.json
 555a58fc8d78c9c43c171f705e6d1061e0d16701 data\minecraft\tags\items\slabs.json
 4e37f40b57cb5d96754f7c55eb9b5b214b5d8452 data\c\tags\items\fiery_storage_blocks.json
+89801f4ab34ffb76dac7ba210496005b1c06d0bd data\twilightforest\tags\items\darkwood_logs.json
 f2a4ee9ef20a8d8a97f672f27fd7da690ac572ae data\twilightforest\tags\items\transwood_logs.json
 67c0b0f9e4ca487eeca3ffead24b120cc81d382c data\twilightforest\tags\items\twilight_oak_logs.json
-89801f4ab34ffb76dac7ba210496005b1c06d0bd data\twilightforest\tags\items\darkwood_logs.json
 46e2fba0216f7d9271b152ec5ec644a8cb985592 data\c\tags\items\wooden_chests.json
 4d4bd6414fda1aaaca1a5d7062a2e334ef524c0e data\twilightforest\tags\items\kobold_pacification_breads.json
 88a8e53e0cf6d48c6f762f1a557d393734b20e49 data\twilightforest\tags\items\mining_logs.json
@@ -45,8 +45,8 @@ ac6d2e0269327cc27db935beab69853c67b56404 data\minecraft\tags\items\wooden_trapdo
 286c5d1815057daef434601532c9c03fe9ff33ce data\c\tags\items\ironwood_storage_blocks.json
 2ff22adfbb6d79c41455442d8631d10712e0be81 data\twilightforest\tags\items\fiery_vial.json
 6bc32117ca3889f07692e1fa65314dfd33c39843 data\c\tags\items\wooden_fences.json
-a8356f8521b3718853639e79fb9e5d4053ce520a data\trinkets\tags\items\head\hat.json
 b39ab17154fc7bf130e4ee5572c075a8d1a948cd data\minecraft\tags\items\swords.json
+a8356f8521b3718853639e79fb9e5d4053ce520a data\trinkets\tags\items\head\hat.json
 2d59d6ad3953aaad5b701468b9510c25025a5fdb data\c\tags\items\raw_materials\ironwood.json
 2e3bf2a61a88b392b20a18f80845031f85b4ac4d data\twilightforest\tags\items\towerwood.json
 edd902e23e9f83dc7d33e03498fad9b45a226d82 data\minecraft\tags\items\saplings.json
