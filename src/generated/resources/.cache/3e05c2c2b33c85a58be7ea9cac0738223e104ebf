@@ -1,12 +1,12 @@
-// 1.20.1	2024-10-27T06:52:58.263758	The Twilight Forest/Twilight Forest Block Tags
+// 1.20.1	2024-10-30T12:49:08.9365301	The Twilight Forest/Twilight Forest Block Tags
 2e3bf2a61a88b392b20a18f80845031f85b4ac4d data\twilightforest\tags\blocks\towerwood.json
 88a8e53e0cf6d48c6f762f1a557d393734b20e49 data\twilightforest\tags\blocks\mining_logs.json
 e64f981d325eb0b223260cdd0d6e1b3eee1201b7 data\twilightforest\tags\blocks\hollow_logs_vertical.json
 ebb5c110c2ce8d3394405151150412b121fdf9ea data\twilightforest\tags\blocks\mazestone.json
 3683f7fd5abf59ba4d11c947481ed8e5af4c105a data\minecraft\tags\blocks\frog_prefer_jump_to.json
 404b3dc3f21c904aa73ebedbce67fd577a063f03 data\minecraft\tags\blocks\beacon_base_blocks.json
-77345cb531a5674e9dc97ce097ea2e71761d5e87 data\twilightforest\tags\blocks\fire_jet_fuel.json
 7f274ecc6c9107f0f66fc92694b49178a00de623 data\minecraft\tags\blocks\planks.json
+77345cb531a5674e9dc97ce097ea2e71761d5e87 data\twilightforest\tags\blocks\fire_jet_fuel.json
 d295b201321d6ee819aad9632142425d092851f2 data\twilightforest\tags\blocks\druid_projectile_replaceable.json
 286c5d1815057daef434601532c9c03fe9ff33ce data\twilightforest\tags\blocks\storage_blocks\ironwood.json
 6bc32117ca3889f07692e1fa65314dfd33c39843 data\c\tags\blocks\fences.json
@@ -31,8 +31,8 @@ dd09977b5f385452732a4afbf884ce32a549a182 data\minecraft\tags\blocks\replaceable_
 aa7a88138160657d61cb2e7c4acb15f8b673ea0d data\twilightforest\tags\blocks\logs.json
 f54de91316e67a4baca77aa2d39a3a348c0a0cc8 data\twilightforest\tags\blocks\clouds.json
 b80e3e2454c92b317f23a550d32bf4b3b0f21fad data\minecraft\tags\blocks\small_dripleaf_placeable.json
-907ef166c66cd115f0ba18c231afde855d606cdd data\twilightforest\tags\blocks\hollow_logs_climbable.json
 06ad48449bd98551db8df0fab66e561049d6f40e data\twilightforest\tags\blocks\storage_blocks\knightmetal.json
+907ef166c66cd115f0ba18c231afde855d606cdd data\twilightforest\tags\blocks\hollow_logs_climbable.json
 555a58fc8d78c9c43c171f705e6d1061e0d16701 data\minecraft\tags\blocks\slabs.json
 5d1e0ed82a744d003f386ba1e4f0f4251e0caebf data\c\tags\blocks\ores_in_ground\root.json
 d4036ae286f80ec731e2daee40c7662e0f56226f data\twilightforest\tags\blocks\portal\edge.json
@@ -54,14 +54,14 @@ db7cfd899914b921ab2b36ac0302266d0dbc3059 data\twilightforest\tags\blocks\portal\
 1203b2a28e21d72ff2e1e967317e7b476fc2e96a data\twilightforest\tags\blocks\storage_blocks\arctic_fur.json
 2e9b604433fe0cc12988506d07cdba56ef912eb4 data\twilightforest\tags\blocks\antibuilder_ignores.json
 9c0abcc81274c958d6874197e8877b46ef0f144d data\minecraft\tags\blocks\logs_that_burn.json
-24b83e5a882a852507444b63dc1fbedb33f96eda data\minecraft\tags\blocks\wooden_buttons.json
 870677e43a9b72a44faeb8593a9179ac72fd0101 data\c\tags\blocks\wooden_fence_gates.json
+24b83e5a882a852507444b63dc1fbedb33f96eda data\minecraft\tags\blocks\wooden_buttons.json
 6bc32117ca3889f07692e1fa65314dfd33c39843 data\minecraft\tags\blocks\wooden_fences.json
 edd902e23e9f83dc7d33e03498fad9b45a226d82 data\minecraft\tags\blocks\saplings.json
 67a7b3976bb8b8c39f23e3eec368ac7a62e2e643 data\twilightforest\tags\blocks\canopy_logs.json
 75b190d8cf3c3a2696c06aa5b4f2d8b7ce943372 data\c\tags\blocks\immovable.json
-77a5aa8d18b4e027ce0bca8b6a8d34f1b3abe305 data\twilightforest\tags\blocks\portal\generated_decoration.json
 ac6d2e0269327cc27db935beab69853c67b56404 data\minecraft\tags\blocks\wooden_trapdoors.json
+77a5aa8d18b4e027ce0bca8b6a8d34f1b3abe305 data\twilightforest\tags\blocks\portal\generated_decoration.json
 1e2dcbf13842b10da314c12e5826a7aa8d5644dc data\minecraft\tags\blocks\logs.json
 48b69a449c9cd2c4024c70be50a84de1cab25161 data\minecraft\tags\blocks\wooden_doors.json
 b2335f8ea10eaaafd58daaa1d81d3f26d412771e data\twilightforest\tags\blocks\banisters.json
@@ -92,8 +92,8 @@ cc9731823e10eaf2f4031701fe3e1945f1199a2d data\twilightforest\tags\blocks\giants_
 870677e43a9b72a44faeb8593a9179ac72fd0101 data\c\tags\blocks\fence_gates.json
 07f3611c0f2e4ba6929ee262dd9357f36681ec94 data\twilightforest\tags\blocks\structure_banned_interactions.json
 78aba8f37a06f88bcd48f878ac59855cc2699796 data\minecraft\tags\blocks\wooden_stairs.json
-004f3642a902adfa6b9501017b00ba32cde6c606 data\twilightforest\tags\blocks\ore_magnet\ignored_ores.json
 95ea86154d27e108510f7812fe76487f0e146a81 data\twilightforest\tags\blocks\carminite_reactor_ores.json
+004f3642a902adfa6b9501017b00ba32cde6c606 data\twilightforest\tags\blocks\ore_magnet\ignored_ores.json
 1203b2a28e21d72ff2e1e967317e7b476fc2e96a data\minecraft\tags\blocks\occludes_vibration_signals.json
 875b4d5007e9ccbaee42c8cfe56f8b5dc95ee64b data\twilightforest\tags\blocks\worldgen_replaceables.json
 041d2c2dc205ea35d58a22d05cba9fdf438ae24f data\twilightforest\tags\blocks\carminite_reactor_immune.json

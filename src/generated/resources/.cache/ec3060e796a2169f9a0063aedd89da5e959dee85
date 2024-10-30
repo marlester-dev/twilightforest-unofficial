@@ -1,8 +1,8 @@
-// 1.20.1	2024-10-27T06:52:58.2607567	The Twilight Forest/Twilight Forest Hollow Hill Stalactites
+// 1.20.1	2024-10-30T12:49:08.9345295	The Twilight Forest/Twilight Forest Hollow Hill Stalactites
 f396119325e0cc93e4100c5a79703f932cbfcbb3 data\twilightforest\stalactites\entries\coal_ore_stalactite.json
 67628e7fc16fe91a012ff65aa6b3927b24580794 data\twilightforest\stalactites\entries\gold_ore_raw_gold_block_stalactite.json
-356d41de77855ff124c49af8f68301cfadcd288c data\twilightforest\stalactites\entries\glowstone_stalactite.json
 206e7378f768e626ddaf7da320008c2740113268 data\twilightforest\stalactites\entries\emerald_ore_stalactite.json
+356d41de77855ff124c49af8f68301cfadcd288c data\twilightforest\stalactites\entries\glowstone_stalactite.json
 abd5c475063d3a9c2ed314c2b4d06842f7dece9c data\twilightforest\stalactites\medium_hollow_hill.json
 f8d4189d7149b02298cb0091beed9faeb78fdd7d data\twilightforest\stalactites\entries\copper_ore_raw_copper_block_stalactite.json
 e3db1ece64965a8aa26db009758f4a55985d55f1 data\twilightforest\stalactites\entries\diamond_ore_stalactite.json

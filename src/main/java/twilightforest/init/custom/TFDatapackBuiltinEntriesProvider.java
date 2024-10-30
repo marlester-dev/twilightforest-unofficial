@@ -21,6 +21,9 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import twilightforest.TwilightForestMod;
+import twilightforest.util.MagicPaintingVariant;
+import twilightforest.util.Restriction;
+import twilightforest.util.WoodPalette;
 
 /**
  * An extension of the {@link RegistriesDatapackGenerator} which properly handles
@@ -72,7 +75,7 @@ public class TFDatapackBuiltinEntriesProvider extends RegistriesDatapackGenerato
    */
   private static HolderLookup.Provider constructRegistries(HolderLookup.Provider original, RegistrySetBuilder datapackEntriesBuilder) {
     var builderKeys = new HashSet<>(datapackEntriesBuilder.entries.stream().map(RegistrySetBuilder.RegistryStub::key).toList());
-    /* problem code */ getDataPackRegistriesWithDimensions().filter(data -> !builderKeys.contains(data.key())).forEach(data -> datapackEntriesBuilder.add(data.key(), context -> {}));
+    getDataPackRegistriesWithDimensions().filter(data -> !builderKeys.contains(data.key())).forEach(data -> datapackEntriesBuilder.add(data.key(), context -> {}));
 
     var registryAccess = new TFRegistryAccess();
     return datapackEntriesBuilder.buildPatch(registryAccess, original);
@@ -99,7 +102,19 @@ public class TFDatapackBuiltinEntriesProvider extends RegistriesDatapackGenerato
   }
 
   public static Stream<RegistryDataLoader.RegistryData<?>> getDataPackRegistriesWithDimensions() {
-    return Stream.concat(RegistryDataLoader.WORLDGEN_REGISTRIES.stream(), RegistryDataLoader.DIMENSION_REGISTRIES.stream());
+    Stream<RegistryDataLoader.RegistryData<?>> defaultRegistries = Stream.concat(
+            RegistryDataLoader.WORLDGEN_REGISTRIES.stream(),
+            RegistryDataLoader.DIMENSION_REGISTRIES.stream()
+    );
+
+    Stream<RegistryDataLoader.RegistryData<?>> customRegistries = Stream.of(
+            new RegistryDataLoader.RegistryData<>(BiomeLayerStack.BIOME_STACK_KEY, BiomeLayerStack.DISPATCH_CODEC),
+            new RegistryDataLoader.RegistryData<>(WoodPalettes.WOOD_PALETTE_TYPE_KEY, WoodPalette.CODEC),
+            new RegistryDataLoader.RegistryData<>(MagicPaintingVariants.REGISTRY_KEY, MagicPaintingVariant.CODEC),
+            new RegistryDataLoader.RegistryData<>(Restrictions.RESTRICTION_KEY, Restriction.CODEC)
+    );
+
+    return Stream.concat(defaultRegistries, customRegistries);
   }
 
   public static String prefixNamespace(ResourceLocation registryKey) {
