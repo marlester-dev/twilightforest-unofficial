@@ -142,6 +142,7 @@ public class CustomTagGenerator {
 
 		@Override
 		protected void addTags(HolderLookup.Provider provider) {
+			// TODO: make all these tags get recognised (they don't get recognised for some reason)
 			tag(WELL_SWIZZLE_MASK).add(WoodPalettes.OAK);
 			tag(DRUID_HUT_SWIZZLE_MASK).add(WoodPalettes.OAK, WoodPalettes.SPRUCE, WoodPalettes.BIRCH);
 
