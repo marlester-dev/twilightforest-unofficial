@@ -72,7 +72,7 @@ public class TFDatapackBuiltinEntriesProvider extends RegistriesDatapackGenerato
    */
   private static HolderLookup.Provider constructRegistries(HolderLookup.Provider original, RegistrySetBuilder datapackEntriesBuilder) {
     var builderKeys = new HashSet<>(datapackEntriesBuilder.entries.stream().map(RegistrySetBuilder.RegistryStub::key).toList());
-    getDataPackRegistriesWithDimensions().filter(data -> !builderKeys.contains(data.key())).forEach(data -> datapackEntriesBuilder.add(data.key(), context -> {}));
+    /* problem code */ getDataPackRegistriesWithDimensions().filter(data -> !builderKeys.contains(data.key())).forEach(data -> datapackEntriesBuilder.add(data.key(), context -> {}));
 
     var registryAccess = new TFRegistryAccess();
     return datapackEntriesBuilder.buildPatch(registryAccess, original);
