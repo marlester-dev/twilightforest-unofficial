@@ -45,6 +45,7 @@ import twilightforest.network.TFPacketHandler;
 import twilightforest.network.UpdateGamerulePacket;
 import twilightforest.util.MagicPaintingVariant;
 import twilightforest.util.Restriction;
+import twilightforest.util.WoodPalette;
 import twilightforest.world.components.BiomeGrassColors;
 import twilightforest.world.components.biomesources.LandmarkBiomeSource;
 import twilightforest.world.components.biomesources.TFBiomeProvider;
@@ -154,6 +155,7 @@ public class TwilightForestMod implements ModInitializer {
 	}
 
 	public static void registerDatapackRegistry(RegistryEvents.NewDatapackRegistry registry) {
+		registry.register(new RegistryDataLoader.RegistryData<>(WoodPalettes.WOOD_PALETTE_TYPE_KEY, WoodPalette.CODEC), WoodPalette.CODEC);
 		registry.register(new RegistryDataLoader.RegistryData<>(BiomeLayerStack.BIOME_STACK_KEY, BiomeLayerStack.DISPATCH_CODEC), BiomeLayerStack.DISPATCH_CODEC);
 		registry.register(new RegistryDataLoader.RegistryData<>(Restrictions.RESTRICTION_KEY, Restriction.CODEC), Restriction.CODEC);
 		registry.register(new RegistryDataLoader.RegistryData<>(MagicPaintingVariants.REGISTRY_KEY, MagicPaintingVariant.CODEC), MagicPaintingVariant.CODEC);
