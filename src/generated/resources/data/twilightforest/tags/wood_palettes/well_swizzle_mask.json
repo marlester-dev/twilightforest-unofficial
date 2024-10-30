@@ -1,5 +1,8 @@
 {
   "values": [
-    "minecraft:oak"
+    {
+      "id": "minecraft:oak",
+      "required": false
+    }
   ]
 }

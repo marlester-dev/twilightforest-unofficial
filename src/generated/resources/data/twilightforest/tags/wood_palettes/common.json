@@ -1,6 +1,12 @@
 {
   "values": [
-    "minecraft:spruce",
-    "twilightforest:canopy"
+    {
+      "id": "minecraft:spruce",
+      "required": false
+    },
+    {
+      "id": "twilightforest:canopy",
+      "required": false
+    }
   ]
 }

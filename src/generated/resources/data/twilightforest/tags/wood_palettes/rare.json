@@ -1,7 +1,16 @@
 {
   "values": [
-    "minecraft:birch",
-    "minecraft:jungle",
-    "twilightforest:mangrove"
+    {
+      "id": "minecraft:birch",
+      "required": false
+    },
+    {
+      "id": "minecraft:jungle",
+      "required": false
+    },
+    {
+      "id": "twilightforest:mangrove",
+      "required": false
+    }
   ]
 }

@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-30T12:49:08.922527	The Twilight Forest/Recipes
+// 1.20.1	2024-10-30T21:03:03.2701242	The Twilight Forest/Recipes
 cb2eebd784f35bacfd54793fb865bccbed648267 data\twilightforest\advancements\recipes\redstone\wood\sorting_button.json
 e697deb479f6b3162602aaaa21814f670695e865 data\twilightforest\recipes\wood\mangrove_sign.json
 ee87bbfacdcba0dc0556a64d5b235cf30a1bdb1d data\twilightforest\recipes\magic_map_cloning_recipe.json
@@ -425,8 +425,8 @@ f901a0075457f05ee1d88df8be953271a1be8c50 data\twilightforest\recipes\wood\dark_f
 739fe80b7f2b246dec5b7434068fdcf01e10be4d data\twilightforest\advancements\recipes\building_blocks\wood\mangrove_stairs.json
 bdbf86c2ae3b335092f5812fbdaaa8f53ff89fe5 data\twilightforest\advancements\recipes\combat\equipment\knightmetal_boots.json
 8be2c1d651fe9b8b5ab8d2bcad4f92127be53b00 data\twilightforest\advancements\recipes\misc\lich_banner_pattern.json
-9c1a9d4af682bc7b591f1ba2711b695d7d48e3c4 data\twilightforest\recipes\wood\sorting_slab.json
 6c5095de0a9dea3dacf2271b4564377e00e4de60 data\twilightforest\advancements\recipes\building_blocks\wood\mangrove_planks.json
+9c1a9d4af682bc7b591f1ba2711b695d7d48e3c4 data\twilightforest\recipes\wood\sorting_slab.json
 244d5962367f2fe06a6345fe1fad45d9328df295 data\twilightforest\advancements\recipes\misc\compressed_blocks\reversed\knightmetal_block_ingot.json
 454006475768f02f75586cbd1b4852f6520b25c7 data\twilightforest\advancements\recipes\misc\compressed_blocks\reversed\steeleaf_block_ingot.json
 dfa0d13ef46fad6195ababc0e541b86782af6108 data\twilightforest\advancements\recipes\combat\equipment\block_and_chain.json
