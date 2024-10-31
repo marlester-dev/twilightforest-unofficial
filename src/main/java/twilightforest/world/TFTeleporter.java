@@ -115,6 +115,11 @@ public class TFTeleporter implements ITFTeleporter {
 
 	public static void changeDimension(Entity entity, ServerLevel destWorld, ITFTeleporter teleporter) {
 		PortalInfo portalinfo = teleporter.getPortalInfo(entity, destWorld, entity::findDimensionEntryPoint);
+		if (portalinfo == null) {
+			TwilightForestMod.LOGGER.error("portalInfo returned null, can't enter dimension safely");
+			return;
+		}
+		entity.resetFallDistance();
 		FabricDimensions.teleport(entity, destWorld, portalinfo);
 	}
 
