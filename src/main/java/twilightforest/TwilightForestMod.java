@@ -50,6 +50,7 @@ import twilightforest.world.components.BiomeGrassColors;
 import twilightforest.world.components.biomesources.LandmarkBiomeSource;
 import twilightforest.world.components.biomesources.TFBiomeProvider;
 import twilightforest.world.components.chunkgenerators.ChunkGeneratorTwilight;
+import twilightforest.world.components.layer.FilteredBiomeLayer;
 
 import java.util.Locale;
 
@@ -95,6 +96,7 @@ public class TwilightForestMod implements ModInitializer {
 		TFEnchantments.ENCHANTMENTS.register();
 		TFEntities.ENTITIES.register();
 		BiomeLayerTypes.BIOME_LAYER_TYPES.register();
+		registerBiomeLayerStacks();
 		BiomeLayerStack.BIOME_LAYER_STACKS.register();
 		TFFeatures.FEATURES.register();
 		TFFeatureModifiers.FOLIAGE_PLACERS.register();
@@ -124,7 +126,9 @@ public class TwilightForestMod implements ModInitializer {
 		registerWoodPalettes();
 		WoodPalettes.WOOD_PALETTES.register();
 		Enforcement.ENFORCEMENTS.register();
+		registerRestrictions();
 		Restrictions.RESTRICTIONS.register();
+		registerMagicPaintings();
 		MagicPaintingVariants.MAGIC_PAINTINGS.register();
 
 		Registry.register(BuiltInRegistries.BIOME_SOURCE, TwilightForestMod.prefix("twilight_biomes"), TFBiomeProvider.TF_CODEC);
@@ -158,6 +162,28 @@ public class TwilightForestMod implements ModInitializer {
 		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.TRANSWOOD.location(), () -> WoodPalettes.TRANSWOOD_PALETTE);
 		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.MINEWOOD.location(), () -> WoodPalettes.MINEWOOD_PALETTE);
 		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.SORTWOOD.location(), () -> WoodPalettes.SORTWOOD_PALETTE);
+	}
+
+	public void registerMagicPaintings() {
+		MagicPaintingVariants.MAGIC_PAINTINGS.register(MagicPaintingVariants.DARKNESS.location(), () -> MagicPaintingVariants.DARKNESS_PAINTING);
+	}
+
+	public void registerRestrictions() {
+		Restrictions.RESTRICTIONS.register(Restrictions.DARK_FOREST.location(), () -> Restrictions.DARK_FOREST_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.DARK_FOREST_CENTER.location(), () -> Restrictions.DARK_FOREST_CENTER_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.FINAL_PLATEAU.location(), () -> Restrictions.FINAL_PLATEAU_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.FIRE_SWAMP.location(), () -> Restrictions.FIRE_SWAMP_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.GLACIER.location(), () -> Restrictions.GLACIER_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.HIGHLANDS.location(), () -> Restrictions.HIGHLANDS_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.SNOWY_FOREST.location(), () -> Restrictions.SNOWY_FOREST_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.SWAMP.location(), () -> Restrictions.SWAMP_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.THORNLANDS.location(), () -> Restrictions.THORNLANDS_RESTRICTION);
+	}
+
+	public void registerBiomeLayerStacks() {
+		FilteredBiomeLayer.Factory biomeLayerFactory = (FilteredBiomeLayer.Factory) BiomeLayerStack.getAllBiomesHolder().value();
+		BiomeLayerStack.BIOME_LAYER_STACKS.register(BiomeLayerStack.RANDOM_FOREST_BIOMES.location(), () -> biomeLayerFactory.fallbackLayer().value());
+		BiomeLayerStack.BIOME_LAYER_STACKS.register(BiomeLayerStack.BIOMES_ALONG_STREAMS.location(), () -> biomeLayerFactory);
 	}
 
 	public void initEvents() {

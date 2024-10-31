@@ -29,24 +29,24 @@ public class MagicPaintingVariants {
 	public static final Codec<Holder<MagicPaintingVariant>> CODEC = RegistryFileCodec.create(REGISTRY_KEY, MagicPaintingVariant.CODEC, false);
 
 	public static final ResourceKey<MagicPaintingVariant> DARKNESS = makeKey(TwilightForestMod.prefix("darkness"));
+	public static final MagicPaintingVariant DARKNESS_PAINTING = new MagicPaintingVariant(64, 32, List.of(
+			new Layer("background", null, null, true),
+			new Layer("sky", new Parallax(Parallax.Type.VIEW_ANGLE, 0.01F, 128, 32), new OpacityModifier(OpacityModifier.Type.SINE_TIME, 0.03F, false), true),
+			new Layer("terrain", null, null, false),
+			new Layer("gems", null, null, true),
+			new Layer("gems", null, new OpacityModifier(OpacityModifier.Type.DAY_TIME, 2.0F, true), true),
+			new Layer("lightning", null, new OpacityModifier(OpacityModifier.Type.LIGHTNING, 1.0F, false), true)
+	));
 
 	private static ResourceKey<MagicPaintingVariant> makeKey(ResourceLocation name) {
 		return ResourceKey.create(REGISTRY_KEY, name);
 	}
 
 	public static void bootstrap(BootstapContext<MagicPaintingVariant> context) {
-		register(context, DARKNESS, "Darkness", "???", 64, 32, List.of(
-				new Layer("background", null, null, true),
-				new Layer("sky", new Parallax(Parallax.Type.VIEW_ANGLE, 0.01F, 128, 32), new OpacityModifier(OpacityModifier.Type.SINE_TIME, 0.03F, false), true),
-				new Layer("terrain", null, null, false),
-				new Layer("gems", null, null, true),
-				new Layer("gems", null, new OpacityModifier(OpacityModifier.Type.DAY_TIME, 2.0F, true), true),
-				new Layer("lightning", null, new OpacityModifier(OpacityModifier.Type.LIGHTNING, 1.0F, false), true)
-		));
+		register(context, DARKNESS, "Darkness", "???", DARKNESS_PAINTING);
 	}
 
-	public static void register(BootstapContext<MagicPaintingVariant> context, ResourceKey<MagicPaintingVariant> key, String title, String author, int width, int height, List<Layer> layers) {
-		MagicPaintingVariant variant = new MagicPaintingVariant(width, height, layers);
+	public static void register(BootstapContext<MagicPaintingVariant> context, ResourceKey<MagicPaintingVariant> key, String title, String author, MagicPaintingVariant variant) {
 		AtlasGenerator.MAGIC_PAINTING_HELPER.put(key.location(), variant);
 		LangGenerator.MAGIC_PAINTING_HELPER.put(key.location(), Pair.of(title, author));
 		context.register(key, variant);

@@ -31,7 +31,7 @@ public class TFBiomeProvider extends BiomeSource {
 			TerrainColumn.CODEC.listOf().fieldOf("biome_landscape").xmap(l -> l.stream().collect(Collectors.toMap(TerrainColumn::getResourceKey, Function.identity())), m -> m.values().stream().sorted(Comparator.comparing(terrainColumn -> ComparableResourceKey.of(terrainColumn.getResourceKey()))).toList()).forGetter(o -> o.biomeList),
 			Codec.FLOAT.fieldOf("base_offset").forGetter(o -> o.baseOffset),
 			Codec.FLOAT.fieldOf("base_factor").forGetter(o -> o.baseFactor),
-			BiomeLayerStack.HOLDER_CODEC.fieldOf("biome_layer_config").orElseGet((String s) -> TwilightForestMod.LOGGER.warn(s), BiomeLayerStack::buildDefault).forGetter(TFBiomeProvider::getBiomeConfig)
+			BiomeLayerStack.HOLDER_CODEC.fieldOf("biome_layer_config").orElseGet((String s) -> TwilightForestMod.LOGGER.warn(s), BiomeLayerStack::getAllBiomesHolder).forGetter(TFBiomeProvider::getBiomeConfig)
 	).apply(instance, instance.stable(TFBiomeProvider::new)));
 
 	private final Map<ResourceKey<Biome>, TerrainColumn> biomeList;
