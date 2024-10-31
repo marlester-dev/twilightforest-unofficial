@@ -1,8 +1,8 @@
 package twilightforest.world;
 
 import com.google.common.collect.Maps;
-import io.github.fabricators_of_create.porting_lib.entity.ITeleporter;
 import io.github.fabricators_of_create.porting_lib.tags.TagHelper;
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.SectionPos;
@@ -44,7 +44,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class TFTeleporter implements ITeleporter {
+public class TFTeleporter implements ITFTeleporter {
 
 	// destinationCoordinateCache is (src -> dest) [DestWorld, [SrcPos, DestPos]]
 	private static final Map<ResourceLocation, Map<ColumnPos, PortalPosition>> destinationCoordinateCache = new HashMap<>();
@@ -110,7 +110,12 @@ public class TFTeleporter implements ITeleporter {
 			pos = placeInExistingPortal(dest, entity, BlockPos.containing(pos.pos));
 		}
 
-		return pos == null ? ITeleporter.super.getPortalInfo(entity, dest, defaultPortalInfo) : pos;
+		return pos == null ? ITFTeleporter.super.getPortalInfo(entity, dest, defaultPortalInfo) : pos;
+	}
+
+	public static void changeDimension(Entity entity, ServerLevel destWorld, ITFTeleporter teleporter) {
+		PortalInfo portalinfo = teleporter.getPortalInfo(entity, destWorld, entity::findDimensionEntryPoint);
+		FabricDimensions.teleport(entity, destWorld, portalinfo);
 	}
 
 	@Nullable
@@ -591,12 +596,6 @@ public class TFTeleporter implements ITeleporter {
 
 	private static PortalInfo makePortalInfo(Entity entity, Vec3 pos) {
 		return new PortalInfo(pos, Vec3.ZERO, entity.getYRot(), entity.getXRot());
-	}
-
-	@Override
-	public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
-		entity.resetFallDistance();
-		return repositionEntity.apply(false);
 	}
 
 	static class PortalPosition {

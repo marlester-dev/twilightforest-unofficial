@@ -266,7 +266,7 @@ public class TFPortalBlock extends HalfTransparentBlock implements LiquidBlockCo
 		if (serverWorld == null)
 			return;
 
-		entity.changeDimension(serverWorld, makeReturnPortal ? new TFTeleporter(forcedEntry) : new NoReturnTeleporter());
+		TFTeleporter.changeDimension(entity, serverWorld, makeReturnPortal ? new TFTeleporter(forcedEntry) : new NoReturnTeleporter());
 
 		if (destination == TFGenerationSettings.DIMENSION_KEY && entity instanceof ServerPlayer playerMP && forcedEntry) {
 			// set respawn point for TF dimension to near the arrival portal, only if we spawn here on world creation
