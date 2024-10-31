@@ -313,7 +313,6 @@ public class TFTeleporter implements ITFTeleporter {
 			return makePortalInfo(entity, safeCoords.getX(), entity.getY(), safeCoords.getZ());
 		}
 
-		// TODO fix this not being able to find any safe portal spot
 		TwilightForestMod.LOGGER.warn("Still did not find a safe portal spot.");
 
 		return makePortalInfo(entity, Vec3.atCenterOf(pos));
