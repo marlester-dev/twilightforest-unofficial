@@ -1,16 +1,7 @@
 {
   "values": [
-    {
-      "id": "minecraft:oak",
-      "required": false
-    },
-    {
-      "id": "minecraft:spruce",
-      "required": false
-    },
-    {
-      "id": "minecraft:birch",
-      "required": false
-    }
+    "minecraft:oak",
+    "minecraft:spruce",
+    "minecraft:birch"
   ]
 }

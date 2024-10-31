@@ -1,20 +1,8 @@
 {
   "values": [
-    {
-      "id": "twilightforest:timewood",
-      "required": false
-    },
-    {
-      "id": "twilightforest:transwood",
-      "required": false
-    },
-    {
-      "id": "twilightforest:minewood",
-      "required": false
-    },
-    {
-      "id": "twilightforest:sortwood",
-      "required": false
-    }
+    "twilightforest:timewood",
+    "twilightforest:transwood",
+    "twilightforest:minewood",
+    "twilightforest:sortwood"
   ]
 }

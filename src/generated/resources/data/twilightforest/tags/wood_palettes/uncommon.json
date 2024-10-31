@@ -1,16 +1,7 @@
 {
   "values": [
-    {
-      "id": "minecraft:oak",
-      "required": false
-    },
-    {
-      "id": "twilightforest:darkwood",
-      "required": false
-    },
-    {
-      "id": "twilightforest:twilight_oak",
-      "required": false
-    }
+    "minecraft:oak",
+    "twilightforest:darkwood",
+    "twilightforest:twilight_oak"
   ]
 }

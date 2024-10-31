@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-30T21:03:03.3041294	The Twilight Forest/Twilight Forest Item Tags
+// 1.20.1	2024-10-31T12:46:47.4022677	The Twilight Forest/Twilight Forest Item Tags
 8f4a1b422dae61821bb0f5ba0593722248800570 data\c\tags\items\boots.json
 81154170ebec75930d19a52e5e2cd13ebee40a7a data\c\tags\items\helmets.json
 67a7b3976bb8b8c39f23e3eec368ac7a62e2e643 data\twilightforest\tags\items\canopy_logs.json
@@ -27,8 +27,8 @@ f2a4ee9ef20a8d8a97f672f27fd7da690ac572ae data\twilightforest\tags\items\transwoo
 88a8e53e0cf6d48c6f762f1a557d393734b20e49 data\twilightforest\tags\items\mining_logs.json
 adbd15bdb795bde8f099e20e1b2a0f16e6914e95 data\twilightforest\tags\items\arctic_fur.json
 7f274ecc6c9107f0f66fc92694b49178a00de623 data\minecraft\tags\items\planks.json
-4706a6a28aeb7c0b14c020b3d648a52169569981 data\minecraft\tags\items\piglin_loved.json
 6e8063cfaa6f7b61597516707019f5d5337c010a data\c\tags\items\chestplates.json
+4706a6a28aeb7c0b14c020b3d648a52169569981 data\minecraft\tags\items\piglin_loved.json
 efe690eca7cf20d4e6b473c4fa11dd5b578e1158 data\c\tags\items\paper.json
 870677e43a9b72a44faeb8593a9179ac72fd0101 data\c\tags\items\fence_gates.json
 1203b2a28e21d72ff2e1e967317e7b476fc2e96a data\c\tags\items\arctic_fur_storage_blocks.json

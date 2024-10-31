@@ -142,34 +142,12 @@ public class CustomTagGenerator {
 
 		@Override
 		protected void addTags(HolderLookup.Provider provider) {
-			tag(WELL_SWIZZLE_MASK)
-					.addOptional(WoodPalettes.OAK.location());
-
-			tag(DRUID_HUT_SWIZZLE_MASK)
-					.addOptional(WoodPalettes.OAK.location())
-					.addOptional(WoodPalettes.SPRUCE.location())
-					.addOptional(WoodPalettes.BIRCH.location());
-
-			tag(COMMON_PALETTES)
-					.addOptional(WoodPalettes.SPRUCE.location())
-					.addOptional(WoodPalettes.CANOPY.location());
-
-			tag(UNCOMMON_PALETTES)
-					.addOptional(WoodPalettes.OAK.location())
-					.addOptional(WoodPalettes.DARKWOOD.location())
-					.addOptional(WoodPalettes.TWILIGHT_OAK.location());
-
-			tag(RARE_PALETTES)
-					.addOptional(WoodPalettes.BIRCH.location())
-					.addOptional(WoodPalettes.JUNGLE.location())
-					.addOptional(WoodPalettes.MANGROVE.location());
-
-			tag(TREASURE_PALETTES)
-					.addOptional(WoodPalettes.TIMEWOOD.location())
-					.addOptional(WoodPalettes.TRANSWOOD.location())
-					.addOptional(WoodPalettes.MINEWOOD.location())
-					.addOptional(WoodPalettes.SORTWOOD.location());
-
+			tag(WELL_SWIZZLE_MASK).add(WoodPalettes.OAK);
+			tag(DRUID_HUT_SWIZZLE_MASK).add(WoodPalettes.OAK, WoodPalettes.SPRUCE, WoodPalettes.BIRCH);
+			tag(COMMON_PALETTES).add(WoodPalettes.SPRUCE, WoodPalettes.CANOPY);
+			tag(UNCOMMON_PALETTES).add(WoodPalettes.OAK, WoodPalettes.DARKWOOD, WoodPalettes.TWILIGHT_OAK);
+			tag(RARE_PALETTES).add(WoodPalettes.BIRCH, WoodPalettes.JUNGLE, WoodPalettes.MANGROVE);
+			tag(TREASURE_PALETTES).add(WoodPalettes.TIMEWOOD, WoodPalettes.TRANSWOOD, WoodPalettes.MINEWOOD, WoodPalettes.SORTWOOD);
 		}
 
 		@Override
