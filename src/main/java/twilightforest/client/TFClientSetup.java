@@ -47,7 +47,6 @@ import twilightforest.util.TFWoodTypes;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BooleanSupplier;
 
 public class TFClientSetup implements ClientModInitializer {
 
@@ -66,6 +65,7 @@ public class TFClientSetup implements ClientModInitializer {
 		TFParticleType.registerFactories();
 		ClientTickEvents.END_CLIENT_TICK.register(LockedBiomeListener::clientTick);
 		clientSetup();
+		ClientLifecycleEvents.CLIENT_STARTED.register(this::addMagicPaintingTextureManager);
 		registerEntityRenderers();
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register(TFClientSetup::attachRenderLayers);
 		BuiltinItemRendererRegistry.INSTANCE.register(TFItems.KNIGHTMETAL_SHIELD.get(), ISTER.INSTANCE.get());
@@ -205,6 +205,10 @@ public class TFClientSetup implements ClientModInitializer {
 		EntityRendererRegistry.register(TFEntities.SLIDER.get(), SlideBlockRenderer::new);
 		EntityRendererRegistry.register(TFEntities.SEEKER_ARROW.get(), DefaultArrowRenderer::new);
 		EntityRendererRegistry.register(TFEntities.ICE_ARROW.get(), DefaultArrowRenderer::new);
+	}
+
+	public void addMagicPaintingTextureManager(Minecraft mc) {
+		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(MagicPaintingTextureManager.getInstance());
 	}
 
 	@Environment(EnvType.CLIENT)

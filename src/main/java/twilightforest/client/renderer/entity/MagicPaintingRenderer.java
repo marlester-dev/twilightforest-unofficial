@@ -99,7 +99,7 @@ public class MagicPaintingRenderer extends EntityRenderer<MagicPainting> {
 			double heightDiff = parallax != null ? (heightFactor - layerHeightFactor) * (double) heightAsBlock * 0.5D : 0.0D;
 			double heightOffset = heightDiff != 0.0D ? this.getHeightOffset(parallax, painting, heightDiff) : 0.0D;
 
-			TextureAtlasSprite layerTexture = MagicPaintingTextureManager.instance.getLayerSprite(textureLocation, layer);
+			TextureAtlasSprite layerTexture = MagicPaintingTextureManager.getInstance().getLayerSprite(textureLocation, layer);
 
 			for (int k = 0; k < widthAsBlock; ++k) {
 				for (int l = 0; l < heightAsBlock; ++l) {
@@ -130,7 +130,7 @@ public class MagicPaintingRenderer extends EntityRenderer<MagicPainting> {
 			}
 		}
 
-		TextureAtlasSprite backSprite = MagicPaintingTextureManager.instance.getBackSprite();
+		TextureAtlasSprite backSprite = MagicPaintingTextureManager.getInstance().getBackSprite();
 		float u0 = backSprite.getU0();
 		float u1 = backSprite.getU1();
 		float v0 = backSprite.getV0();
