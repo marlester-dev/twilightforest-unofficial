@@ -19,10 +19,10 @@ public class MagicPaintingTextureManager extends TextureAtlasHolder {
 	public static final ResourceLocation BACK_SPRITE_LOCATION = TwilightForestMod.prefix(MAGIC_PAINTING_PATH + "/back");
 
 	private static MagicPaintingTextureManager instance;
+	public static void setInstance(MagicPaintingTextureManager value) {
+		instance = value;
+	}
 	public static MagicPaintingTextureManager getInstance() {
-		if (instance == null) {
-			instance = new MagicPaintingTextureManager(Minecraft.getInstance().getTextureManager());
-		}
 		return instance;
 	}
 

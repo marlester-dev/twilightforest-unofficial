@@ -11,7 +11,8 @@
     "client.GuiMixin",
     "client.ItemBlockRenderTypesMixin",
     "client.LevelRendererAccessor",
-    "client.MapRendererMapInstanceMixin"
+    "client.MapRendererMapInstanceMixin",
+    "client.MinecraftMixin"
   ],
   "mixins": [
     "AbstractHorseAccessor",
