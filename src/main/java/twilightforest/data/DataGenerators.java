@@ -27,8 +27,6 @@ public class DataGenerators implements DataGeneratorEntrypoint {
 		generator.addProvider(TFAdvancementGenerator::new);
 		generator.addProvider(BlockstateGenerator::new);
 		generator.addProvider(ItemModelGenerator::new);
-		generator.addProvider(AtlasGenerator::new);
-		generator.addProvider(LangGenerator::new);
 		generator.addProvider(SoundGenerator::new);
 		generator.addProvider(CustomTagGenerator.BannerPatternTagGenerator::new);
 		BlockTagGenerator blocktags = generator.addProvider(BlockTagGenerator::new);
@@ -51,6 +49,9 @@ public class DataGenerators implements DataGeneratorEntrypoint {
 		generator.addProvider(CrumbleHornGenerator::new);
 		generator.addProvider(TransformationPowderGenerator::new);
 		generator.addProvider(StalactiteGenerator::new);
+
+		generator.addProvider(AtlasGenerator::new);
+		generator.addProvider(LangGenerator::new);
 	}
 
 	private record ProviderProvider(Pack pack, ExistingFileHelper helper) {
