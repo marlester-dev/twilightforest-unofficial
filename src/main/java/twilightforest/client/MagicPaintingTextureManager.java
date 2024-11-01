@@ -12,7 +12,7 @@ import twilightforest.TwilightForestMod;
 import twilightforest.util.MagicPaintingVariant;
 
 @Environment(EnvType.CLIENT)
-public class MagicPaintingTextureManager extends TextureAtlasHolder implements IdentifiableResourceReloadListener {
+public class MagicPaintingTextureManager extends TextureAtlasHolder {
 	public final static String MAGIC_PAINTING_PATH = "magic_paintings";
 	public static final ResourceLocation ATLAS_LOCATION = TwilightForestMod.prefix("textures/atlas/magic_paintings.png");
 	public static final ResourceLocation ATLAS_INFO_LOCATION = new ResourceLocation(MAGIC_PAINTING_PATH);
@@ -36,10 +36,5 @@ public class MagicPaintingTextureManager extends TextureAtlasHolder implements I
 
 	public TextureAtlasSprite getBackSprite() {
 		return this.getSprite(BACK_SPRITE_LOCATION);
-	}
-
-	@Override
-	public ResourceLocation getFabricId() {
-		return TwilightForestMod.prefix(MAGIC_PAINTING_PATH);
 	}
 }

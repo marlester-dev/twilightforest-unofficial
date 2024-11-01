@@ -208,7 +208,7 @@ public class TFClientSetup implements ClientModInitializer {
 	}
 
 	public void addMagicPaintingTextureManager(Minecraft mc) {
-		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(MagicPaintingTextureManager.getInstance());
+		((ReloadableResourceManager) mc.getResourceManager()).registerReloadListener(MagicPaintingTextureManager.getInstance());
 	}
 
 	@Environment(EnvType.CLIENT)
