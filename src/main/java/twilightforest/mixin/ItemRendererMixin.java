@@ -1,5 +1,7 @@
 package twilightforest.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
@@ -22,6 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import twilightforest.TwilightForestMod;
 import twilightforest.client.renderer.GiantItemRenderHelper;
 import twilightforest.init.TFItems;
+import twilightforest.item.GiantItem;
 
 import java.util.List;
 
@@ -30,15 +33,16 @@ import java.util.List;
 public abstract class ItemRendererMixin {
 	@Shadow @Final private ItemModelShaper itemModelShaper;
 
-	@Inject(method = "renderQuadList", at = @At("HEAD"))
-	private void startRenderItem(PoseStack poseStack, VertexConsumer buffer, List<BakedQuad> quads, ItemStack itemStack, int combinedLight, int combinedOverlay, CallbackInfo ci) {
-		poseStack.pushPose();
-		GiantItemRenderHelper.handle(poseStack, itemStack);
-	}
-
-	@Inject(method = "renderQuadList", at = @At("RETURN"))
-	private void endRenderItem(PoseStack poseStack, VertexConsumer buffer, List<BakedQuad> quads, ItemStack itemStack, int combinedLight, int combinedOverlay, CallbackInfo ci) {
-		poseStack.popPose();
+	@WrapOperation(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/ItemRenderer;renderModelLists(Lnet/minecraft/client/resources/model/BakedModel;Lnet/minecraft/world/item/ItemStack;IILcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;)V"))
+	private void startRenderItem(ItemRenderer instance, BakedModel model, ItemStack stack, int combinedLight, int combinedOverlay, PoseStack matrixStack, VertexConsumer buffer, Operation<Void> original) {
+		if (stack.getItem() instanceof GiantItem) {
+			matrixStack.pushPose();
+			GiantItemRenderHelper.handle(matrixStack);
+			original.call(instance, model, stack, combinedLight, combinedOverlay, matrixStack, buffer);
+			matrixStack.popPose();
+		} else {
+			original.call(instance, model, stack, combinedLight, combinedOverlay, matrixStack, buffer);
+		}
 	}
 
 	@ModifyVariable(method = "render", at = @At("HEAD"), argsOnly = true)
