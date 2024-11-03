@@ -80,7 +80,8 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
 	private KnightmetalShieldModel shield;
 	@Nullable
 	private Map<BossVariant, GenericTrophyModel> trophies;
-	private Map<SkullBlock.Type, SkullModelBase> skulls = SkullBlockRenderer.createSkullRenderers(Minecraft.getInstance().getEntityModels());
+	@Nullable
+	private Map<SkullBlock.Type, SkullModelBase> skulls;
 
 	// Use the cached INSTANCE.get instead
 	private ISTER() {
@@ -157,6 +158,9 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
 				}
 
 				SkullBlock.Type type = candleBlock.getType();
+				if (skulls == null) {
+					skulls = SkullBlockRenderer.createSkullRenderers(Minecraft.getInstance().getEntityModels());
+				}
 				SkullModelBase base = this.skulls.get(type);
 				RenderType renderType = SkullCandleTileEntityRenderer.getRenderType(type, gameprofile);
 				SkullCandleTileEntityRenderer.renderSkull(null, 180.0F, 0.0F, ms, buffers, light, base, renderType);
