@@ -15,6 +15,7 @@ import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
@@ -79,6 +80,7 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
 	private KnightmetalShieldModel shield;
 	@Nullable
 	private Map<BossVariant, GenericTrophyModel> trophies;
+	private Map<SkullBlock.Type, SkullModelBase> skulls = SkullBlockRenderer.createSkullRenderers(Minecraft.getInstance().getEntityModels());
 
 	// Use the cached INSTANCE.get instead
 	private ISTER() {
@@ -88,6 +90,7 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
 	public void onResourceManagerReload(ResourceManager manager) {
 		this.shield = new KnightmetalShieldModel(Minecraft.getInstance().getEntityModels().bakeLayer(TFModelLayers.KNIGHTMETAL_SHIELD));
 		this.trophies = TrophyTileEntityRenderer.createTrophyRenderers(Minecraft.getInstance().getEntityModels());
+		this.skulls = SkullBlockRenderer.createSkullRenderers(Minecraft.getInstance().getEntityModels());
 
 		TwilightForestMod.LOGGER.debug("Reloaded ISTER!");
 	}
@@ -154,7 +157,7 @@ public class ISTER implements BuiltinItemRendererRegistry.DynamicItemRenderer, R
 				}
 
 				SkullBlock.Type type = candleBlock.getType();
-				SkullModelBase base = SkullCandleTileEntityRenderer.createSkullRenderers(Minecraft.getInstance().getEntityModels()).get(type);
+				SkullModelBase base = this.skulls.get(type);
 				RenderType renderType = SkullCandleTileEntityRenderer.getRenderType(type, gameprofile);
 				SkullCandleTileEntityRenderer.renderSkull(null, 180.0F, 0.0F, ms, buffers, light, base, renderType);
 
