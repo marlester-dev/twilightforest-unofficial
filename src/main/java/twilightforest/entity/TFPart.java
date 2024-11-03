@@ -7,9 +7,12 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import twilightforest.TwilightForestMod;
 import twilightforest.network.UpdateTFMultipartPacket;
@@ -50,6 +53,11 @@ public abstract class TFPart<T extends Entity> extends PartEntity<T> {
 		this.interpTargetYaw = yaw;
 		this.interpTargetPitch = pitch;
 		this.newPosRotationIncrements = posRotationIncrements;
+	}
+
+	@Override
+	public InteractionResult interact(Player player, InteractionHand hand) {
+		return this.getParent().interact(player, hand);
 	}
 
 	@Override

@@ -32,6 +32,7 @@ import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.LeadItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.Block;
@@ -70,12 +71,28 @@ public class EntityEvents {
 		ItemCraftedCallback.EVENT.register(EntityEvents::onCrafting);
 		LivingDamageEvent.DAMAGE.register(EntityEvents::entityHurts);
 		LivingDamageEvent.DAMAGE.register(EntityEvents::onLivingHurtEvent);
+		UseBlockCallback.EVENT.register(EntityEvents::leadFenceWrought);
 		UseBlockCallback.EVENT.register(EntityEvents::createSkullCandle);
 		PlayerBlockBreakEvents.BEFORE.register(EntityEvents::onCasketBreak);
 		io.github.fabricators_of_create.porting_lib.entity.events.EntityEvents.PROJECTILE_IMPACT.register(EntityEvents::onParryProjectile);
 		AdvancementCallback.EVENT.register(EntityEvents::alertPlayerCastleIsWIP);
 		LivingEntityEvents.LivingTickEvent.TICK.register(EntityEvents::onLivingTickEvent);
 		LivingEntityEvents.LivingJumpEvent.JUMP.register(EntityEvents::onLivingJumpEvent);
+	}
+
+	public static InteractionResult leadFenceWrought(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (stack.is(Items.LEAD)) {
+			BlockPos pos = hitResult.getBlockPos();
+			BlockState state = level.getBlockState(pos);
+			if (state.is(TFBlocks.WROUGHT_IRON_FENCE.get()) && state.getValue(WroughtIronFenceBlock.POST) != Boolean.FALSE) {
+				if (!level.isClientSide()) {
+					LeadItem.bindPlayerMobs(player, level, pos);
+					return InteractionResult.SUCCESS;
+				}
+			}
+		}
+		return InteractionResult.PASS;
 	}
 
 	public static void alertPlayerCastleIsWIP(Player player, Advancement advancement) {

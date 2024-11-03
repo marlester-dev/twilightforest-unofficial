@@ -26,6 +26,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.decoration.LeashFenceKnotEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
@@ -47,6 +48,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import twilightforest.block.CloudBlock;
+import twilightforest.block.WroughtIronFenceBlock;
 import twilightforest.client.TFClientSetup;
 import twilightforest.entity.TFPart;
 import twilightforest.events.ToolEvents;
@@ -103,6 +105,16 @@ public class ASMHooks {
 	 */
 	public static boolean shouldMapRender(boolean o, ItemStack stack) {
 		return o || isOurMap(stack);
+	}
+
+	/**
+	 * Injection Point:<br>
+	 * {@link net.minecraft.world.entity.decoration.LeashFenceKnotEntity#survives()}<br>
+	 * [BEFORE IRETURN]
+	 */
+	public static boolean lead(boolean o, LeashFenceKnotEntity entity) {
+		BlockState fenceState = entity.level().getBlockState(entity.getPos());
+		return o || (fenceState.is(TFBlocks.WROUGHT_IRON_FENCE.get()) && fenceState.getValue(WroughtIronFenceBlock.POST) != Boolean.FALSE);
 	}
 
 	/**

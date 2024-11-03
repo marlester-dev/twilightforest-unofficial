@@ -26,7 +26,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.init.TFBlocks;
 
-public class WroughtIronFenceBlock extends Block implements SimpleWaterloggedBlock {
+	public class WroughtIronFenceBlock extends Block implements SimpleWaterloggedBlock {
 
 	public static final BooleanProperty POST = BooleanProperty.create("post");
 	public static final EnumProperty<FenceSide> EAST_FENCE = EnumProperty.create("east_fence", FenceSide.class);

@@ -269,7 +269,7 @@ public class TFClientEvents {
 			if (useItem instanceof TripleBowItem || useItem instanceof EnderBowItem || useItem instanceof IceBowItem || useItem instanceof SeekerBowItem) {
 				float f = player.getTicksUsingItem() / 20.0F;
 				f = f > 1.0F ? 1.0F : f * f;
-				return fov * (1.0F - f * 0.15F);
+				return (float) Mth.lerp(Minecraft.getInstance().options.fovEffectScale().get(), 1.0F, (fov * (1.0F - f * 0.15F)));
 			}
 		}
 		return fov;

@@ -42,18 +42,17 @@ public class CapabilityEvents {
 		CapabilityList.YETI_THROWN.maybeGet(entity).ifPresent(YetiThrowCapability::update);
 	}
 
-	public static boolean livingAttack(LivingDamageEvent event) {
+	public static void livingAttack(LivingDamageEvent event) {
 		// shields
-		AtomicBoolean cancel = new AtomicBoolean(false);
+		if (event.getEntity() instanceof Player player && player.getAbilities().invulnerable) return;
 		if (!event.getEntity().level().isClientSide() && !event.getSource().is(DamageTypeTags.BYPASSES_ARMOR)) {
 			CapabilityList.SHIELDS.maybeGet(event.getEntity()).ifPresent(cap -> {
 				if (cap.shieldsLeft() > 0) {
 					cap.breakShield();
-					cancel.set(true);
+					event.setCanceled(true);
 				}
 			});
 		}
-		return cancel.get();
 	}
 
 	public static void onPlayerRespawn(ServerPlayer oldPlayer, ServerPlayer serverPlayer, boolean alive) {
