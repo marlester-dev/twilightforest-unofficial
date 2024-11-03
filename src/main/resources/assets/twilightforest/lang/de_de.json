@@ -1474,5 +1474,14 @@
   "twilightforest.book.yeticave": "Notizen zu einer eisigen Höhle",
   "twilightforest.book.yeticave.1": "§8[[Das Notizbuch eines Entdeckers, von Frost bedeckt]]§0\n\nDer Schneesturm, der diese verschneiten Lande umgibt, ist unaufhörlich. Dies ist kein gewöhnlicher Schneefall – dies ist ein magisches Phänomen. Ich werde Experimente durchführen müssen, um herauszufinden, was in der Lage ist,",
   "twilightforest.book.yeticave.2": "einen solchen Effekt zu verursachen.\n\n§8[[Nächster Eintrag]]§0\n\nDer Fluch scheint von einer Art zu sein, die zu mächtig ist, um von einem einzigen Wesen allein erzeugt zu werden. Mehrere Zauberer, die zusammenarbeiten, wären notwendig. Wenn einer der Zauberer aufhören würde,",
-  "twilightforest.book.yeticave.3": "beizutragen, würde der Schneesturm nachlassen. Merkwürdigerweise zeigen meine Weissagungen keine Anzeichen für lebende Zauberer in der Nähe. Ich habe jedoch etwas Interessantes in einem der nahegelegenen spitzdachigen Türme gesehen..."
+  "twilightforest.book.yeticave.3": "beizutragen, würde der Schneesturm nachlassen. Merkwürdigerweise zeigen meine Weissagungen keine Anzeichen für lebende Zauberer in der Nähe. Ich habe jedoch etwas Interessantes in einem der nahegelegenen spitzdachigen Türme gesehen...",
+  "entity.twilightforest.thrown_ice": "Eisbombe",
+  "item.twilightforest.boarkchop": "Rohes Eberfleisch",
+  "magic_painting.twilightforest.darkness.author": "???",
+  "magic_painting.twilightforest.darkness.title": "Finsternis",
+  "magic_painting.twilightforest.lucid_lands.author": "Androsa",
+  "magic_painting.twilightforest.lucid_lands.title": "Lucid Lands",
+  "subtitles.twilightforest.entity.towerwood_borer.ambient": "Turmholzwurm faucht",
+  "subtitles.twilightforest.entity.towerwood_borer.death": "Turmholzwurm stirbt",
+  "subtitles.twilightforest.entity.towerwood_borer.hurt": "Turmholzwurm wird verletzt"
 }
