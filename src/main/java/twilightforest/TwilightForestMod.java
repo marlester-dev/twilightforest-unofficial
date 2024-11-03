@@ -166,6 +166,7 @@ public class TwilightForestMod implements ModInitializer {
 
 	public void registerMagicPaintings() {
 		MagicPaintingVariants.MAGIC_PAINTINGS.register(MagicPaintingVariants.DARKNESS.location(), () -> MagicPaintingVariants.DARKNESS_PAINTING);
+		MagicPaintingVariants.MAGIC_PAINTINGS.register(MagicPaintingVariants.LUCID_LANDS.location(), () -> MagicPaintingVariants.LUCID_LANDS_PAINTING);
 	}
 
 	public void registerRestrictions() {
