@@ -1,4 +1,4 @@
-// 1.20.1	2024-11-03T20:28:47.5109738	The Twilight Forest/LootTables
+// 1.20.1	2024-11-03T22:25:05.276737	The Twilight Forest/LootTables
 d093ba4aeaf51a5423a2335757895c503763ffd5 data\twilightforest\loot_tables\blocks\hollow_vangrove_log_vertical.json
 233c9bccc8aab79173a9365cb6316d7079107eed data\twilightforest\loot_tables\blocks\dark_log.json
 e6fbe38900aceb47150dfcb00779eec439560754 data\twilightforest\loot_tables\entities\bighorn_sheep\red.json
@@ -94,7 +94,7 @@ d62843c841f3cc15fc797769610deded903b6607 data\twilightforest\loot_tables\chests\
 f4119b96972fb42dc6eae9b2055110e10ec7094f data\twilightforest\loot_tables\blocks\twilight_portal_miniature_structure.json
 68a230519a73ef6091ff14a2fb4ef35459dcaeb8 data\twilightforest\loot_tables\blocks\potted_transformation_sapling.json
 129fddad72bb46d8673ef60e8ab70b5888b9e4a7 data\twilightforest\loot_tables\blocks\mining_button.json
-8bdcdfb5261bbb6b84995954b0ed168b843032c9 data\twilightforest\loot_tables\entities\boar.json
+2909749f9b47c4740d573632cab73531d4ee5787 data\twilightforest\loot_tables\entities\boar.json
 c5d09d0f732a3c1cf3d94cb29842a5d1880a493d data\twilightforest\loot_tables\entities\plateau_boss.json
 7184c6f3cc755dc7639f7bfa5e3cc3ed030473c6 data\twilightforest\loot_tables\blocks\trollsteinn.json
 61e733b64a145457103dc06b88522d0bfa6e8eef data\twilightforest\loot_tables\entities\upper_goblin_knight.json
