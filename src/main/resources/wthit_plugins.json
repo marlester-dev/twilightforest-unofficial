@@ -1,0 +1,6 @@
+{
+  "twilightforest:wthitplugin": {
+    "initializer": "twilightforest.compat.wthit.WTHITCompat",
+    "side": "client"
+  }
+}

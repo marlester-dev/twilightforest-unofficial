@@ -41,6 +41,13 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven { // wthit
+        url "https://maven2.bai.lol"
+        content {
+            includeGroup "lol.bai"
+            includeGroup "mcp.mobius.waila"
+        }
+    }
     maven { url = "https://maven.wispforest.io"}
     maven { url = "https://jitpack.io" } // Fabric ASM, Mixin Extras
 }
@@ -92,6 +99,8 @@ dependencies {
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}") { transitive = false }
     // Jade
     modImplementation("curse.maven:jade-324717:${jade_id}")
+    // Wthit
+    modCompileOnly "mcp.mobius.waila:wthit-api:fabric-${wthit_version}"
     // TOP
     // No longer update
 //    modCompileOnly("mcjty.theoneprobe:theoneprobe-fabric:${top_version}")
