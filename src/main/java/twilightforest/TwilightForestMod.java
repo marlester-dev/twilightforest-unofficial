@@ -6,7 +6,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import fuzs.forgeconfigapiport.api.config.v2.ModConfigEvents;
 import io.github.fabricators_of_create.porting_lib.registries.RegistryEvents;
-import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -50,6 +49,7 @@ import twilightforest.world.components.BiomeGrassColors;
 import twilightforest.world.components.biomesources.LandmarkBiomeSource;
 import twilightforest.world.components.biomesources.TFBiomeProvider;
 import twilightforest.world.components.chunkgenerators.ChunkGeneratorTwilight;
+import twilightforest.world.components.chunkgenerators.ControlledSpawnsCache;
 import twilightforest.world.components.layer.FilteredBiomeLayer;
 
 import java.util.Locale;
@@ -85,6 +85,7 @@ public class TwilightForestMod implements ModInitializer {
 		}
 
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
+		ControlledSpawnsCache.reloadSpawnsCache();
 		Stalactite.reloadStalactites();
 
 		TFBannerPatterns.BANNER_PATTERNS.register();
