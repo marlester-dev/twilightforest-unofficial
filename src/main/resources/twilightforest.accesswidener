@@ -146,3 +146,4 @@ accessible method net/minecraft/world/entity/Mob maybeDisableShield (Lnet/minecr
 accessible method net/minecraft/core/RegistryAccess$RegistryEntry fromMapEntry (Ljava/util/Map$Entry;)Lnet/minecraft/core/RegistryAccess$RegistryEntry;
 accessible method net/minecraft/world/entity/Entity findDimensionEntryPoint (Lnet/minecraft/server/level/ServerLevel;)Lnet/minecraft/world/level/portal/PortalInfo;
 accessible field net/minecraft/client/Minecraft pausePartialTick F
+accessible field net/minecraft/world/level/biome/BiomeManager biomeZoomSeed J
