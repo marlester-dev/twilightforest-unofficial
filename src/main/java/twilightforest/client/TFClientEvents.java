@@ -174,6 +174,7 @@ public class TFClientEvents {
 			RenderSystem.enableBlend();
 			RenderSystem.enableDepthTest();
 			RenderSystem.setShaderColor(1F, 1F, 1F, (Mth.lerp(context.tickDelta(), lastAurora, aurora)) / 60F * 0.5F);
+			// todo fix the casting error here, may be with accessor
 			((TFShaders.PositionAwareShaderInstance) TFShaders.AURORA).invokeThenEndTesselator(
 					Minecraft.getInstance().level == null ? 0 : Mth.abs((int) Minecraft.getInstance().level.getBiomeManager().biomeZoomSeed),
 					(float) pos.x(), (float) pos.y(), (float) pos.z()
