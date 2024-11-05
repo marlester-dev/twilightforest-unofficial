@@ -14,8 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import twilightforest.compat.trinkets.renderer.CharmOfKeepingRenderer;
-import twilightforest.compat.trinkets.renderer.CharmOfLife1NecklaceRenderer;
-import twilightforest.compat.trinkets.renderer.CharmOfLife2NecklaceRenderer;
+import twilightforest.compat.trinkets.renderer.CharmOfLifeNecklaceRenderer;
 import twilightforest.compat.trinkets.renderer.CurioHeadRenderer;
 import twilightforest.events.CharmEvents;
 import twilightforest.init.TFBlocks;
@@ -60,8 +59,10 @@ public class TrinketsCompat {
 	}
 
 	public static void registerCurioRenderers() {
-		TrinketRendererRegistry.registerRenderer(TFItems.CHARM_OF_LIFE_1.get(), CharmOfLife1NecklaceRenderer::render);
-		TrinketRendererRegistry.registerRenderer(TFItems.CHARM_OF_LIFE_2.get(), CharmOfLife2NecklaceRenderer::render);
+		var charm1renderer = new CharmOfLifeNecklaceRenderer(new float[]{1.0F, 0.5F, 0.5F});
+		TrinketRendererRegistry.registerRenderer(TFItems.CHARM_OF_LIFE_1.get(), charm1renderer::render);
+		var charm2renderer = new CharmOfLifeNecklaceRenderer(new float[]{1.0F, 0.9F, 0.0F});
+		TrinketRendererRegistry.registerRenderer(TFItems.CHARM_OF_LIFE_2.get(), charm2renderer::render);
 		TrinketRendererRegistry.registerRenderer(TFItems.CHARM_OF_KEEPING_1.get(), CharmOfKeepingRenderer::render);
 		TrinketRendererRegistry.registerRenderer(TFItems.CHARM_OF_KEEPING_2.get(), CharmOfKeepingRenderer::render);
 		TrinketRendererRegistry.registerRenderer(TFItems.CHARM_OF_KEEPING_3.get(), CharmOfKeepingRenderer::render);

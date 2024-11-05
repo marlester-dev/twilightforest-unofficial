@@ -1,6 +1,7 @@
 package twilightforest.client.model;
 
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.LayerDefinitions;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -12,6 +13,7 @@ import twilightforest.client.model.tileentity.*;
 import twilightforest.client.model.tileentity.legacy.*;
 import twilightforest.client.renderer.entity.TwilightBoatRenderer;
 import twilightforest.client.renderer.tileentity.CasketTileEntityRenderer;
+import twilightforest.compat.trinkets.model.CharmOfLifeNecklaceModel;
 import twilightforest.entity.TwilightBoat;
 
 public class TFLayerDefinitions {
@@ -157,5 +159,10 @@ public class TFLayerDefinitions {
 		EntityModelLayerRegistry.registerModelLayer(TFModelLayers.RED_THREAD, RedThreadModel::create);
 
 		EntityModelLayerRegistry.registerModelLayer(TFModelLayers.KNIGHTMETAL_SHIELD, KnightmetalShieldModel::create);
+		if (FabricLoader.getInstance().isModLoaded("trinkets")) registerTrinketLayers();
+	}
+
+	public static void registerTrinketLayers() {
+		EntityModelLayerRegistry.registerModelLayer(TFModelLayers.CHARM_OF_LIFE, CharmOfLifeNecklaceModel::create);
 	}
 }

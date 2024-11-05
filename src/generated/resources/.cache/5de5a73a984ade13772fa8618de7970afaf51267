@@ -1,4 +1,4 @@
-// 1.20.1	2024-11-03T22:25:05.276737	The Twilight Forest/LootTables
+// 1.20.1	2024-11-05T17:26:03.872805	The Twilight Forest/LootTables
 d093ba4aeaf51a5423a2335757895c503763ffd5 data\twilightforest\loot_tables\blocks\hollow_vangrove_log_vertical.json
 233c9bccc8aab79173a9365cb6316d7079107eed data\twilightforest\loot_tables\blocks\dark_log.json
 e6fbe38900aceb47150dfcb00779eec439560754 data\twilightforest\loot_tables\entities\bighorn_sheep\red.json
@@ -274,8 +274,8 @@ eb9d39dc737fd30125b2bed18324b05da8b4da2e data\twilightforest\loot_tables\chests\
 9a9fef9ac1eee0cfd653a6157e7e8bfe329bb420 data\twilightforest\loot_tables\blocks\yellow_castle_rune_brick.json
 7a1a62c933a562e1ad0abff252fb72d3a8c5dc33 data\twilightforest\loot_tables\blocks\root.json
 1eb68c1aa5363dc6bb2fd68e6634f53d3337bd40 data\twilightforest\loot_tables\blocks\transformation_fence.json
-f03df1f2f8dde9a71d77995e80a79b35d9b0ff8f data\twilightforest\loot_tables\blocks\oak_banister.json
 28233a6460cbb04eae39a0bce85bb2870f43307f data\twilightforest\loot_tables\blocks\canopy_banister.json
+f03df1f2f8dde9a71d77995e80a79b35d9b0ff8f data\twilightforest\loot_tables\blocks\oak_banister.json
 74a67be61fcb12b199d16d5bd1677a6516aaeff1 data\twilightforest\loot_tables\blocks\dark_fence_gate.json
 0c0d99a5a705b80fe8c018df82ae3a46ffacb972 data\twilightforest\loot_tables\blocks\stripped_canopy_log.json
 1ea1f4b6c204ea20bf0fc9d6a1c85e05227bf9b1 data\twilightforest\loot_tables\entities\swarm_spider.json
