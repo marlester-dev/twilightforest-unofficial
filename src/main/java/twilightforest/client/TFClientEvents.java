@@ -1,7 +1,7 @@
 package twilightforest.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 import io.github.fabricators_of_create.porting_lib.event.client.*;
 import io.github.fabricators_of_create.porting_lib.models.geometry.RegisterGeometryLoadersCallback;
 import net.fabricmc.api.EnvType;
@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.fabricmc.fabric.mixin.client.rendering.WorldRendererMixin;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.CameraType;
@@ -25,6 +26,9 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -40,6 +44,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.WrittenBookItem;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.phys.Vec3;
@@ -84,10 +89,8 @@ public class TFClientEvents {
 //        RegisterGeometryLoadersCallback.EVENT.register(TFClientEvents::registerModelLoader);
 		ModelLoadingPlugin.register(TFModelLoadingPlugin.INSTANCE);
 		MinecraftTailCallback.EVENT.register(ModBusEvents::registerDimEffects);
-		//Is these unnecessary? Cannot find method
-//        WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register(TFClientEvents::unrenderMiniStructureHitbox);
-//        WorldRenderEvents.AFTER_TRANSLUCENT.register(TFClientEvents::renderWeather);
 		WorldRenderEvents.LAST.register(TFClientEvents::renderWorldLast);
+		WorldRenderEvents.AFTER_SETUP.register(TFClientEvents::renderWorldLast);
 		RenderTickStartCallback.EVENT.register(TFClientEvents::renderTick);
 		ClientTickEvents.END_CLIENT_TICK.register(TFClientEvents::clientTick);
 		ItemTooltipCallback.EVENT.register(TFClientEvents::tooltipEvent);
@@ -138,6 +141,7 @@ public class TFClientEvents {
 	 * Render effects in first-person perspective
 	 */
 	public static void renderWorldLast(WorldRenderContext context) {
+		if (Minecraft.getInstance().level == null) return;
 		// fabric: we already render and the very end
 		if (!TFConfig.CLIENT_CONFIG.firstPersonEffects.get()) return;
 
@@ -154,6 +158,29 @@ public class TFClientEvents {
 					}
 				}
 			}
+		}
+		if ((aurora > 0 || lastAurora > 0) && TFShaders.AURORA != null) {
+			BufferBuilder buffer = Tesselator.getInstance().getBuilder();
+			buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+
+			final double scale = 2048F * (Minecraft.getInstance().gameRenderer.getRenderDistance() / 32F);
+			Vec3 pos = context.camera().getPosition();
+			double y = 256D - pos.y();
+			buffer.vertex(-scale, y, scale).color(1F, 1F, 1F, 1F).endVertex();
+			buffer.vertex(-scale, y, -scale).color(1F, 1F, 1F, 1F).endVertex();
+			buffer.vertex(scale, y, -scale).color(1F, 1F, 1F, 1F).endVertex();
+			buffer.vertex(scale, y, scale).color(1F, 1F, 1F, 1F).endVertex();
+
+			RenderSystem.enableBlend();
+			RenderSystem.enableDepthTest();
+			RenderSystem.setShaderColor(1F, 1F, 1F, (Mth.lerp(context.tickDelta(), lastAurora, aurora)) / 60F * 0.5F);
+			TFShaders.AURORA.invokeThenEndTesselator(
+					Minecraft.getInstance().level == null ? 0 : Mth.abs((int) Minecraft.getInstance().level.getBiomeManager().biomeZoomSeed),
+					(float) pos.x(), (float) pos.y(), (float) pos.z()
+			);
+			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+			RenderSystem.disableDepthTest();
+			RenderSystem.disableBlend();
 		}
 	}
 
@@ -180,6 +207,9 @@ public class TFClientEvents {
 	private static final int SINE_TICKER_BOUND = (int) ((PI * 200.0F) - 1.0F);
 	private static float intensity = 0.0F;
 
+	private static int aurora = 0;
+	private static int lastAurora = 0;
+
 	public static void clientTick(Minecraft client) {
 		if (Minecraft.getInstance().isPaused()) return;
 		Minecraft mc = Minecraft.getInstance();
@@ -193,6 +223,19 @@ public class TFClientEvents {
 
 			rotationTicker = rotationTickerI + partial;
 			sineTicker = sineTicker + partial;
+
+			lastAurora = aurora;
+			if (Minecraft.getInstance().level != null && Minecraft.getInstance().cameraEntity != null && !TFConfig.getValidAuroraBiomes(Minecraft.getInstance().level.registryAccess()).isEmpty()) {
+				RegistryAccess access = Minecraft.getInstance().level.registryAccess();
+				Holder<Biome> biome = Minecraft.getInstance().level.getBiome(Minecraft.getInstance().cameraEntity.blockPosition());
+				if (TFConfig.getValidAuroraBiomes(access).contains(access.registryOrThrow(Registries.BIOME).getKey(biome.value())))
+					aurora++;
+				else
+					aurora--;
+				aurora = Mth.clamp(aurora, 0, 60);
+			} else {
+				aurora = 0;
+			}
 		}
 
 		if (!mc.isPaused()) {
