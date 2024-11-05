@@ -17,13 +17,13 @@ import java.io.IOException;
 public class TFShaders {
 
 	public static ShaderInstance RED_THREAD;
-	public static PositionAwareShaderInstance AURORA;
+	public static ShaderInstance AURORA;
 
 	public static void init() {
 		CoreShaderRegistrationCallback.EVENT.register(context -> {
 			try {
 				context.register(TwilightForestMod.prefix("red_thread/red_thread"), DefaultVertexFormat.BLOCK, shader -> RED_THREAD = shader);
-				context.register(TwilightForestMod.prefix("aurora/aurora"), DefaultVertexFormat.POSITION_COLOR, shader -> AURORA = (PositionAwareShaderInstance) shader);
+				context.register(TwilightForestMod.prefix("aurora/aurora"), DefaultVertexFormat.POSITION_COLOR, shader -> AURORA = shader);
 			} catch (IOException e) {
 				TwilightForestMod.LOGGER.error(e);
 			}
