@@ -11,6 +11,7 @@
     "client.GuiMixin",
     "client.ItemBlockRenderTypesMixin",
     "client.LevelRendererAccessor",
+    "client.LevelRendererMixin",
     "client.MapRendererMapInstanceMixin",
     "client.MinecraftMixin"
   ],

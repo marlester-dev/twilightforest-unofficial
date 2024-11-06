@@ -14,12 +14,12 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Camera;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -34,7 +34,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -68,7 +67,6 @@ import twilightforest.events.HostileMountEvents;
 import twilightforest.fabric.models.TFModelLoadingPlugin;
 import twilightforest.init.TFItems;
 import twilightforest.item.*;
-import twilightforest.util.PartialTickUtil;
 import twilightforest.world.registration.TFGenerationSettings;
 
 import java.util.HashSet;
@@ -161,14 +159,18 @@ public class TFClientEvents {
 		}
 	}
 
-	public static void renderAurora(WorldRenderContext context) {
+	public static void renderAurora(float partialTick, Camera camera) {
+		Vec3 pos = camera.getPosition();
+		renderAurora(partialTick, pos.x(), pos.y(), pos.z());
+	}
+
+	public static void renderAurora(float partialTick, double camX, double camY, double camZ) {
 		if ((aurora > 0 || lastAurora > 0) && TFShaders.AURORA != null) {
 			BufferBuilder buffer = Tesselator.getInstance().getBuilder();
 			buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
 			final double scale = 2048F * (Minecraft.getInstance().gameRenderer.getRenderDistance() / 32F);
-			Vec3 pos = context.camera().getPosition();
-			double y = 256D - pos.y();
+			double y = 256D - camY;
 			buffer.vertex(-scale, y, scale).color(1F, 1F, 1F, 1F).endVertex();
 			buffer.vertex(-scale, y, -scale).color(1F, 1F, 1F, 1F).endVertex();
 			buffer.vertex(scale, y, -scale).color(1F, 1F, 1F, 1F).endVertex();
@@ -176,10 +178,10 @@ public class TFClientEvents {
 
 			RenderSystem.enableBlend();
 			RenderSystem.enableDepthTest();
-			RenderSystem.setShaderColor(1F, 1F, 1F, (Mth.lerp(context.tickDelta(), lastAurora, aurora)) / 60F * 0.5F);
+			RenderSystem.setShaderColor(1F, 1F, 1F, (Mth.lerp(partialTick, lastAurora, aurora)) / 60F * 0.5F);
 			TFShaders.AURORA_POSAWARE.invokeThenEndTesselator(
 					Minecraft.getInstance().level == null ? 0 : Mth.abs((int) Minecraft.getInstance().level.getBiomeManager().biomeZoomSeed),
-					(float) pos.x(), (float) pos.y(), (float) pos.z()
+					(float) camX, (float) camY, (float) camZ
 			);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 			RenderSystem.disableDepthTest();
