@@ -4,11 +4,8 @@ import com.mojang.blaze3d.shaders.Uniform;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceProvider;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.TwilightForestMod;
 
@@ -18,27 +15,33 @@ public class TFShaders {
 
 	public static ShaderInstance RED_THREAD;
 	public static ShaderInstance AURORA;
+	public static PositionAwareShaderUtil auroraPositionUtil;
 
 	public static void init() {
 		CoreShaderRegistrationCallback.EVENT.register(context -> {
 			try {
 				context.register(TwilightForestMod.prefix("red_thread/red_thread"), DefaultVertexFormat.BLOCK, shader -> RED_THREAD = shader);
-				context.register(TwilightForestMod.prefix("aurora/aurora"), DefaultVertexFormat.POSITION_COLOR, shader -> AURORA = shader);
+				context.register(TwilightForestMod.prefix("aurora/aurora"), DefaultVertexFormat.POSITION_COLOR, shader -> {
+					AURORA = shader;
+					auroraPositionUtil = new PositionAwareShaderUtil(AURORA);
+				});
 			} catch (IOException e) {
 				TwilightForestMod.LOGGER.error(e);
 			}
 		});
 	}
-	public static class BindableShaderInstance extends ShaderInstance {
+
+	public static class BindableShaderInstanceUtil {
 
 		private ShaderInstance last;
+		public final ShaderInstance thiz;
 
-		public BindableShaderInstance(ResourceProvider p_173336_, ResourceLocation shaderLocation, VertexFormat p_173338_) throws IOException {
-			super(p_173336_, shaderLocation.toString(), p_173338_);
+		public BindableShaderInstanceUtil(ShaderInstance shaderInstance) {
+			thiz = shaderInstance;
 		}
 
 		ShaderInstance getSelf() {
-			return this;
+			return thiz;
 		}
 
 		public final void bind(@Nullable Runnable exec) {
@@ -46,12 +49,12 @@ public class TFShaders {
 			RenderSystem.setShader(this::getSelf);
 			if (exec != null)
 				exec.run();
-			apply();
+			thiz.apply();
 		}
 
 		public final void runThenClear(Runnable exec) {
 			exec.run();
-			clear();
+			thiz.clear();
 			RenderSystem.setShader(() -> last);
 			last = null;
 		}
@@ -75,7 +78,7 @@ public class TFShaders {
 
 	}
 
-	public static class PositionAwareShaderInstance extends BindableShaderInstance {
+	public static class PositionAwareShaderUtil extends BindableShaderInstanceUtil {
 
 		@Nullable
 		public final Uniform SEED;
@@ -83,10 +86,10 @@ public class TFShaders {
 		@Nullable
 		public final Uniform POSITION;
 
-		public PositionAwareShaderInstance(ResourceProvider p_173336_, ResourceLocation shaderLocation, VertexFormat p_173338_) throws IOException {
-			super(p_173336_, shaderLocation, p_173338_);
-			SEED = getUniform("SeedContext");
-			POSITION = getUniform("PositionContext");
+		public PositionAwareShaderUtil(ShaderInstance shaderInstance) {
+			super(shaderInstance);
+			SEED = thiz.getUniform("SeedContext");
+			POSITION = thiz.getUniform("PositionContext");
 		}
 
 		public final void setValue(int seed, float x, float y, float z) {
