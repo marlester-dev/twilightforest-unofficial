@@ -1,6 +1,5 @@
 package twilightforest.client;
 
-import com.mojang.blaze3d.shaders.Shader;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import io.github.fabricators_of_create.porting_lib.event.client.*;
@@ -13,8 +12,6 @@ import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.fabricmc.fabric.impl.client.rendering.FabricShaderProgram;
-import net.fabricmc.fabric.mixin.client.rendering.WorldRendererMixin;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.CameraType;
@@ -24,7 +21,6 @@ import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -58,7 +54,6 @@ import twilightforest.TwilightForestMod;
 import twilightforest.block.entity.GrowingBeanstalkBlockEntity;
 import twilightforest.client.model.SeparateTransformsModel;
 import twilightforest.client.model.TFItemLayerModel;
-import twilightforest.client.model.TFItemLayerModelBuilder;
 import twilightforest.client.model.block.doors.CastleDoorModelLoader;
 import twilightforest.client.model.block.giantblock.NewGiantBlockModelLoader;
 import twilightforest.client.model.block.patch.PatchModelLoader;
@@ -177,7 +172,7 @@ public class TFClientEvents {
 			RenderSystem.enableBlend();
 			RenderSystem.enableDepthTest();
 			RenderSystem.setShaderColor(1F, 1F, 1F, (Mth.lerp(context.tickDelta(), lastAurora, aurora)) / 60F * 0.5F);
-			TFShaders.auroraPositionUtil.invokeThenEndTesselator(
+			TFShaders.AURORA_POSAWARE.invokeThenEndTesselator(
 					Minecraft.getInstance().level == null ? 0 : Mth.abs((int) Minecraft.getInstance().level.getBiomeManager().biomeZoomSeed),
 					(float) pos.x(), (float) pos.y(), (float) pos.z()
 			);

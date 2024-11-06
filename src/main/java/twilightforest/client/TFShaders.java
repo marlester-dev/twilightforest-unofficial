@@ -15,7 +15,7 @@ public class TFShaders {
 
 	public static ShaderInstance RED_THREAD;
 	public static ShaderInstance AURORA;
-	public static PositionAwareShaderUtil auroraPositionUtil;
+	public static PositionAwareShaderUtil AURORA_POSAWARE;
 
 	public static void init() {
 		CoreShaderRegistrationCallback.EVENT.register(context -> {
@@ -23,7 +23,7 @@ public class TFShaders {
 				context.register(TwilightForestMod.prefix("red_thread/red_thread"), DefaultVertexFormat.BLOCK, shader -> RED_THREAD = shader);
 				context.register(TwilightForestMod.prefix("aurora/aurora"), DefaultVertexFormat.POSITION_COLOR, shader -> {
 					AURORA = shader;
-					auroraPositionUtil = new PositionAwareShaderUtil(AURORA);
+					AURORA_POSAWARE = new PositionAwareShaderUtil(AURORA);
 				});
 			} catch (IOException e) {
 				TwilightForestMod.LOGGER.error(e);
