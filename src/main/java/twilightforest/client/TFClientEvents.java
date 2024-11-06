@@ -19,6 +19,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -33,6 +34,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -66,6 +68,7 @@ import twilightforest.events.HostileMountEvents;
 import twilightforest.fabric.models.TFModelLoadingPlugin;
 import twilightforest.init.TFItems;
 import twilightforest.item.*;
+import twilightforest.util.PartialTickUtil;
 import twilightforest.world.registration.TFGenerationSettings;
 
 import java.util.HashSet;
@@ -88,7 +91,6 @@ public class TFClientEvents {
 		ModelLoadingPlugin.register(TFModelLoadingPlugin.INSTANCE);
 		MinecraftTailCallback.EVENT.register(ModBusEvents::registerDimEffects);
 		WorldRenderEvents.LAST.register(TFClientEvents::renderWorldLast);
-		WorldRenderEvents.AFTER_SETUP.register(TFClientEvents::renderWorldLast);
 		RenderTickStartCallback.EVENT.register(TFClientEvents::renderTick);
 		ClientTickEvents.END_CLIENT_TICK.register(TFClientEvents::clientTick);
 		ItemTooltipCallback.EVENT.register(TFClientEvents::tooltipEvent);
@@ -157,6 +159,9 @@ public class TFClientEvents {
 				}
 			}
 		}
+	}
+
+	public static void renderAurora(WorldRenderContext context) {
 		if ((aurora > 0 || lastAurora > 0) && TFShaders.AURORA != null) {
 			BufferBuilder buffer = Tesselator.getInstance().getBuilder();
 			buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
