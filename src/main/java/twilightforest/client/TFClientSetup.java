@@ -34,6 +34,7 @@ import twilightforest.client.model.TFModelLayers;
 import twilightforest.client.model.entity.*;
 import twilightforest.client.model.entity.newmodels.*;
 import twilightforest.client.renderer.entity.*;
+import twilightforest.client.renderer.entity.newmodels.*;
 import twilightforest.compat.trinkets.TrinketsCompat;
 import twilightforest.entity.TFPart;
 import twilightforest.entity.boss.HydraHead;
