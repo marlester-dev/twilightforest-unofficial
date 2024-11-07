@@ -114,7 +114,7 @@ public class ASMHooks {
 	 */
 	public static boolean lead(boolean o, LeashFenceKnotEntity entity) {
 		BlockState fenceState = entity.level().getBlockState(entity.getPos());
-		return o || (fenceState.is(TFBlocks.WROUGHT_IRON_FENCE.get()) && fenceState.getValue(WroughtIronFenceBlock.POST) != Boolean.FALSE);
+		return o || (fenceState.is(TFBlocks.WROUGHT_IRON_FENCE.get()) && fenceState.getValue(WroughtIronFenceBlock.POST) != WroughtIronFenceBlock.PostState.NONE);
 	}
 
 	/**
