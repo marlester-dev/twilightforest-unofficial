@@ -1081,7 +1081,6 @@
   "block.twilightforest.unbreakable_vanishing_block": "Verschwindender Block",
   "block.twilightforest.uncrafting_table.disabled": "Dieser Block wurde deaktiviert.",
   "block.twilightforest.wrought_iron_fence": "Schmiedeeiserner Zaun",
-  "block.twilightforest.wrought_iron_finial": "Schmiedeeiserne Zierspitze",
   "commands.tffeature.not_player": "Dieser Befehl muss von einem gültigen Spieler ausgeführt werden!",
   "commands.tffeature.usage": "/%s <info | reaktivieren | erobern | zentrum>",
   "config.jade.plugin_twilightforest.quest_ram_wool": "Quest-Widderwolle",
@@ -1483,5 +1482,7 @@
   "magic_painting.twilightforest.lucid_lands.title": "Lucid Lands",
   "subtitles.twilightforest.entity.towerwood_borer.ambient": "Turmholzwurm faucht",
   "subtitles.twilightforest.entity.towerwood_borer.death": "Turmholzwurm stirbt",
-  "subtitles.twilightforest.entity.towerwood_borer.hurt": "Turmholzwurm wird verletzt"
+  "subtitles.twilightforest.entity.towerwood_borer.hurt": "Turmholzwurm wird verletzt",
+  "block.twilightforest.wrought_iron_fence.cap": "Rechtsklick mit einem Eisenbarren oder Nugget, um eine Zierspitze hinzuzufügen",
+  "subtitles.twilightforest.block.wrought_iron_fence.extend": "Eisen klirrt"
 }
