@@ -1,4 +1,4 @@
-// 1.20.1	2024-11-05T17:26:03.8758061	The Twilight Forest/TwilightForest Item and BlockItem models
+// 1.20.1	2024-11-07T18:44:47.6930533	The Twilight Forest/TwilightForest Item and BlockItem models
 621a3a44e9aa5fc8a52bf833e473ca652f4c15b9 assets\twilightforest\models\item\quest_ram_trophy.json
 2112c5b4eaa70e8cc5af2223ae96a0668af27ac7 assets\twilightforest\models\item\ender_bow_pulling_0.json
 5003500e023117b7b4dfb278ae8397d843dcb178 assets\twilightforest\models\item\raven_feather.json
@@ -399,8 +399,8 @@ d0823e2b9a56fb573cc41002a22ae0315679aef7 assets\twilightforest\models\item\moon_
 7292153fe1b8832e69fad74002f074bd0259b692 assets\twilightforest\models\item\sorting_leaves.json
 befd2c74202f9af10022f668ad9b5696ad822d59 assets\twilightforest\models\item\giant_obsidian_base.json
 e28d32bc2ee3cae533d79f3a46ae30e794dc1bc5 assets\twilightforest\models\item\sorting_trapdoor.json
-63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\twilightforest\models\item\death_tome_spawn_egg.json
 ae78b5cfebca2c316fa03c445c85a9438998da65 assets\twilightforest\models\item\naga_chestplate.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\twilightforest\models\item\death_tome_spawn_egg.json
 7ba3b19a793b3e103b749655e5487cf6527233bf assets\twilightforest\models\item\decorative_mazestone.json
 a84271d2baf83e203d9006246561586cb2e64570 assets\twilightforest\models\item\mossy_nagastone_stairs_left.json
 04b469cff60997a1388783e97ea012da256a12df assets\twilightforest\models\item\torchberry_plant.json
@@ -443,7 +443,6 @@ cb2255d73af1355ad61e69229c59abeeffff5808 assets\twilightforest\models\item\armor
 35bb2ccaee394bdf18283605473487d3c8ce18ff assets\twilightforest\models\item\ore_magnet.json
 26a9b9d145d110de4829faf25823619faa18808c assets\twilightforest\models\item\ironwood_pickaxe.json
 061906a0c9a9a334fbb82acb809c3748e2b1f9cb assets\twilightforest\models\item\alpha_yeti_boss_spawner.json
-fdf292e4b88b00479986f02cf4253d648d6ef5d1 assets\twilightforest\models\item\wrought_iron_finial.json
 101c5ee8f08118f34274dcefc51ecd988251ab92 assets\twilightforest\models\item\nagastone_stairs_left.json
 a0de7dc7f21bcabbdc495bd0bde0c9d3b3af2759 assets\twilightforest\models\item\stripped_sorting_log.json
 f4434593ad6cdfca0c67926f0d3bd9a28d40a14e assets\twilightforest\models\item\dark_oak_banister.json
