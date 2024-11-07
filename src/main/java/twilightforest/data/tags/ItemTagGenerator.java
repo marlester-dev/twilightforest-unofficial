@@ -195,8 +195,7 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 				TFItems.BRITTLE_FLASK.get(),
 				TFItems.GREATER_FLASK.get(),
 				TFItems.CUBE_OF_ANNIHILATION.get(),
-				TFBlocks.WROUGHT_IRON_FENCE.get().asItem(),
-				TFBlocks.WROUGHT_IRON_FINIAL.get().asItem()
+				TFBlocks.WROUGHT_IRON_FENCE.get().asItem()
 		);
 
 		getOrCreateTagBuilder(NYI).add(
