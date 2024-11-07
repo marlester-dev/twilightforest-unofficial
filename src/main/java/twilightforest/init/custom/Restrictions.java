@@ -147,4 +147,16 @@ public class Restrictions {
 	public static boolean isBiomeSafeFor(Biome biome, Entity entity) {
 		return getRestrictionForBiome(biome, entity).isEmpty();
 	}
+
+	public static void registerRestrictions() {
+		Restrictions.RESTRICTIONS.register(Restrictions.DARK_FOREST.location(), () -> Restrictions.DARK_FOREST_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.DARK_FOREST_CENTER.location(), () -> Restrictions.DARK_FOREST_CENTER_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.FINAL_PLATEAU.location(), () -> Restrictions.FINAL_PLATEAU_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.FIRE_SWAMP.location(), () -> Restrictions.FIRE_SWAMP_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.GLACIER.location(), () -> Restrictions.GLACIER_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.HIGHLANDS.location(), () -> Restrictions.HIGHLANDS_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.SNOWY_FOREST.location(), () -> Restrictions.SNOWY_FOREST_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.SWAMP.location(), () -> Restrictions.SWAMP_RESTRICTION);
+		Restrictions.RESTRICTIONS.register(Restrictions.THORNLANDS.location(), () -> Restrictions.THORNLANDS_RESTRICTION);
+	}
 }

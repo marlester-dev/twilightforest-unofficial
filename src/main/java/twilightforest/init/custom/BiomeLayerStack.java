@@ -97,4 +97,10 @@ public class BiomeLayerStack {
 
 		return Holder.direct(new FilteredBiomeLayer.Factory(100L, TFBiomes.STREAM, Holder.direct(riverLayer), Holder.direct(biomes)));
 	}
+
+	public static void registerBiomeLayerStacks() {
+		FilteredBiomeLayer.Factory biomeLayerFactory = (FilteredBiomeLayer.Factory) BiomeLayerStack.getAllBiomesHolder().value();
+		BiomeLayerStack.BIOME_LAYER_STACKS.register(BiomeLayerStack.RANDOM_FOREST_BIOMES.location(), () -> biomeLayerFactory.fallbackLayer().value());
+		BiomeLayerStack.BIOME_LAYER_STACKS.register(BiomeLayerStack.BIOMES_ALONG_STREAMS.location(), () -> biomeLayerFactory);
+	}
 }

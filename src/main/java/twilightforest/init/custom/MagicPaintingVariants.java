@@ -76,4 +76,9 @@ public class MagicPaintingVariants {
 	public static ResourceLocation getVariantResourceLocation(RegistryAccess regAccess, MagicPaintingVariant variant) {
 		return regAccess.registry(REGISTRY_KEY).map(reg -> reg.getKey(variant)).orElse(new ResourceLocation(MagicPainting.EMPTY));
 	}
+
+	public static void registerMagicPaintings() {
+		MagicPaintingVariants.MAGIC_PAINTINGS.register(MagicPaintingVariants.DARKNESS.location(), () -> MagicPaintingVariants.DARKNESS_PAINTING);
+		MagicPaintingVariants.MAGIC_PAINTINGS.register(MagicPaintingVariants.LUCID_LANDS.location(), () -> MagicPaintingVariants.LUCID_LANDS_PAINTING);
+	}
 }

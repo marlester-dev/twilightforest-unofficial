@@ -86,4 +86,25 @@ public class WoodPalettes {
 		context.register(MINEWOOD, MINEWOOD_PALETTE);
 		context.register(SORTWOOD, SORTWOOD_PALETTE);
 	}
+
+	public static void registerWoodPalettes() {
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.OAK.location(), () -> WoodPalettes.OAK_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.SPRUCE.location(), () -> WoodPalettes.SPRUCE_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.BIRCH.location(), () -> WoodPalettes.BIRCH_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.JUNGLE.location(), () -> WoodPalettes.JUNGLE_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.ACACIA.location(), () -> WoodPalettes.ACACIA_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.DARK_OAK.location(), () -> WoodPalettes.DARK_OAK_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.CRIMSON.location(), () -> WoodPalettes.CRIMSON_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.WARPED.location(), () -> WoodPalettes.WARPED_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.VANGROVE.location(), () -> WoodPalettes.VANGROVE_PALETTE);
+
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.TWILIGHT_OAK.location(), () -> WoodPalettes.TWILIGHT_OAK_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.CANOPY.location(), () -> WoodPalettes.CANOPY_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.MANGROVE.location(), () -> WoodPalettes.MANGROVE_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.DARKWOOD.location(), () -> WoodPalettes.DARKWOOD_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.TIMEWOOD.location(), () -> WoodPalettes.TIMEWOOD_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.TRANSWOOD.location(), () -> WoodPalettes.TRANSWOOD_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.MINEWOOD.location(), () -> WoodPalettes.MINEWOOD_PALETTE);
+		WoodPalettes.WOOD_PALETTES.register(WoodPalettes.SORTWOOD.location(), () -> WoodPalettes.SORTWOOD_PALETTE);
+	}
 }
