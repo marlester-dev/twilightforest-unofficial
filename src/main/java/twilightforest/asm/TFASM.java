@@ -23,7 +23,7 @@ public class TFASM implements Runnable {
 		maprendercontext();
 		mount();
 		seed();
-		// TODO: add missing asm methods here
+		// TODO: add missing asm methods here. mising methods for: lead.js, book.js, cloud.js,
 	}
 
 	private static void extendEnums() {
