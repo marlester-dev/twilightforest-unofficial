@@ -104,8 +104,10 @@ public class TFASM implements Runnable {
 	}
 
 	private static void lead() {
-		ClassTinkerers.addTransformation(mapC("class_1532"), classNode -> classNode.methods.forEach(methodNode -> {
-			if (!methodNode.name.equals(mapM("class_1532.survives()Z")))
+		String className = mapC("class_1532").replace('.', '/');
+		String methodName = mapM("class_1530.method_6888()Z");
+		ClassTinkerers.addTransformation(className, classNode -> classNode.methods.forEach(methodNode -> {
+			if (!methodNode.name.equals(methodName))
 				return;
 			var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
 			instructions.insertBefore(
@@ -116,7 +118,7 @@ public class TFASM implements Runnable {
 									Opcodes.INVOKESTATIC,
 									"twilightforest/ASMHooks",
 									"lead",
-									"(ZLnet/minecraft/world/entity/decoration/LeashFenceKnotEntity;)Z",
+									"(ZL" + className + ";)Z",
 									false
 							)
 					)
