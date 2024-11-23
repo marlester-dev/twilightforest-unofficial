@@ -4,6 +4,7 @@ import com.chocohead.mm.api.ClassTinkerers;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.Item;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 
@@ -129,10 +130,11 @@ public class TFASM implements Runnable {
 
 	private static void book() {
 		String className = mapC("class_1843").replace('.', '/');
-		String methodName = mapM("class_1792.method_7864()Z");
-
 		String componentClassName = mapC("class_2561").replace('.', '/');
 		String compoundTagClassName = mapC("class_2487").replace('.', '/');
+		String itemStackClassName = mapC("class_1799").replace('.', '/');
+		String methodName = mapM("class_1792.method_7864(L" + itemStackClassName + ";)L" + componentClassName + ";");
+
 		ClassTinkerers.addTransformation(className, classNode -> classNode.methods.forEach(methodNode -> {
 			if (!methodNode.name.equals(methodName))
 				return;
