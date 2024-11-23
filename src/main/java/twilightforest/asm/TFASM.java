@@ -24,7 +24,8 @@ public class TFASM implements Runnable {
 		mount();
 		seed();
 		lead();
-		// TODO: add missing asm methods here. mising methods for: book.js, cloud.js,
+		book();
+		// TODO: add missing asm methods here. mising methods for: cloud.js,
 	}
 
 	private static void extendEnums() {
@@ -119,6 +120,32 @@ public class TFASM implements Runnable {
 									"twilightforest/ASMHooks",
 									"lead",
 									"(ZL" + className + ";)Z",
+									false
+							)
+					)
+			);
+		}));
+	}
+
+	private static void book() {
+		String className = mapC("class_1843").replace('.', '/');
+		String methodName = mapM("class_1792.method_7864()Z");
+
+		String componentClassName = mapC("class_2561").replace('.', '/');
+		String compoundTagClassName = mapC("class_2487").replace('.', '/');
+		ClassTinkerers.addTransformation(className, classNode -> classNode.methods.forEach(methodNode -> {
+			if (!methodNode.name.equals(methodName))
+				return;
+			var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+			instructions.insertBefore(
+					ASM.findFirstInstruction(methodNode, Opcodes.ARETURN),
+					ASM.listOf(
+							new VarInsnNode(Opcodes.ALOAD, 2),
+							new MethodInsnNode(
+									Opcodes.INVOKESTATIC,
+									"twilightforest/ASMHooks",
+									"book",
+									"(L"+componentClassName+";L"+compoundTagClassName+";)L"+componentClassName+";",
 									false
 							)
 					)
