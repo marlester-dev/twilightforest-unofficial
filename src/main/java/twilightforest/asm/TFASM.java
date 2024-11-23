@@ -23,7 +23,8 @@ public class TFASM implements Runnable {
 		maprendercontext();
 		mount();
 		seed();
-		// TODO: add missing asm methods here. mising methods for: lead.js, book.js, cloud.js,
+		lead();
+		// TODO: add missing asm methods here. mising methods for: book.js, cloud.js,
 	}
 
 	private static void extendEnums() {
@@ -95,6 +96,27 @@ public class TFASM implements Runnable {
 									"twilightforest/ASMHooks",
 									"reach",
 									"(L" + blockHitResultClass + ";L" + levelClass + ";L" + playerClass + ";L" + fluidClipContext + ";)L" + blockHitResultClass + ";",
+									false
+							)
+					)
+			);
+		}));
+	}
+
+	private static void lead() {
+		ClassTinkerers.addTransformation(mapC("class_1532"), classNode -> classNode.methods.forEach(methodNode -> {
+			if (!methodNode.name.equals(mapM("class_1532.survives()Z")))
+				return;
+			var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
+			instructions.insertBefore(
+					ASM.findFirstInstruction(methodNode, Opcodes.IRETURN),
+					ASM.listOf(
+							new VarInsnNode(Opcodes.ALOAD, 0),
+							new MethodInsnNode(
+									Opcodes.INVOKESTATIC,
+									"twilightforest/ASMHooks",
+									"lead",
+									"(ZLnet/minecraft/world/entity/decoration/LeashFenceKnotEntity;)Z",
 									false
 							)
 					)
