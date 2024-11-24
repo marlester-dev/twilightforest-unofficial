@@ -132,8 +132,7 @@ public class TFASM implements Runnable {
 		String className = mapC("class_1843").replace('.', '/');
 		String componentClassName = mapC("class_2561").replace('.', '/');
 		String compoundTagClassName = mapC("class_2487").replace('.', '/');
-		String itemStackClassName = mapC("class_1799").replace('.', '/');
-		String methodName = mapM("class_1792.method_7864(L" + itemStackClassName + ";)L" + componentClassName + ";");
+		String methodName = mapM("class_1792.method_7864(Lnet/minecraft/class_1799;)Lnet/minecraft/class_2561;");
 
 		ClassTinkerers.addTransformation(className, classNode -> classNode.methods.forEach(methodNode -> {
 			if (!methodNode.name.equals(methodName))
