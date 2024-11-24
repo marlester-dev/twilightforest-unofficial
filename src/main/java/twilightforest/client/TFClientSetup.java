@@ -126,7 +126,6 @@ public class TFClientSetup implements ClientModInitializer {
 	public static void addJappaPackListener() {
 		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(JappaPackReloadListener.INSTANCE);
 		JappaPackReloadListener.clientSetup();
-		// TODO PORT 1.20 add MagicPaintingTextureManager
 	}
 
 	public static void registerEntityRenderers() {
