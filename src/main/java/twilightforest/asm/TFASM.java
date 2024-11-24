@@ -4,10 +4,11 @@ import com.chocohead.mm.api.ClassTinkerers;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
-import net.minecraft.world.item.Item;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class TFASM implements Runnable {
@@ -26,7 +27,7 @@ public class TFASM implements Runnable {
 		seed();
 		lead();
 		book();
-		// TODO: add missing asm methods here. mising methods for: cloud.js,
+		cloud();
 	}
 
 	private static void extendEnums() {
@@ -102,6 +103,41 @@ public class TFASM implements Runnable {
 							)
 					)
 			);
+		}));
+	}
+
+	private static void cloud() {
+		String className = mapC("class_1937").replace('.', '/');
+		String blockPosClassName = mapC("class_2338").replace('.', '/');
+		String methodName = mapM("class_1937.method_8520(Lnet/minecraft/class_2338;)Z");
+		ClassTinkerers.addTransformation(className, classNode -> classNode.methods.forEach(methodNode -> {
+			if (!methodNode.name.equals(methodName))
+				return;
+			InsnList instructions = methodNode.instructions;
+			List<MethodInsnNode> returns = new ArrayList<>();
+			for (int index = 0; index < instructions.size(); index++) {
+				MethodInsnNode node = (MethodInsnNode) instructions.get(index);
+				if (node.getOpcode() == Opcodes.IRETURN) {
+					returns.add(node);
+				}
+			}
+			for (MethodInsnNode value : returns) {
+				instructions.insertBefore(
+						value,
+						ASM.listOf(
+								new VarInsnNode(Opcodes.ALOAD, 0),
+								new VarInsnNode(Opcodes.ALOAD, 1),
+								new MethodInsnNode(
+										Opcodes.INVOKESTATIC,
+										"twilightforest/ASMHooks",
+										"cloud",
+										"(ZL"+className+";L"+blockPosClassName+";)Z",
+										false
+								)
+						)
+				);
+			}
+
 		}));
 	}
 
