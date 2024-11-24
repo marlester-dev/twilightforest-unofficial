@@ -114,14 +114,14 @@ public class TFASM implements Runnable {
 			if (!methodNode.name.equals(methodName))
 				return;
 			InsnList instructions = methodNode.instructions;
-			List<MethodInsnNode> returns = new ArrayList<>();
+			List<AbstractInsnNode> returns = new ArrayList<>();
 			for (int index = 0; index < instructions.size(); index++) {
-				MethodInsnNode node = (MethodInsnNode) instructions.get(index);
+				AbstractInsnNode node = instructions.get(index);
 				if (node.getOpcode() == Opcodes.IRETURN) {
 					returns.add(node);
 				}
 			}
-			for (MethodInsnNode value : returns) {
+			for (AbstractInsnNode value : returns) {
 				instructions.insertBefore(
 						value,
 						ASM.listOf(
