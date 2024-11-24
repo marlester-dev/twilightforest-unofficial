@@ -76,7 +76,7 @@ public class FinalCastleBossGazeboComponent extends TFStructureComponentOld {
 		setInvisibleTextEntity(world, 10, 0, 10, sbb, "Final Castle WIP.", true, 2.3f);
 		setInvisibleTextEntity(world, 10, 0, 10, sbb, "Join our Discord server to", true, 1.3f);
 		setInvisibleTextEntity(world, 10, 0, 10, sbb, "follow development of the mod:", true, 1.0f);
-		setInvisibleTextEntity(world, 10, 0, 10, sbb, "discord.experiment115.com", true, 0.7f);
+		setInvisibleTextEntity(world, 10, 0, 10, sbb, "<link removed>", true, 0.7f);
 
 		//placeBlock(world, TFBlocks.boss_spawner_final_boss.get().defaultBlockState(), 10, 1, 10, sbb);
 	}
