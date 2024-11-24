@@ -3,9 +3,11 @@
   "id": "twilightforest",
   "version": "${version}",
   "name": "The Twilight Forest",
-  "description": "An enchanted forest dimension.",
+  "description": "An enchanted forest dimension. (unofficial version)",
   "authors": [
     "Benimatic",
+    "marlester__",
+    "IAFEnvoy",
     "AtomicBlom",
     "Drullkus",
     "Killer_Demon",
@@ -14,13 +16,11 @@
     "williewillus",
     "GizmoTheMoonPig",
     "AlphaMode",
-    "Tropheus Jay",
-    "marlester__",
-    "IAFEnvoy"
+    "Tropheus Jay"
   ],
   "contact": {
-    "issues": "https://github.com/TeamTwilight/twilightforest-fabric/issues",
-    "sources": "https://github.com/TeamTwilight/twilightforest-fabric/"
+    "issues": "https://github.com/marlester-dev/twilightforest-unofficial/issues",
+    "sources": "https://github.com/marlester-dev/twilightforest-unofficial"
   },
   "license": "GNU LESSER GENERAL PUBLIC LICENSE Version 2.1",
   "icon": "icon.png",
