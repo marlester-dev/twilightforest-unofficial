@@ -390,19 +390,18 @@ public class TFASM implements Runnable {
 					lastInstruction = node;
 
 			}
-			//FIXME: java.lang.NoSuchMethodError: 'java.lang.Iterable twilightforest.ASMHooks.renderMutiparts(java.lang.Iterable)'
-//                instructions.insert(
-//                        lastInstruction,
-//                        ASM.listOf(
-//                                new MethodInsnNode(
-//                                        Opcodes.INVOKESTATIC,
-//                                        "twilightforest/ASMHooks",
-//                                        "renderMutiparts",
-//                                        "(Ljava/lang/Iterable;)Ljava/lang/Iterable;",
-//                                        false
-//                                )
-//                        )
-//                );
+                instructions.insert(
+                        lastInstruction,
+                        ASM.listOf(
+                                new MethodInsnNode(
+                                        Opcodes.INVOKESTATIC,
+                                        "twilightforest/ASMHooks",
+                                        "renderMultiparts",
+                                        "(Ljava/lang/Iterable;)Ljava/lang/Iterable;",
+                                        false
+                                )
+                        )
+                );
 		}));
 	}
 
@@ -416,7 +415,7 @@ public class TFASM implements Runnable {
 		// Items.FILLED_MAP
 		String filledMap = mapF("class_1802.field_8204:Lnet/minecraft/class_1792;");
 		// ItemInHandRenderer
-		ClassTinkerers.addTransformation(mapC("class_759"), classNode -> classNode.methods.forEach(methodNode -> {
+		ClassTinkerers.addTransformation(itemInHandRendererClass, classNode -> classNode.methods.forEach(methodNode -> {
 			if (!methodNode.name.equals(renderArmWithItem))
 				return;
 			var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
@@ -590,7 +589,7 @@ public class TFASM implements Runnable {
 			String isPassenger = mapM("class_1297.method_5765()Z");
 
 			// LocalPlayer
-			ClassTinkerers.addTransformation(mapC("class_746"), classNode -> classNode.methods.forEach(methodNode -> {
+			ClassTinkerers.addTransformation(localPlayerClass, classNode -> classNode.methods.forEach(methodNode -> {
 				if (!methodNode.name.equals(rideTick))
 					return;
 				var /*org.objectweb.asm.tree.InsnList*/ instructions = methodNode.instructions;
