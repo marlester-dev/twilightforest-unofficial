@@ -2,6 +2,9 @@ name: Bug Report
 description: Create an issue about a bug
 labels: [bug]
 body:
+  - type: markdown
+    attributes:
+      value: "##### Please read [Incompatibilities](https://github.com/marlester-dev/twilightforest-unofficial/wiki/Incompatibilities) section before submitting bugs."
   - type: input
     attributes:
       label: Fabric Loader Version
