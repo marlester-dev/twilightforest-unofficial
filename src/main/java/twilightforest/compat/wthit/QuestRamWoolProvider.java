@@ -1,5 +1,6 @@
 package twilightforest.compat.wthit;
 
+import com.google.common.collect.Iterables;
 import mcp.mobius.waila.api.*;
 import mcp.mobius.waila.api.component.ItemListComponent;
 import net.minecraft.world.item.ItemStack;
@@ -7,7 +8,7 @@ import twilightforest.entity.passive.QuestRam;
 import twilightforest.util.ColorUtil;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public enum QuestRamWoolProvider implements IEntityComponentProvider {
 
@@ -16,14 +17,27 @@ public enum QuestRamWoolProvider implements IEntityComponentProvider {
 	@Override
 	public void appendBody(ITooltip tooltip, IEntityAccessor entityAccessor, IPluginConfig config) {
 		if (entityAccessor.getEntity() instanceof QuestRam ram) {
-			List<ItemStack> items = new ArrayList<>();
+			ArrayList<ArrayList<ItemStack>> woolArrayListsArrayList = new ArrayList<>();
+			AtomicInteger woolCount = new AtomicInteger(0);
 			ColorUtil.WOOL_TO_DYE_IN_RAM_ORDER.forEach((color, block) -> {
 				if (!ram.isColorPresent(color)) {
-					items.add(new ItemStack(block));
+					int originalWoolCount = woolCount.getAndIncrement();
+					ItemStack woolItemStack = new ItemStack(block);
+
+					ArrayList<ItemStack> lastWoolList;
+					if (woolArrayListsArrayList.isEmpty() || originalWoolCount % 8 == 0) {
+						lastWoolList = new ArrayList<>();
+						lastWoolList.add(woolItemStack);
+						woolArrayListsArrayList.add(lastWoolList);
+					} else {
+						lastWoolList = Iterables.getLast(woolArrayListsArrayList);
+						lastWoolList.add(woolItemStack);
+					}
 				}
 			});
-			ItemListComponent itemListComponent = new ItemListComponent(items, 2);
-			tooltip.addLine(itemListComponent);
+			for (ArrayList<ItemStack> woolArrayList : woolArrayListsArrayList) {
+				tooltip.addLine(new ItemListComponent(woolArrayList, 1,  0.5F));
+			}
 		}
 	}
 }
