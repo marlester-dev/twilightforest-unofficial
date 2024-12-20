@@ -23,6 +23,7 @@
     "DispenserBlockAccessor",
     "PlayerListMixin",
     "RenderMaterialDeserializerMixin",
+    "ServerPlayerMixin",
     "UncraftingMenuAccessor"
   ],
   "injectors": {

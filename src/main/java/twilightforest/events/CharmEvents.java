@@ -5,7 +5,6 @@ import dev.emi.trinkets.api.TrinketsApi;
 import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
-import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -14,13 +13,12 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -52,29 +50,33 @@ public class CharmEvents {
 
 	public static void init() {
 		ServerPlayerEvents.AFTER_RESPAWN.register(CharmEvents::onPlayerRespawn);
-		// have our death event run late only apply if nothing else prevents death first
-		ResourceLocation late = TwilightForestMod.prefix("late");
-		ServerLivingEntityEvents.ALLOW_DEATH.addPhaseOrdering(Event.DEFAULT_PHASE, late);
-		ServerLivingEntityEvents.ALLOW_DEATH.register(late, CharmEvents::applyDeathItems);
+		// fabric: split into 2 events
+		ServerLivingEntityEvents.ALLOW_DEATH.register(CharmEvents::allowDeath);
+	}
+
+	// return false to prevent
+	public static boolean allowDeath(Entity entity, DamageSource damageSource, float damageAmount) {
+		if (entity instanceof ServerPlayer player && canApplyDeathEffects(player))
+			return !charmOfLife(player);
+		return true;
 	}
 
 	// For when the player dies
-	public static boolean applyDeathItems(LivingEntity entity, DamageSource damageSource, float damageAmount) {
-		if (!(entity instanceof Player player)) return true;
-		//ensure our player is real and in survival before attempting anything
-		if (player.level().isClientSide() || (player.getClass() != ServerPlayer.class) || player instanceof FakePlayer ||
-				player.isCreative() || player.isSpectator()) return true;
-
-		if (charmOfLife(player)) {
-			return false; // Executes if the player had charms
-		} else if (!player.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) {
+	public static void applyDeathItems(Entity entity) {
+		if (entity instanceof ServerPlayer player && !(player instanceof FakePlayer) &&
+				!player.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) {
 			// Did the player recover? No? Let's give them their stuff based on the keeping charms
 			charmOfKeeping(player);
 
 			// Then let's store the rest of their stuff in the casket
 			keepsakeCasket(player);
 		}
-		return true;
+	}
+
+	private static boolean canApplyDeathEffects(ServerPlayer player) {
+		//ensure our player is real and in survival before attempting anything
+		return !player.level().isClientSide() && (player.getClass() == ServerPlayer.class) &&
+				!player.isCreative() && !player.isSpectator();
 	}
 
 	public static void onPlayerRespawn(ServerPlayer oldPlayer, ServerPlayer newPlayer, boolean alive) {
@@ -87,6 +89,7 @@ public class CharmEvents {
 		}
 	}
 
+	// returns true if saved
 	private static boolean charmOfLife(Player player) {
 		boolean charm2 = TFItemStackUtils.consumeInventoryItem(player, TFItems.CHARM_OF_LIFE_2.get()) || hasCharmCurio(TFItems.CHARM_OF_LIFE_2.get(), player);
 		boolean charm1 = !charm2 && (TFItemStackUtils.consumeInventoryItem(player, TFItems.CHARM_OF_LIFE_1.get()) || hasCharmCurio(TFItems.CHARM_OF_LIFE_1.get(), player));
