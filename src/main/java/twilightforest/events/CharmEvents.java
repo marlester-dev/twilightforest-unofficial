@@ -2,7 +2,6 @@ package twilightforest.events;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
-import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -63,7 +62,7 @@ public class CharmEvents {
 
 	// For when the player dies
 	public static void applyDeathItems(Entity entity) {
-		if (entity instanceof ServerPlayer player && !(player instanceof FakePlayer) &&
+		if (entity instanceof ServerPlayer player && canApplyDeathEffects(player) &&
 				!player.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) {
 			// Did the player recover? No? Let's give them their stuff based on the keeping charms
 			charmOfKeeping(player);
