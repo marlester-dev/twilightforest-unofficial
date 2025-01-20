@@ -1,12 +1,12 @@
-// 1.20.1	2024-11-07T18:44:47.6990541	The Twilight Forest/Twilight Forest Entity Tags
+// 1.20.1	2025-01-20T13:47:03.6607111	The Twilight Forest/Twilight Forest Entity Tags
 0ae6f9b2b173aec07bf8646fdd6aa2c4c4efb0c5 data\minecraft\tags\entity_types\freeze_hurts_extra_types.json
 6d0d94126c0b492eb54df1ffabc507cff01fbd84 data\twilightforest\tags\entity_types\bosses.json
 1f95c9c3d09ee82d76e5061cf169b447f44ded2f data\twilightforest\tags\entity_types\lifedrain_drops_no_flesh.json
 fa8e98d24f57096814fa6a4fb418b8bf49fc7967 data\minecraft\tags\entity_types\arrows.json
 7ab20757c90b9dc40edbfc75d7de515c3fba0c1f data\twilightforest\tags\entity_types\rides_obstruct_snatching.json
 deb8f584b4826c3a2997c9d9aa8443d7163d1d4e data\minecraft\tags\entity_types\impact_projectiles.json
-2ae9f10062b8a11b403a2b3a26ecc8b5cfe24e12 data\twilightforest\tags\entity_types\lich_poppables.json
 7ee3ed2de2056755f191e9c2d91d9acd6bd5c4b2 data\minecraft\tags\entity_types\freeze_immune_entity_types.json
+2ae9f10062b8a11b403a2b3a26ecc8b5cfe24e12 data\twilightforest\tags\entity_types\lich_poppables.json
 3316b82b4b28fdbc6fe941bc372009b68470b71a data\minecraft\tags\entity_types\fall_damage_immune.json
 8a2e087ec320d194248e5e6bd71db12fab88d9b0 data\minecraft\tags\entity_types\powder_snow_walkable_mobs.json
 4ff4416ef19181d1e0e08c12e1be12068f398ab7 data\minecraft\tags\entity_types\skeletons.json

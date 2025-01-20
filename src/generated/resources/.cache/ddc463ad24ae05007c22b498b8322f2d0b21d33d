@@ -1,4 +1,4 @@
-// 1.20.1	2024-11-07T18:44:47.6820501	The Twilight Forest/Advancements
+// 1.20.1	2025-01-20T13:47:03.6508991	The Twilight Forest/Advancements
 a726ed44a05032deea06cc1d6bcdc4aaf3ec544d data\twilightforest\advancements\twilight_dinner.json
 11a44cdbc8733b4c9544d02d76eb7f43e6cf9fd8 data\twilightforest\advancements\beanstalk.json
 1fe8e3e5db8249e4f468156b2f8c899458f7bb52 data\twilightforest\advancements\root.json
@@ -21,8 +21,8 @@ a845d2996e9dc76018cb6880056d2df7449c2bad data\twilightforest\advancements\troll.
 483fb440727ca715ed28171c4f98c68b2e1dcab3 data\twilightforest\advancements\progress_glacier.json
 5399dd0726731f6406102675049a27e1b6d405ee data\twilightforest\advancements\hydra_chop.json
 cc31c54d21c0d9896689e0c680dc67275770b78c data\twilightforest\advancements\kill_cicada.json
-100e24ee078b1dbff50cf0863a13432b8b4d7b94 data\twilightforest\advancements\hedge.json
 61ce148c8b80d3a8bb66dd6eba3fc1fa0f0bfdcf data\twilightforest\advancements\progress_lich.json
+100e24ee078b1dbff50cf0863a13432b8b4d7b94 data\twilightforest\advancements\hedge.json
 4c9e9a70078079356a4ebfb5f37441565a304300 data\twilightforest\advancements\progress_hydra.json
 83ae27968ba50660285157a0503549cbd3e586d1 data\twilightforest\advancements\experiment_115_self_replenishing.json
 1170421326c67a2ce63ea191e63cba63033e1ec8 data\twilightforest\advancements\magic_map_focus.json
