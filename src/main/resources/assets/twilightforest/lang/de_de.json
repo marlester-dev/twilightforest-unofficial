@@ -1139,6 +1139,7 @@
   "gui.twilightforest.crumble_horn_jei": "Zerbröckeltes Horn",
   "gui.twilightforest.optifine.message": "Bevor du fortfährst, beachte bitte, dass Optifine bekannte Abstürze, visuelle Fehler bei Mehrteil-Entitäten und viele andere Probleme verursacht.\n\nBevor du einen Fehler meldest, entferne zuerst Optifine und prüfe, ob der Fehler weiterhin besteht.\n\nOptifine-bezogene Probleme können auf Seiten des Dämmerwald-Mods nicht behoben werden!\n\nDieser Bildschirm kann in den Client-Einstellungen deaktiviert werden.",
   "gui.twilightforest.optifine.suggestions": "Hier ist eine Auswahl von Mods, die wir stattdessen empfehlen.",
+  "gui.twilightforest.optifine.proceedBlocked": "Fortfahren blockiert durch TF Unofficial. Installiere Indium, wenn du Sodium verwendest, oder lösche OptiFabric, um fortzufahren.",
   "gui.twilightforest.optifine.title": "WARNUNG: OPTIFINE ERKANNT",
   "gui.twilightforest.progression_end.discord": "Discord-Server",
   "gui.twilightforest.progression_end.message": "Das ist das Ende des Fortschritts für den Moment. Das letzte Schloss auf dem Plateau ist noch unvollendet und wird derzeit bearbeitet. Wenn du über die Entwicklung des Mods auf dem Laufenden bleiben möchtest, kannst du unserem %s beitreten.",

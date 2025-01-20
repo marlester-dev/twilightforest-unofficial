@@ -871,6 +871,7 @@
   "gui.twilightforest.crumble_horn_jei": "Осыпающейся рог",
   "gui.twilightforest.optifine.message": "Прежде чем продолжить, обратите внимание, что Optifine, как известно, вызывает сбои, визуальные ошибки составных объектов и многие другие проблемы.\n\nПрежде чем сообщать об ошибке, сначала удалите Optifine и проверьте еще раз, сохраняется ли ошибка.\n\nПроблемы, связанные с Optifine, неразрешимы в конце Twilight Forest!\n\nЭтот экран можно отключить в конфигурации клиента.",
   "gui.twilightforest.optifine.suggestions": "Вот подборка модов, которые мы рекомендуем использовать вместо этого.",
+  "gui.twilightforest.optifine.proceedBlocked": "Продолжение заблокировано TF Unofficial. Установи Indium, если ты используешь Sodium, или удали OptiFabric, чтобы продолжить.",
   "gui.twilightforest.optifine.title": "ВНИМАНИЕ: ОБНАРУЖЕН OPTIFINE",
   "gui.twilightforest.progression_end.discord": "Discord сервер",
   "gui.twilightforest.progression_end.message": "На данный момент это конец прогресса. Последний замок, ожидающий на плато, все еще не завершен и работа еще продолжается. Если вы хотите следить за развитием мода, вы можете присоединиться к нашему %s.",
