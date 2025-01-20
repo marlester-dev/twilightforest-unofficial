@@ -12,10 +12,16 @@ import org.jetbrains.annotations.Nullable;
 public class OptifineWarningScreen extends Screen {
 
 	private final Screen lastScreen;
-	private int ticksUntilEnable = 20 * 10;
+// TF UNOFFICIAL START: COMMENT OUT
+//	private int ticksUntilEnable = 20 * 10;
+// TF UNOFFICIAL END
 	private MultiLineLabel message = MultiLineLabel.EMPTY;
 	private MultiLineLabel suggestions = MultiLineLabel.EMPTY;
-	private static final Component text = Component.translatable("gui.twilightforest.optifine.message");
+	private static final Component text = Component.translatable("gui.twilightforest.optifine.message")
+// TF UNOFFICIAL START
+			.append(" ")
+			.append(Component.translatable("gui.twilightforest.optifine.proceedBlocked"));
+// TF UNOFFICIAL END
 	private static final MutableComponent url = Component.translatable("gui.twilightforest.optifine.suggestions").withStyle(style -> style.withColor(ChatFormatting.GREEN).applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/NordicGamerFE/usefulmods")));
 	private Button exitButton;
 
@@ -53,14 +59,19 @@ public class OptifineWarningScreen extends Screen {
 	@Override
 	public void tick() {
 		super.tick();
-		if (--this.ticksUntilEnable <= 0) {
-			this.exitButton.active = true;
-		}
+// TF UNOFFICIAL START: COMMENT OUT
+//		if (--this.ticksUntilEnable <= 0) {
+//			this.exitButton.active = true;
+//		}
+// TF UNOFFICIAL END
 	}
 
 	@Override
 	public boolean shouldCloseOnEsc() {
-		return this.ticksUntilEnable <= 0;
+// TF UNOFFICIAL START
+//		return this.ticksUntilEnable <= 0;
+		return false;
+// TF UNOFFICIAL END
 	}
 
 	@Override

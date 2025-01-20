@@ -1113,6 +1113,7 @@ this.addSubtitle(TFSounds.WROUGHT_IRON_FENCE_EXTENDED, "Iron clanks");
 		this.addScreenMessage("optifine.title", "WARNING: OPTIFINE DETECTED");
 		this.addScreenMessage("optifine.message", "Before proceeding, please note that Optifine is known to cause crashes, multipart entity visual bugs and many other issues.\n\nBefore reporting a bug, please remove Optifine first and check again to see if the bug is still present.\n\nOptifine-related issues are not solvable on Twilight Forest's end!\n\nThis screen may be disabled in the Client Config.");
 		this.addScreenMessage("optifine.suggestions", "Here's a selection of mods that we recommend using instead.");
+		this.addScreenMessage("optifine.proceedBlocked", "Proceeding ability blocked by TF Unofficial. Install Indium if you're using Sodium or delete OptiFabric to continue.");
 
 		this.addScreenMessage("progression_end.message", "This is the end of progression for now. The Final Castle that awaits on the plateau is still unfinished and a work in progress. If you would like to keep up with the mod's development you can join our %s.");
 		this.addScreenMessage("progression_end.discord", "Discord Server");
